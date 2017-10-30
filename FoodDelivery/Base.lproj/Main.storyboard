@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Favorites-->
         <scene sceneID="Bpq-RY-IFi">
             <objects>
-                <viewController id="H7i-20-dYL" customClass="FavoritesTableViewController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Favorites" id="H7i-20-dYL" customClass="FavoritesTableViewController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M6M-h8-tee">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,10 +42,10 @@
             </objects>
             <point key="canvasLocation" x="-156" y="38.23088455772114"/>
         </scene>
-        <!--Item 1-->
+        <!--Choose an Address-->
         <scene sceneID="DgW-Dy-gqq">
             <objects>
-                <viewController id="7b0-mv-gxJ" customClass="MapViewController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Choose an Address" id="7b0-mv-gxJ" customClass="MapViewController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gTG-pm-mey">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -87,6 +87,9 @@
                         <viewLayoutGuide key="safeArea" id="Iy8-BX-Fpq"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" image="tab-explore.png" id="tRy-PE-IFv"/>
+                    <connections>
+                        <outlet property="mapView" destination="dPt-0x-UK9" id="LMF-eS-KIk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKN-a9-ufH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
