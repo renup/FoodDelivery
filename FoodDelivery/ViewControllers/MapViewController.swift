@@ -13,7 +13,7 @@ import CoreLocation
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     let locationManager = CLLocationManager()
     var myLocation: CLLocationCoordinate2D?
-    
+    let newPin = MKPointAnnotation()
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
@@ -49,11 +49,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     fileprivate func centerMap(coordinates: CLLocationCoordinate2D) {
+        mapView.removeAnnotation(newPin)
         myLocation = coordinates
         let spanX = 0.007
         let spanY = 0.007
         
         let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpanMake(spanX, spanY))
         mapView.setRegion(region, animated: true)
+        
+        newPin.coordinate = coordinates
+        mapView.addAnnotation(newPin)
     }
 }
