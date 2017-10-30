@@ -14,12 +14,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     var myLocation: CLLocationCoordinate2D?
     let newPin = MKPointAnnotation()
+    private var mapChangedFromUserInteraction = false
+
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpLocationManager()
     }
+    
+    
+    
+    //MARK: Private methods
     
     fileprivate func setUpLocationManager() {
         //Ask for permission, when in foreground
@@ -41,15 +47,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    // MARK - CLLocationManagerDelegate
-    internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = self.locationManager.location?.coordinate {
-            centerMap(coordinates: location)
-        }
-    }
-    
     fileprivate func centerMap(coordinates: CLLocationCoordinate2D) {
-        mapView.removeAnnotation(newPin)
+//        mapView.removeAnnotation(newPin)
         myLocation = coordinates
         let spanX = 0.007
         let spanY = 0.007
@@ -57,7 +56,49 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpanMake(spanX, spanY))
         mapView.setRegion(region, animated: true)
         
-        newPin.coordinate = coordinates
-        mapView.addAnnotation(newPin)
+        let pin = MKPointAnnotation()
+        pin.coordinate = coordinates
+        mapView.addAnnotation(pin)
     }
+    
+    // MARK - CLLocationManagerDelegate
+    internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = self.locationManager.location?.coordinate {
+            centerMap(coordinates: location)
+        }
+    }
+    
+    private func mapViewRegionDidChangeFromUserInteraction() -> Bool {
+        let view = self.mapView.subviews[0]
+        //  Look through gesture recognizers to determine whether this region change is from user interaction
+        if let gestureRecognizers = view.gestureRecognizers {
+            for recognizer in gestureRecognizers {
+                if( recognizer.state == UIGestureRecognizerState.began || recognizer.state == UIGestureRecognizerState.ended ) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        mapChangedFromUserInteraction = mapViewRegionDidChangeFromUserInteraction()
+        if (mapChangedFromUserInteraction) {
+            // user changed map region
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        if (mapChangedFromUserInteraction) {
+            // user changed map region
+        }
+    }
+   
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let newCoordinates = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
+            centerMap(coordinates: newCoordinates)
+        }
+    }
+   
 }
