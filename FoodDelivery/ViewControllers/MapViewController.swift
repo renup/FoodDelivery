@@ -22,9 +22,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     fileprivate func setUpLocationManager() {
-        //Ask for authorization from user
-  //      locationManager.requestAlwaysAuthorization()
-        
         //Ask for permission, when in foreground
         locationManager.requestWhenInUseAuthorization()
         
