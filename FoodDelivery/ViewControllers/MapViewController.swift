@@ -10,7 +10,23 @@ import UIKit
 import MapKit
 import CoreLocation
 
+protocol MapViewControllerDelegate: class {
+    func getAddress(_ location: CLLocation, completionHandler: @escaping ((String) -> Void))
+
+}
+
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+    var value: MapViewControllerDelegate?
+    weak var delegate: MapViewControllerDelegate? {
+        get {
+            return value
+        }
+        set {
+            value = newValue
+        }
+        
+        
+    }
     let locationManager = CLLocationManager()
     var myLocation: CLLocationCoordinate2D?
     let newPin = MKPointAnnotation()
@@ -18,12 +34,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var addressTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("delegate = \(String(describing: delegate))")
         setUpLocationManager()
     }
-    
-    
+
     
     //MARK: Private methods
     
@@ -63,8 +80,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     // MARK - CLLocationManagerDelegate
     internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = self.locationManager.location?.coordinate {
-            centerMap(coordinates: location)
+        
+        guard let location = locations.last else {
+            return
+        }
+ 
+       delegate?.getAddress(location, completionHandler: { (add) in
+        self.addressTextView.text = add
+        })
+
+        if let coordinates = self.locationManager.location?.coordinate {
+            centerMap(coordinates: coordinates)
         }
     }
     
@@ -102,3 +128,4 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
    
 }
+

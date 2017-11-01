@@ -30,6 +30,8 @@
 		D7C8B30A1FA6734F002113CD /* nav-address@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C8B3001FA6734E002113CD /* nav-address@3x.png */; };
 		D7C8B30B1FA6734F002113CD /* star-white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C8B3011FA6734E002113CD /* star-white@3x.png */; };
 		D7C8B30C1FA6734F002113CD /* nav-address@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C8B3021FA6734E002113CD /* nav-address@2x.png */; };
+		D7C8B30F1FA8FF75002113CD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B30E1FA8FF75002113CD /* AppCoordinator.swift */; };
+		D7C8B3111FA935E9002113CD /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B3101FA935E9002113CD /* MapCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		D7C8B3001FA6734E002113CD /* nav-address@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-address@3x.png"; sourceTree = "<group>"; };
 		D7C8B3011FA6734E002113CD /* star-white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-white@3x.png"; sourceTree = "<group>"; };
 		D7C8B3021FA6734E002113CD /* nav-address@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-address@2x.png"; sourceTree = "<group>"; };
+		D7C8B30E1FA8FF75002113CD /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		D7C8B3101FA935E9002113CD /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		DFDB037BDB6773C1E9056EAD /* Pods-FoodDeliveryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryTests/Pods-FoodDeliveryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FC0A937B8137EC684989DA38 /* Pods-FoodDeliveryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryUITests/Pods-FoodDeliveryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,8 +167,9 @@
 		D7C8B2B71FA66847002113CD /* FoodDelivery */ = {
 			isa = PBXGroup;
 			children = (
-				D7C8B2F11FA6722B002113CD /* ViewControllers */,
 				D7C8B2B81FA66847002113CD /* AppDelegate.swift */,
+				D7C8B30D1FA8FF5C002113CD /* Coordinators */,
+				D7C8B2F11FA6722B002113CD /* ViewControllers */,
 				D7C8B2BC1FA66847002113CD /* Main.storyboard */,
 				D7C8B2C21FA66847002113CD /* Assets.xcassets */,
 				D7C8B2C41FA66847002113CD /* LaunchScreen.storyboard */,
@@ -218,6 +223,15 @@
 				D7C8B2FF1FA6734E002113CD /* tab-star@3x.png */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		D7C8B30D1FA8FF5C002113CD /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				D7C8B30E1FA8FF75002113CD /* AppCoordinator.swift */,
+				D7C8B3101FA935E9002113CD /* MapCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -523,7 +537,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C8B30F1FA8FF75002113CD /* AppCoordinator.swift in Sources */,
 				D7C8B2C11FA66847002113CD /* FoodDelivery.xcdatamodeld in Sources */,
+				D7C8B3111FA935E9002113CD /* MapCoordinator.swift in Sources */,
 				D7C8B2B91FA66847002113CD /* AppDelegate.swift in Sources */,
 				D7C8B2F51FA67280002113CD /* TabMenuController.swift in Sources */,
 				D7C8B2F71FA672E9002113CD /* FavoritesTableViewController.swift in Sources */,

@@ -11,12 +11,19 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
-
-
+    var appCoordinator: AppCoordinator?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+ 
+        if let tabVC = window?.rootViewController as? UITabBarController {
+
+            if let navVC = tabVC.childViewControllers[0] as? UINavigationController {
+                appCoordinator = AppCoordinator(navVC)
+                appCoordinator?.start()
+            }
+            
+        }
         return true
     }
 

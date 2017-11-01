@@ -86,32 +86,52 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Iy8-BX-Fpq"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" image="tab-explore.png" id="tRy-PE-IFv"/>
+                    <navigationItem key="navigationItem" id="rNn-tX-Wjy"/>
                     <connections>
+                        <outlet property="addressTextView" destination="tGX-q9-htw" id="zCE-JJ-h2x"/>
                         <outlet property="mapView" destination="dPt-0x-UK9" id="LMF-eS-KIk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKN-a9-ufH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-156" y="-625.63718140929541"/>
+            <point key="canvasLocation" x="810" y="-627"/>
         </scene>
-        <!--Tab Menu Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="lFk-Dg-WnW">
             <objects>
-                <tabBarController id="XuM-34-sAQ" customClass="TabMenuController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="XuM-34-sAQ" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CoH-5A-q9v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="7b0-mv-gxJ" kind="relationship" relationship="viewControllers" id="iQG-D2-X8d"/>
+                        <segue destination="gwY-Cr-0LG" kind="relationship" relationship="viewControllers" id="iQG-D2-X8d"/>
                         <segue destination="H7i-20-dYL" kind="relationship" relationship="viewControllers" id="Zui-sN-Gji"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xqy-ng-Jy2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1107" y="-293"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="1jP-oI-JsP">
+            <objects>
+                <navigationController storyboardIdentifier="ExploreNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="gwY-Cr-0LG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item 1" image="tab-explore.png" id="tRy-PE-IFv"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9fq-QY-Poz">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7b0-mv-gxJ" kind="relationship" relationship="rootViewController" id="pUR-3k-Ou7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="757-0T-Oli" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-156.80000000000001" y="-626.08695652173913"/>
         </scene>
     </scenes>
     <resources>
