@@ -35,12 +35,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var addressTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("delegate = \(String(describing: delegate))")
         setUpLocationManager()
     }
-
     
     //MARK: Private methods
     
@@ -65,7 +65,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     fileprivate func centerMap(coordinates: CLLocationCoordinate2D) {
-//        mapView.removeAnnotation(newPin)
         myLocation = coordinates
         let spanX = 0.007
         let spanY = 0.007
@@ -85,8 +84,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             return
         }
  
-       delegate?.getAddress(location, completionHandler: { (add) in
-        self.addressTextView.text = add
+       delegate?.getAddress(location, completionHandler: { (address) in
+        self.addressTextView.textColor = UIColor.black
+        self.addressTextView.text = address
         })
 
         if let coordinates = self.locationManager.location?.coordinate {
