@@ -42,6 +42,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         print("delegate = \(String(describing: delegate))")
         setUpLocationManager()
+        addTapGestureToTheMap()
+    }
+    
+    fileprivate func addTapGestureToTheMap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        tapGesture.delegate = self
+        mapView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc fileprivate func handleTap(_ tapGesture: UITapGestureRecognizer) {
+        let location = tapGesture.location(in: mapView)
+        let newCoordinates = mapView.convert(location, toCoordinateFrom: mapView)
+        let newLocation = CLLocation(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude)
+        populateAddressTextViewPerNewLocation(newLocation)
+        centerMap(coordinates: newCoordinates, spanX: mapView.region.span.latitudeDelta, spanY: mapView.region.span.longitudeDelta)
     }
     
     fileprivate func populateAddressTextViewPerNewLocation(_ newLocation: CLLocation){
@@ -90,16 +105,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         mapView.addAnnotation(pin)
     }
    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if mapChangedFromUserInteraction {
-            if let touch = touches.first {
-                let newCoordinates = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
-                let newLocation = CLLocation(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude)
-                populateAddressTextViewPerNewLocation(newLocation)
-                centerMap(coordinates: newCoordinates, spanX: mapView.region.span.latitudeDelta, spanY: mapView.region.span.longitudeDelta)
-            }
-        }
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//
+//    }
+}
+
+extension MapViewController: UIGestureRecognizerDelegate {
+    
 }
 
 extension MapViewController: UITextViewDelegate {
