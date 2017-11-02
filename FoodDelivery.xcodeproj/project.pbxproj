@@ -12,6 +12,7 @@
 		B2C20D793C76398331FE004D /* Pods_FoodDeliveryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAD47B38F12433109A1CE8E /* Pods_FoodDeliveryTests.framework */; };
 		D79D75D01FABAD000013C05A /* RestaurantsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79D75CF1FABAD000013C05A /* RestaurantsTableViewController.swift */; };
 		D79D75D21FABADF10013C05A /* Restaurants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D79D75D11FABADF10013C05A /* Restaurants.storyboard */; };
+		D79D75D51FABB3010013C05A /* APIProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79D75D41FABB3010013C05A /* APIProcessor.swift */; };
 		D7C8B2B91FA66847002113CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2B81FA66847002113CD /* AppDelegate.swift */; };
 		D7C8B2BE1FA66847002113CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C8B2BC1FA66847002113CD /* Main.storyboard */; };
 		D7C8B2C11FA66847002113CD /* FoodDelivery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2BF1FA66847002113CD /* FoodDelivery.xcdatamodeld */; };
@@ -63,6 +64,7 @@
 		79EC24FDA1912D35BE66F169 /* Pods-FoodDeliveryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryUITests/Pods-FoodDeliveryUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D79D75CF1FABAD000013C05A /* RestaurantsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsTableViewController.swift; sourceTree = "<group>"; };
 		D79D75D11FABADF10013C05A /* Restaurants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Restaurants.storyboard; sourceTree = "<group>"; };
+		D79D75D41FABB3010013C05A /* APIProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProcessor.swift; sourceTree = "<group>"; };
 		D7C8B2B51FA66847002113CD /* FoodDelivery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDelivery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C8B2B81FA66847002113CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7C8B2BD1FA66847002113CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -146,6 +148,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D79D75D31FABB2D90013C05A /* Model Files */ = {
+			isa = PBXGroup;
+			children = (
+				D79D75D41FABB3010013C05A /* APIProcessor.swift */,
+			);
+			path = "Model Files";
+			sourceTree = "<group>";
+		};
 		D7C8B2AC1FA66847002113CD = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				D7C8B2B81FA66847002113CD /* AppDelegate.swift */,
+				D79D75D31FABB2D90013C05A /* Model Files */,
 				D7C8B30D1FA8FF5C002113CD /* Coordinators */,
 				D7C8B2F11FA6722B002113CD /* ViewControllers */,
 				D7C8B2BC1FA66847002113CD /* Main.storyboard */,
@@ -545,6 +556,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7C8B30F1FA8FF75002113CD /* AppCoordinator.swift in Sources */,
+				D79D75D51FABB3010013C05A /* APIProcessor.swift in Sources */,
 				D7C8B2C11FA66847002113CD /* FoodDelivery.xcdatamodeld in Sources */,
 				D79D75D01FABAD000013C05A /* RestaurantsTableViewController.swift in Sources */,
 				D7C8B3111FA935E9002113CD /* MapCoordinator.swift in Sources */,
