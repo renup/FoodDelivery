@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 class MapCoordinator: NSObject, MapViewControllerDelegate {
-    
+   
     var delegate: MapViewControllerDelegate?
     var navigationVC: UINavigationController?
     var mapViewController: MapViewController?
@@ -31,6 +31,10 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     }
     
     //MARK: MapViewControllerDelegate methods
+    func confirmUserChosenAddress() {
+        
+    }
+    
     func getAddress(_ location: CLLocation, completionHandler: @escaping ((String) -> Void)) {
         var address = ""
 

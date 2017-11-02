@@ -73,6 +73,9 @@
                                 <state key="normal" title="Confirm Address">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="confirmAddressButtonClicked:" destination="7b0-mv-gxJ" eventType="touchUpInside" id="Jr7-Ly-hjY"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -93,7 +96,6 @@
                     <navigationItem key="navigationItem" id="rNn-tX-Wjy"/>
                     <connections>
                         <outlet property="addressTextView" destination="tGX-q9-htw" id="zCE-JJ-h2x"/>
-                        <outlet property="confirmAddressButtonClicked" destination="Hqw-yq-rRp" id="kgD-gN-we9"/>
                         <outlet property="mapView" destination="dPt-0x-UK9" id="LMF-eS-KIk"/>
                     </connections>
                 </viewController>

@@ -12,6 +12,7 @@ import CoreLocation
 
 protocol MapViewControllerDelegate: class {
     func getAddress(_ location: CLLocation, completionHandler: @escaping ((String) -> Void))
+    func confirmUserChosenAddress()
 }
 
 class MapViewController: UIViewController, UIGestureRecognizerDelegate {
@@ -104,18 +105,9 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         pin.coordinate = coordinates
         mapView.addAnnotation(pin)
     }
-    
-    @IBOutlet weak var confirmAddressButtonClicked: UIButton!
-    
-}
-
-extension MapViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
         
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        addressOfDesiredLocation = textView.text
+    @IBAction func confirmAddressButtonClicked(_ sender: Any) {
+        delegate?.confirmUserChosenAddress()
     }
 }
 

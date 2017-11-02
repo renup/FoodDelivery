@@ -10,6 +10,8 @@
 		33C5EFF2DD9644DD04C0280D /* Pods_FoodDeliveryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C18EB7A36E0D4CA85693519 /* Pods_FoodDeliveryUITests.framework */; };
 		3B610F8492BC3C1F568693A7 /* Pods_FoodDelivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5675143C14741E46D5C510 /* Pods_FoodDelivery.framework */; };
 		B2C20D793C76398331FE004D /* Pods_FoodDeliveryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAD47B38F12433109A1CE8E /* Pods_FoodDeliveryTests.framework */; };
+		D79D75D01FABAD000013C05A /* RestaurantsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79D75CF1FABAD000013C05A /* RestaurantsTableViewController.swift */; };
+		D79D75D21FABADF10013C05A /* Restaurants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D79D75D11FABADF10013C05A /* Restaurants.storyboard */; };
 		D7C8B2B91FA66847002113CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2B81FA66847002113CD /* AppDelegate.swift */; };
 		D7C8B2BE1FA66847002113CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C8B2BC1FA66847002113CD /* Main.storyboard */; };
 		D7C8B2C11FA66847002113CD /* FoodDelivery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2BF1FA66847002113CD /* FoodDelivery.xcdatamodeld */; };
@@ -59,6 +61,8 @@
 		38DBCBA269553BD840559B94 /* Pods-FoodDelivery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDelivery.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDelivery/Pods-FoodDelivery.release.xcconfig"; sourceTree = "<group>"; };
 		7751F9B334B2112E7BA3AC0A /* Pods-FoodDelivery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDelivery.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDelivery/Pods-FoodDelivery.debug.xcconfig"; sourceTree = "<group>"; };
 		79EC24FDA1912D35BE66F169 /* Pods-FoodDeliveryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryUITests/Pods-FoodDeliveryUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D79D75CF1FABAD000013C05A /* RestaurantsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsTableViewController.swift; sourceTree = "<group>"; };
+		D79D75D11FABADF10013C05A /* Restaurants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Restaurants.storyboard; sourceTree = "<group>"; };
 		D7C8B2B51FA66847002113CD /* FoodDelivery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDelivery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C8B2B81FA66847002113CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7C8B2BD1FA66847002113CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 				D7C8B30D1FA8FF5C002113CD /* Coordinators */,
 				D7C8B2F11FA6722B002113CD /* ViewControllers */,
 				D7C8B2BC1FA66847002113CD /* Main.storyboard */,
+				D79D75D11FABADF10013C05A /* Restaurants.storyboard */,
 				D7C8B2C21FA66847002113CD /* Assets.xcassets */,
 				D7C8B2C41FA66847002113CD /* LaunchScreen.storyboard */,
 				D7C8B2C71FA66847002113CD /* Info.plist */,
@@ -204,6 +209,7 @@
 				D7C8B2F21FA6724B002113CD /* MapViewController.swift */,
 				D7C8B2F41FA67280002113CD /* TabMenuController.swift */,
 				D7C8B2F61FA672E9002113CD /* FavoritesTableViewController.swift */,
+				D79D75CF1FABAD000013C05A /* RestaurantsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -359,6 +365,7 @@
 				D7C8B3061FA6734E002113CD /* tab-star@2x.png in Resources */,
 				D7C8B3031FA6734E002113CD /* nav-search@2x.png in Resources */,
 				D7C8B30B1FA6734F002113CD /* star-white@3x.png in Resources */,
+				D79D75D21FABADF10013C05A /* Restaurants.storyboard in Resources */,
 				D7C8B3091FA6734F002113CD /* tab-star@3x.png in Resources */,
 				D7C8B3051FA6734E002113CD /* star-white@2x.png in Resources */,
 				D7C8B2BE1FA66847002113CD /* Main.storyboard in Resources */,
@@ -539,6 +546,7 @@
 			files = (
 				D7C8B30F1FA8FF75002113CD /* AppCoordinator.swift in Sources */,
 				D7C8B2C11FA66847002113CD /* FoodDelivery.xcdatamodeld in Sources */,
+				D79D75D01FABAD000013C05A /* RestaurantsTableViewController.swift in Sources */,
 				D7C8B3111FA935E9002113CD /* MapCoordinator.swift in Sources */,
 				D7C8B2B91FA66847002113CD /* AppDelegate.swift in Sources */,
 				D7C8B2F51FA67280002113CD /* TabMenuController.swift in Sources */,
