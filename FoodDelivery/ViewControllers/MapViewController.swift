@@ -44,7 +44,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         setUpLocationManager()
     }
     
-    
+    fileprivate func populateAddressTextViewPerNewLocation(_ newLocation: CLLocation){
+        delegate?.getAddress(newLocation, completionHandler: { (address) in
+            self.addressTextView.textColor = UIColor.black
+            
+            if (address != self.addressOfDesiredLocation) {
+                self.addressOfDesiredLocation = address
+                self.addressTextView.text = address
+            }
+            self.locationManager.stopUpdatingLocation()
+        })
+    }
     
     //MARK: Private methods
     
@@ -84,6 +94,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         if mapChangedFromUserInteraction {
             if let touch = touches.first {
                 let newCoordinates = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
+                let newLocation = CLLocation(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude)
+                populateAddressTextViewPerNewLocation(newLocation)
                 centerMap(coordinates: newCoordinates, spanX: mapView.region.span.latitudeDelta, spanY: mapView.region.span.longitudeDelta)
             }
         }
@@ -100,27 +112,26 @@ extension MapViewController: UITextViewDelegate {
     }
 }
 
-
 extension MapViewController: MKMapViewDelegate {
     
     internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        if mapChangedFromUserInteraction {
-            locationManager.stopUpdatingLocation()
-        } else {
             guard let newLocation = locations.first else {
                 return
             }
+        
+        populateAddressTextViewPerNewLocation(newLocation)
             
-            delegate?.getAddress(newLocation, completionHandler: { (address) in
-                self.addressTextView.textColor = UIColor.black
-                
-                if (address != self.addressOfDesiredLocation) {
-                    self.addressOfDesiredLocation = address
-                }
-            })
+//            delegate?.getAddress(newLocation, completionHandler: { (address) in
+//                self.addressTextView.textColor = UIColor.black
+//
+//                if (address != self.addressOfDesiredLocation) {
+//                    self.addressOfDesiredLocation = address
+//                    self.addressTextView.text = address
+//                }
+//                self.locationManager.stopUpdatingLocation()
+//            })
             centerMap(coordinates: newLocation.coordinate, spanX: nil, spanY: nil)
-        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
