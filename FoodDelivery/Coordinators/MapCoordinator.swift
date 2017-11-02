@@ -69,10 +69,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
                 if let country = placemark.country {
                     address = address + country + ", "
                 }
-                print("address = \(address)")
             }
             completionHandler(address)
-
         }
     }
 }

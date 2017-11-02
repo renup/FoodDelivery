@@ -15,8 +15,12 @@ protocol MapViewControllerDelegate: class {
 
 }
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
+    
+    let pin = MKPointAnnotation()
+    var addressOfDesiredLocation = ""
     var value: MapViewControllerDelegate?
+    
     weak var delegate: MapViewControllerDelegate? {
         get {
             return value
@@ -24,8 +28,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         set {
             value = newValue
         }
-        
-        
     }
     let locationManager = CLLocationManager()
     var myLocation: CLLocationCoordinate2D?
@@ -65,33 +67,64 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     fileprivate func centerMap(coordinates: CLLocationCoordinate2D) {
+        mapView.removeAnnotation(pin)
         myLocation = coordinates
-        let spanX = 0.007
-        let spanY = 0.007
-        
+        let spanX = 0.05
+        let spanY = 0.05
         let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpanMake(spanX, spanY))
         mapView.setRegion(region, animated: true)
-        
-        let pin = MKPointAnnotation()
         pin.coordinate = coordinates
         mapView.addAnnotation(pin)
     }
+   
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let newCoordinates = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
+            centerMap(coordinates: newCoordinates)
+        }
+    }
+  
+}
+
+extension MapViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+    }
     
-    // MARK - CLLocationManagerDelegate
+    func textViewDidEndEditing(_ textView: UITextView) {
+        addressOfDesiredLocation = textView.text
+    }
+}
+
+
+extension MapViewController: MKMapViewDelegate {
+    
     internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        guard let location = locations.last else {
-            return
-        }
- 
-       delegate?.getAddress(location, completionHandler: { (address) in
-        self.addressTextView.textColor = UIColor.black
-        self.addressTextView.text = address
-        })
+        
+        if mapChangedFromUserInteraction {
+            locationManager.stopUpdatingLocation()
+        } else {
+            guard let newLocation = locations.first else {
+                return
+            }
+            
+            delegate?.getAddress(newLocation, completionHandler: { (address) in
+                self.addressTextView.textColor = UIColor.black
+                
+                if (address != self.addressOfDesiredLocation) {
+                    self.addressOfDesiredLocation = address
+                }
+            })
+            centerMap(coordinates: newLocation.coordinate)
 
-        if let coordinates = self.locationManager.location?.coordinate {
-            centerMap(coordinates: coordinates)
         }
+        
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error:: \(error)")
     }
     
     private func mapViewRegionDidChangeFromUserInteraction() -> Bool {
@@ -119,13 +152,5 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             // user changed map region
         }
     }
-   
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let newCoordinates = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
-            centerMap(coordinates: newCoordinates)
-        }
-    }
-   
 }
 
