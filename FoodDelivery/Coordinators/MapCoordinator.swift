@@ -42,12 +42,13 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
                     return
                 }
                 address = ""
-                if let streetName = placemark.thoroughfare {
-                    address = address + streetName + ", "
-                }
                 
                 if let subStreet = placemark.subThoroughfare {
-                    address = address + subStreet + ", "
+                    address = address + subStreet + " "
+                }
+                
+                if let streetName = placemark.thoroughfare {
+                    address = address + streetName + ", "
                 }
                 
                 if let city = placemark.locality {

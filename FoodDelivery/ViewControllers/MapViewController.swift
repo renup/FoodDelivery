@@ -15,7 +15,7 @@ protocol MapViewControllerDelegate: class {
 
 }
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let pin = MKPointAnnotation()
     var addressOfDesiredLocation = ""
@@ -104,14 +104,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         pin.coordinate = coordinates
         mapView.addAnnotation(pin)
     }
-   
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//
-//    }
-}
-
-extension MapViewController: UIGestureRecognizerDelegate {
-    
 }
 
 extension MapViewController: UITextViewDelegate {
@@ -124,7 +116,7 @@ extension MapViewController: UITextViewDelegate {
     }
 }
 
-extension MapViewController: MKMapViewDelegate {
+extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
     internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -133,17 +125,7 @@ extension MapViewController: MKMapViewDelegate {
             }
         
         populateAddressTextViewPerNewLocation(newLocation)
-            
-//            delegate?.getAddress(newLocation, completionHandler: { (address) in
-//                self.addressTextView.textColor = UIColor.black
-//
-//                if (address != self.addressOfDesiredLocation) {
-//                    self.addressOfDesiredLocation = address
-//                    self.addressTextView.text = address
-//                }
-//                self.locationManager.stopUpdatingLocation()
-//            })
-            centerMap(coordinates: newLocation.coordinate, spanX: nil, spanY: nil)
+        centerMap(coordinates: newLocation.coordinate, spanX: nil, spanY: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -166,36 +148,11 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         mapChangedFromUserInteraction = mapViewRegionDidChangeFromUserInteraction()
-        if (mapChangedFromUserInteraction) {
-            print("user WILL change map.")
-            
-            // calculate the width of the map in miles.
-            let mRect: MKMapRect = mapView.visibleMapRect
-            let eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect))
-            let westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect))
-            let currentDistWideInMeters = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint)
-            let milesWide = currentDistWideInMeters / 1609.34  // number of meters in a mile
-            print(milesWide)
-            print("^miles wide")
-        }
+
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        if (mapChangedFromUserInteraction) {
-            // user changed map region
-            print("user CHANGED map.")
-            print(mapView.region.span.latitudeDelta)
-            print(mapView.region.span.longitudeDelta)
-            
-            // calculate the width of the map in miles.
-            let mRect: MKMapRect = mapView.visibleMapRect
-            let eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect))
-            let westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect))
-            let currentDistWideInMeters = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint)
-            let milesWide = currentDistWideInMeters / 1609.34  // number of meters in a mile
-            print(milesWide)
-            print("^miles wide")
-        }
+
     }
 }
 
