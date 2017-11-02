@@ -66,10 +66,13 @@
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-yq-rRp">
                                 <rect key="frame" x="0.0" y="568" width="375" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Msk-S2-Exq"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Confirm Address">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -90,6 +93,7 @@
                     <navigationItem key="navigationItem" id="rNn-tX-Wjy"/>
                     <connections>
                         <outlet property="addressTextView" destination="tGX-q9-htw" id="zCE-JJ-h2x"/>
+                        <outlet property="confirmAddressButtonClicked" destination="Hqw-yq-rRp" id="kgD-gN-we9"/>
                         <outlet property="mapView" destination="dPt-0x-UK9" id="LMF-eS-KIk"/>
                     </connections>
                 </viewController>
