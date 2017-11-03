@@ -31,8 +31,11 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     }
     
     //MARK: MapViewControllerDelegate methods
-    func confirmUserChosenAddress() {
-        
+    
+    func confirmUserChosenLocation(_ location: CLLocationCoordinate2D) {
+        let lat = String(describing: location.latitude)
+        let lon = String(describing: location.longitude)
+        APIProcessor.shared.fetchRestaurantsList(coordinateX: lat, coordinateY: lon)
     }
     
     func getAddress(_ location: CLLocation, completionHandler: @escaping ((String) -> Void)) {

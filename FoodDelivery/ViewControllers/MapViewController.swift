@@ -12,7 +12,7 @@ import CoreLocation
 
 protocol MapViewControllerDelegate: class {
     func getAddress(_ location: CLLocation, completionHandler: @escaping ((String) -> Void))
-    func confirmUserChosenAddress()
+    func confirmUserChosenLocation(_ location: CLLocationCoordinate2D)
 }
 
 class MapViewController: UIViewController, UIGestureRecognizerDelegate {
@@ -107,7 +107,10 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     }
         
     @IBAction func confirmAddressButtonClicked(_ sender: Any) {
-        delegate?.confirmUserChosenAddress()
+        guard myLocation != nil else {
+            return
+        }
+        delegate?.confirmUserChosenLocation(myLocation!)
     }
 }
 
