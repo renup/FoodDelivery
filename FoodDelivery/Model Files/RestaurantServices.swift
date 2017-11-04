@@ -23,6 +23,7 @@ struct Restaurant {
 
 extension Restaurant {
  
+    //Question: if any of the values is null, what do we display?
     init(restaurantDictionary: NSDictionary) {
         self.restaurantDictionary = restaurantDictionary
         if let coverImageURL = restaurantDictionary["cover_img_url"] as? String {
@@ -44,8 +45,13 @@ extension Restaurant {
         if let cuisineType = restaurantDictionary["description"] as? String {
             self.cuisineType = cuisineType
         }
+        
         if let fee: Double = restaurantDictionary["delivery_fee"] as? Double {
-            deliveryFee = String(describing: fee)
+            if (fee > 0.0) {
+                deliveryFee = "$" + String(format:"%.1f", fee) + " delivery"
+            } else {
+                deliveryFee = "Free delivery"
+            }
         }
        
         if let deliveryTime = restaurantDictionary["status"] as? String {
