@@ -13,18 +13,29 @@ class APIProcessor: NSObject {
     let baseURLString: String = "https://api.doordash.com/"
     static let shared = APIProcessor()
     
-    func fetchRestaurantsList(coordinateX: String, coordinateY: String) {
+    func fetchRestaurantsList(coordinateX: String, coordinateY: String, completionHandler: @escaping((_ response: NSArray?, _ error: NSError?) -> Void)) {
         let finalURLString = baseURLString + "v1/store_search/?" + "lat=" + coordinateX + "&lng=" + coordinateY
-        
-        Alamofire.request(finalURLString).responseJSON { (response) in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
+        Alamofire.request(finalURLString).validate().responseJSON { (response) in
             
-            if let json = response.result.value {
-                print("JSON: \(json)") // serialized json response
+            switch(response.result) {
+            case .success: do {
+                print("Request: \(String(describing: response.request))")   // original url request
+                print("Response: \(String(describing: response.response))") // http url response
+                print("Result: \(response.result)")                         // response serialization result
+                
+                if let json = response.result.value as? NSArray {
+                    print("JSON: \(json)") // serialized json response
+                    completionHandler(json, nil)
+                }
             }
-            
+            case .failure(let error):
+                completionHandler([], error as NSError)
+            }
         }
     }
+}
+
+func fetchImageData(imageURLString: String) -> UIImage {
+    //download image data using alamofire
+    return UIImage()
 }

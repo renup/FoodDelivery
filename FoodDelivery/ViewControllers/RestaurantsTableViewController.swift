@@ -9,7 +9,55 @@
 import Foundation
 import UIKit
 
-class RestaurantsTableViewController: UITableViewController {
+class RestaurantCell: UITableViewCell {
+    @IBOutlet weak var deliveryFeeLabel: UILabel!
+    @IBOutlet weak var deliveryTimeLabel: UILabel!
+    @IBOutlet weak var cuisineTypeLabel: UILabel!
+    @IBOutlet weak var restaurantNameLabel: UILabel!
+    @IBOutlet weak var coverImageView: UIImageView!
     
+    func populateCell(restaurantData: Restaurant) {
+        deliveryFeeLabel.text = restaurantData.deliveryFee
+        deliveryTimeLabel.text = restaurantData.deliveryTime
+        cuisineTypeLabel.text = restaurantData.cuisineType
+        restaurantNameLabel.text = restaurantData.restaurantName
+        coverImageView.image = restaurantData.coverImage
+    }
     
 }
+
+class RestaurantsTableViewController: UITableViewController {
+    fileprivate var restaurantArray: [Restaurant]?
+    
+    var storesArray: [Restaurant]? {
+        
+        didSet {
+            //reload the tableview with new cell content info
+            tableView.reloadData()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let array = storesArray {
+            return array.count
+        }
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let storeCell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as! RestaurantCell
+        
+        if let restaurantArray = storesArray {
+            storeCell.populateCell(restaurantData: restaurantArray[indexPath.row])
+        }
+        
+        return storeCell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+   
+}
+
+

@@ -13,8 +13,9 @@ import CoreLocation
 class MapCoordinator: NSObject, MapViewControllerDelegate {
    
     var delegate: MapViewControllerDelegate?
-    var navigationVC: UINavigationController?
-    var mapViewController: MapViewController?
+    fileprivate var navigationVC: UINavigationController?
+    fileprivate var mapViewController: MapViewController?
+    fileprivate var restaurantsTableViewController: RestaurantsTableViewController?
     
     init(_ navigationVC: UINavigationController) {
         self.navigationVC = navigationVC
@@ -30,12 +31,54 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         mapViewController?.delegate = self
     }
     
-    //MARK: MapViewControllerDelegate methods
+    fileprivate func showRestaurantListView() {
+        guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantsTableViewController else {
+            assertionFailure()
+            return
+        }
+          
+        self.restaurantsTableViewController = restaurantsTableViewController
+        
+        navigationVC?.present(restaurantsTableViewController, animated: true, completion: nil)
+    }
     
+    fileprivate func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [Restaurant]?, _ error: NSError?) -> Void)) {
+        var restaurantList = [Restaurant]()
+        
+        APIProcessor.shared.fetchRestaurantsList(coordinateX: latitude, coordinateY: longitude, completionHandler: ({jsonResponse, error in
+            if error != nil {
+                //for now print the error
+                //later add an alert view to show tht something went wrong
+                print("error while retrieving restaurant list: \(String(describing: error))")
+                fetchCompleteHandler(nil, error)
+            } else {
+                if let json = jsonResponse {
+                    for restaurant in json {
+                        if let storeDictionary = restaurant as? NSDictionary {
+                            let store = Restaurant(restaurantDictionary:storeDictionary)
+                            restaurantList.append(store) //parsed and ready to use restaurant info
+                        }
+                    }// end of for
+                }//end of if let
+                fetchCompleteHandler(restaurantList, nil)
+            }
+        })
+        )//api processor fetch call block end
+    }
+    
+    //MARK: MapViewControllerDelegate methods
     func confirmUserChosenLocation(_ location: CLLocationCoordinate2D) {
+        self.showRestaurantListView()
+
         let lat = String(describing: location.latitude)
         let lon = String(describing: location.longitude)
-        APIProcessor.shared.fetchRestaurantsList(coordinateX: lat, coordinateY: lon)
+
+        fetchRestaurantList(latitude: lat, longitude: lon) { [unowned self] (restaurantsList, error) in
+            //Start activity indicator
+            if error == nil {
+                self.restaurantsTableViewController?.storesArray = restaurantsList
+            }
+        }
     }
     
     func getAddress(_ location: CLLocation, completionHandler: @escaping ((String) -> Void)) {
