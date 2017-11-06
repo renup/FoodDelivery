@@ -4,6 +4,7 @@ use_frameworks!
 
 target 'FoodDelivery' do
     pod 'Alamofire', '~> 4.5'
+    pod 'AlamofireImage', '~> 3.3'
 
   # Pods for FoodDelivery
 
