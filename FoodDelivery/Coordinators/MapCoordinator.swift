@@ -38,8 +38,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         }
           
         self.restaurantsTableViewController = restaurantsTableViewController
-        
-        navigationVC?.present(restaurantsTableViewController, animated: true, completion: nil)
+        navigationVC?.pushViewController(restaurantsTableViewController, animated: true)
     }
     
     fileprivate func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [Restaurant]?, _ error: NSError?) -> Void)) {

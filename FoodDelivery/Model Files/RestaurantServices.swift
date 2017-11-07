@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Restaurant {
+class Restaurant: NSObject {
     var restaurantDictionary: NSDictionary?
     var restaurantID: String?
     var restaurantName: String?
@@ -18,20 +18,20 @@ struct Restaurant {
     var deliveryTime: String?
     var coverImageURL: String?
     var coverImage: UIImage?
-    
-}
-
-extension Restaurant {
  
     //Question: if any of the values is null, what do we display?
     init(restaurantDictionary: NSDictionary) {
+        super.init()
+        
         self.restaurantDictionary = restaurantDictionary
         if let coverImageURL = restaurantDictionary["cover_img_url"] as? String {
             self.coverImageURL = coverImageURL
+            
+            APIProcessor.shared.fetchImageData(imageURLString: coverImageURL, imageDownloadHandler: {[unowned self] (image) in
+                self.coverImage = image
+            })
         }
-        
-        coverImage = UIImage(named: "nav-search")
-        
+                
         if let restaurantID = restaurantDictionary["id"] as? String {
             self.restaurantID = restaurantID
         }

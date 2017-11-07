@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AlamofireImage
 
 class RestaurantCell: UITableViewCell {
     @IBOutlet weak var deliveryFeeLabel: UILabel!
@@ -21,9 +22,13 @@ class RestaurantCell: UITableViewCell {
         deliveryTimeLabel.text = restaurantData.deliveryTime
         cuisineTypeLabel.text = restaurantData.cuisineType
         restaurantNameLabel.text = restaurantData.restaurantName
-        coverImageView.image = restaurantData.coverImage
+        if restaurantData.coverImage == nil {
+            guard let placeholderImage = UIImage(named: "food_icon.png"), let urlStr = restaurantData.coverImageURL, let imgURL = URL(string: urlStr) else {
+                return
+            }
+            coverImageView.af_setImage(withURL: imgURL, placeholderImage: placeholderImage)
+        }
     }
-    
 }
 
 class RestaurantsTableViewController: UITableViewController {

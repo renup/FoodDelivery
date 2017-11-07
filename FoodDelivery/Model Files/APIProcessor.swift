@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import AlamofireImage
 
 class APIProcessor: NSObject {
     let baseURLString: String = "https://api.doordash.com/"
@@ -33,9 +34,18 @@ class APIProcessor: NSObject {
             }
         }
     }
-}
 
-func fetchImageData(imageURLString: String) -> UIImage {
-    //download image data using alamofire
-    return UIImage()
+    func fetchImageData(imageURLString: String, imageDownloadHandler: @escaping ((_ image: UIImage?) -> Void)) {
+        //download image data using alamofire
+        
+        Alamofire.request(imageURLString).responseImage { (response) in
+            if let image = response.result.value {
+                print("image downloaded: \(image)")
+                imageDownloadHandler(image)
+            } else {
+                imageDownloadHandler(nil)
+            }
+        }
+    }
+
 }
