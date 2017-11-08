@@ -29,6 +29,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
             value = newValue
         }
     }
+    
     let locationManager = CLLocationManager()
     var myLocation: CLLocationCoordinate2D?
     let newPin = MKPointAnnotation()

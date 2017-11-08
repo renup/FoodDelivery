@@ -12,7 +12,6 @@ import CoreLocation
 
 class MapCoordinator: NSObject, MapViewControllerDelegate {
    
-    var delegate: MapViewControllerDelegate?
     fileprivate var navigationVC: UINavigationController?
     fileprivate var mapViewController: MapViewController?
     fileprivate var restaurantsTableViewController: RestaurantsTableViewController?
