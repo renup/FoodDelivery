@@ -11,6 +11,7 @@ import UIKit
 
 protocol RestaurantTableViewControllerDelegate: class {
     func userDidSelectAStore()
+    func popCurrentViewController()
 }
 
 class RestaurantsTableViewController: UITableViewController {
@@ -50,7 +51,7 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     @objc private func addressBarButtonClicked() {
-        
+        delegate?.popCurrentViewController()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

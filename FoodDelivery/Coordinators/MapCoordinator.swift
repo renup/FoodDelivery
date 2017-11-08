@@ -31,12 +31,15 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     }
     
     fileprivate func showRestaurantListView() {
-        guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantsTableViewController else {
+        guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantsTableViewController
+            
+            else {
             assertionFailure()
             return
         }
           
         self.restaurantsTableViewController = restaurantsTableViewController
+        self.restaurantsTableViewController?.delegate = self
         navigationVC?.pushViewController(restaurantsTableViewController, animated: true)
     }
     
@@ -122,4 +125,17 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             completionHandler(address)
         }
     }
+}
+    
+    //MARK: RestaurantVC delegate methods
+extension MapCoordinator: RestaurantTableViewControllerDelegate {
+    func userDidSelectAStore() {
+        
+    }
+    
+    
+    func popCurrentViewController() {
+        self.navigationVC?.popViewController(animated: true)
+    }
+    
 }
