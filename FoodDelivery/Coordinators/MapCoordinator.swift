@@ -30,6 +30,15 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         mapViewController?.delegate = self
     }
     
+    fileprivate func showRestaurantDetailView() {
+        guard let restaurantDetailVC = RestaurantDetailViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantDetailViewController else {
+            assertionFailure()
+            return
+        }
+        
+        navigationVC?.pushViewController(restaurantDetailVC, animated: true)
+    }
+    
     fileprivate func showRestaurantListView() {
         guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantsTableViewController
             
@@ -129,8 +138,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     
     //MARK: RestaurantVC delegate methods
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
-    func userDidSelectAStore() {
-        
+    func userDidSelectAStore(restaurant: Restaurant) {
+        showRestaurantDetailView()
     }
     
     

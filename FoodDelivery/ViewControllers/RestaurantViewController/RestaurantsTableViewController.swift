@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol RestaurantTableViewControllerDelegate: class {
-    func userDidSelectAStore()
+    func userDidSelectAStore(restaurant: Restaurant)
     func popCurrentViewController()
 }
 
@@ -72,7 +72,9 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let restaurantArray = storesArray {
+            delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
+        }
     }
    
 }
