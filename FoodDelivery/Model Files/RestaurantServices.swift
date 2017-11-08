@@ -27,9 +27,15 @@ class Restaurant: NSObject {
         if let coverImageURL = restaurantDictionary["cover_img_url"] as? String {
             self.coverImageURL = coverImageURL
             
-            APIProcessor.shared.fetchImageData(imageURLString: coverImageURL, imageDownloadHandler: {[unowned self] (image) in
-                self.coverImage = image
-            })
+            let sharedProcessor = APIProcessor.shared
+            if let cachedPic = sharedProcessor.cachedImage(for: coverImageURL) {
+                self.coverImage = cachedPic
+            } else {
+                
+                sharedProcessor.fetchImageData(imageURLString: coverImageURL, imageDownloadHandler: {[unowned self] (image) in
+                    self.coverImage = image
+                })
+            }
         }
                 
         if let restaurantID = restaurantDictionary["id"] as? String {

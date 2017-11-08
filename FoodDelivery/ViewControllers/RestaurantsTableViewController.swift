@@ -22,11 +22,14 @@ class RestaurantCell: UITableViewCell {
         deliveryTimeLabel.text = restaurantData.deliveryTime
         cuisineTypeLabel.text = restaurantData.cuisineType
         restaurantNameLabel.text = restaurantData.restaurantName
+        
         if restaurantData.coverImage == nil {
             guard let placeholderImage = UIImage(named: "food_icon.png"), let urlStr = restaurantData.coverImageURL, let imgURL = URL(string: urlStr) else {
                 return
             }
             coverImageView.af_setImage(withURL: imgURL, placeholderImage: placeholderImage)
+        } else {
+            coverImageView.image = restaurantData.coverImage
         }
     }
 }
