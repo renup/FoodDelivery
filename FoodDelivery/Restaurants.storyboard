@@ -126,7 +126,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" rowHeight="60" id="unt-bO-Kmd">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="menuCell" rowHeight="60" id="unt-bO-Kmd">
                                         <rect key="frame" x="0.0" y="28" width="359" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="unt-bO-Kmd" id="fbA-sk-hFr">
@@ -151,11 +151,20 @@
                                 <state key="normal" title="Add to Favorites">
                                     <color key="titleColor" red="1" green="0.0" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="favoritesButtonClicked:" destination="CAp-ao-6fo" eventType="touchUpInside" id="WIZ-7q-9vH"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="4vg-fX-mvL"/>
                     </view>
+                    <connections>
+                        <outlet property="favoritesButton" destination="QLt-ba-DkZ" id="NFV-F1-xvx"/>
+                        <outlet property="foodDeliveryLabel" destination="ezj-To-n76" id="4ey-rm-EtK"/>
+                        <outlet property="menuList" destination="1G3-EY-usw" id="GK4-gl-yZM"/>
+                        <outlet property="restaurantImageView" destination="kP3-fk-2h7" id="qcu-lO-A83"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ggk-di-6Vc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

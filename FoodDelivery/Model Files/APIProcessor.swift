@@ -66,6 +66,10 @@ class APIProcessor: NSObject {
             }
         }
     }
+    
+    func fetchRestaurantDetails(restaurant: Restaurant, completionHandler:(() -> Void)) -> <#return type#> {
+        <#function body#>
+    }
 
     func fetchImageData(imageURLString: String, imageDownloadHandler: @escaping ((_ image: UIImage?) -> Void)) -> Request {
         //download image data using alamofire

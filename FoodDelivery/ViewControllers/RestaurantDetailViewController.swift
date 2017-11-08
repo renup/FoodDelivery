@@ -10,5 +10,19 @@ import Foundation
 import UIKit
 
 class RestaurantDetailViewController: UIViewController {
+    @IBOutlet weak var restaurantImageView: UIImageView!
+    @IBOutlet weak var foodDeliveryLabel: UILabel!
+    @IBOutlet weak var favoritesButton: UIButton!
+    @IBOutlet weak var menuList: UITableView!
+  
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    
+    //MARK: IBActionMethods
+    @IBAction func favoritesButtonClicked(_ sender: Any) {
+    }
+    
     
 }
