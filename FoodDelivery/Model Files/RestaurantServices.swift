@@ -17,7 +17,6 @@ class Restaurant: NSObject {
     var deliveryFee: String?
     var deliveryTime: String?
     var coverImageURL: String?
-    var coverImage: UIImage?
  
     //Question: if any of the values is null, what do we display?
     init(restaurantDictionary: NSDictionary) {
@@ -26,16 +25,6 @@ class Restaurant: NSObject {
         self.restaurantDictionary = restaurantDictionary
         if let coverImageURL = restaurantDictionary["cover_img_url"] as? String {
             self.coverImageURL = coverImageURL
-            
-            let sharedProcessor = APIProcessor.shared
-            if let cachedPic = sharedProcessor.cachedImage(for: coverImageURL) {
-                self.coverImage = cachedPic
-            } else {
-                
-                sharedProcessor.fetchImageData(imageURLString: coverImageURL, imageDownloadHandler: {[unowned self] (image) in
-                    self.coverImage = image
-                })
-            }
         }
                 
         if let restaurantID = restaurantDictionary["id"] as? String {

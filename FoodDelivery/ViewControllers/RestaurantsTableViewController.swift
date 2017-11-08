@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AlamofireImage
+import Alamofire
 
 class RestaurantCell: UITableViewCell {
     @IBOutlet weak var deliveryFeeLabel: UILabel!
@@ -17,20 +18,53 @@ class RestaurantCell: UITableViewCell {
     @IBOutlet weak var restaurantNameLabel: UILabel!
     @IBOutlet weak var coverImageView: UIImageView!
     
-    func populateCell(restaurantData: Restaurant) {
-        deliveryFeeLabel.text = restaurantData.deliveryFee
-        deliveryTimeLabel.text = restaurantData.deliveryTime
-        cuisineTypeLabel.text = restaurantData.cuisineType
-        restaurantNameLabel.text = restaurantData.restaurantName
+    var request: Request?
+    var restaurant: Restaurant?
+    var apiProcessor : APIProcessor { return .shared }
+    
+    func configureCell(restaurant: Restaurant) {
+        self.restaurant = restaurant
         
-        if restaurantData.coverImage == nil {
-            guard let placeholderImage = UIImage(named: "food_icon.png"), let urlStr = restaurantData.coverImageURL, let imgURL = URL(string: urlStr) else {
-                return
-            }
-            coverImageView.af_setImage(withURL: imgURL, placeholderImage: placeholderImage)
-        } else {
-            coverImageView.image = restaurantData.coverImage
+        deliveryFeeLabel.text = restaurant.deliveryFee
+        deliveryTimeLabel.text = restaurant.deliveryTime
+        cuisineTypeLabel.text = restaurant.cuisineType
+        restaurantNameLabel.text = restaurant.restaurantName
+        
+        guard let placeholderImage = UIImage(named: "food_icon.png"), let urlStr = restaurant.coverImageURL, let imgURL = URL(string: urlStr) else {
+            return
         }
+        coverImageView.af_setImage(withURL: imgURL, placeholderImage: placeholderImage)
+        reset()
+        loadImage()
+    }
+    
+    fileprivate func reset() {
+        request?.cancel()
+    }
+    
+    fileprivate func loadImage() {
+        guard let urlStr = restaurant?.coverImageURL else {
+            assertionFailure()
+            return
+        }
+        
+        if let cachedImage = apiProcessor.cachedImage(for: urlStr) {
+            populateWithImage(image: cachedImage)
+        } else {
+            downloadImage(urlString: urlStr)
+        }
+    }
+    
+    fileprivate func downloadImage(urlString: String) {
+        request = APIProcessor.shared.fetchImageData(imageURLString: urlString, imageDownloadHandler: {[unowned self] (storeImage) in
+            if let restaurantImage = storeImage {
+                self.populateWithImage(image: restaurantImage)
+            }
+        })
+    }
+    
+    fileprivate func populateWithImage(image: UIImage) {
+        coverImageView.image = image
     }
 }
 
@@ -56,7 +90,7 @@ class RestaurantsTableViewController: UITableViewController {
         let storeCell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as! RestaurantCell
         
         if let restaurantArray = storesArray {
-            storeCell.populateCell(restaurantData: restaurantArray[indexPath.row])
+            storeCell.configureCell(restaurant: restaurantArray[indexPath.row])
         }
         
         return storeCell

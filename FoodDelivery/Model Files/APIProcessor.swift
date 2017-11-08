@@ -67,10 +67,10 @@ class APIProcessor: NSObject {
         }
     }
 
-    func fetchImageData(imageURLString: String, imageDownloadHandler: @escaping ((_ image: UIImage?) -> Void)) {
+    func fetchImageData(imageURLString: String, imageDownloadHandler: @escaping ((_ image: UIImage?) -> Void)) -> Request {
         //download image data using alamofire
         
-        Alamofire.request(imageURLString, method: .get).responseImage { (response) in
+       return Alamofire.request(imageURLString, method: .get).responseImage { (response) in
             if let image = response.result.value {
                 print("image downloaded: \(image)")
                 imageDownloadHandler(image)
