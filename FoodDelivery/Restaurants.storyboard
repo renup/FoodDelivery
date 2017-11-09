@@ -100,7 +100,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FaF-vG-smq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1868" y="-630.13493253373315"/>
+            <point key="canvasLocation" x="1210" y="-1216"/>
         </scene>
         <!--Restaurant Detail View Controller-->
         <scene sceneID="y6P-Vw-T5l">
@@ -126,11 +126,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="menuCell" rowHeight="60" id="unt-bO-Kmd">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="menuCell" rowHeight="60" id="unt-bO-Kmd" customClass="MenuCell" customModule="FoodDelivery" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="359" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="unt-bO-Kmd" id="fbA-sk-hFr">
-                                            <rect key="frame" x="0.0" y="0.0" width="292" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="326" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjz-Oi-LxM">
@@ -142,8 +142,15 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="menuLabel" destination="gjz-Oi-LxM" id="6xv-mv-vLG"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="CAp-ao-6fo" id="QQv-dp-v7D"/>
+                                    <outlet property="delegate" destination="CAp-ao-6fo" id="CSy-Uq-P47"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLt-ba-DkZ">
                                 <rect key="frame" x="67" y="220" width="240" height="51"/>
@@ -168,7 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ggk-di-6Vc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2752.8000000000002" y="-630.13493253373315"/>
+            <point key="canvasLocation" x="2668" y="-1242"/>
         </scene>
     </scenes>
 </document>

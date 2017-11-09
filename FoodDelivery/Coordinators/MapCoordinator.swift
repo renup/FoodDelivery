@@ -30,12 +30,13 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         mapViewController?.delegate = self
     }
     
-    fileprivate func showRestaurantDetailView() {
+    fileprivate func showRestaurantDetailView(categoryArray: [String], store: Restaurant) {
         guard let restaurantDetailVC = RestaurantDetailViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantDetailViewController else {
             assertionFailure()
             return
         }
-        
+        restaurantDetailVC.restaurant = store
+        restaurantDetailVC.menuCategoryArray = categoryArray
         navigationVC?.pushViewController(restaurantDetailVC, animated: true)
     }
     
@@ -139,9 +140,18 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     //MARK: RestaurantVC delegate methods
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
     func userDidSelectAStore(restaurant: Restaurant) {
-        showRestaurantDetailView()
+        //show loading animation
+        if let id = restaurant.restaurantID {
+            APIProcessor.shared.fetchMenuCategories(restaurantID: id, completionHandler: {[unowned self] (menuCategoryArray, error) in
+                if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
+                    let menu = MenuCategory(menuDictionary: menuItem)
+                    self.showRestaurantDetailView(categoryArray: menu.foodCategoryArray, store: restaurant)
+                } else {
+                    print(String(describing: error))
+                }
+            })
+        }
     }
-    
     
     func popCurrentViewController() {
         self.navigationVC?.popViewController(animated: true)

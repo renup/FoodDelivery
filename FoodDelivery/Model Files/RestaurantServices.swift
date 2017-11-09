@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 class Restaurant: NSObject {
     var restaurantDictionary: NSDictionary?
@@ -28,8 +27,8 @@ class Restaurant: NSObject {
             self.coverImageURL = coverImageURL
         }
                 
-        if let restaurantID = restaurantDictionary["id"] as? String {
-            self.restaurantID = restaurantID
+        if let restaurantID = restaurantDictionary["id"] as? Int64 {
+            self.restaurantID = String(describing: restaurantID)
         }
      
         if let businessDict: NSDictionary = restaurantDictionary["business"] as? NSDictionary {
@@ -42,8 +41,8 @@ class Restaurant: NSObject {
             self.cuisineType = cuisineType
         }
         
-        if let fee: Double = restaurantDictionary["delivery_fee"] as? Double {
-            if (fee > 0.0) {
+        if let fee: Int64 = restaurantDictionary["delivery_fee"] as? Int64 {
+            if (fee > 0) {
                 deliveryFee = "$" + String(format:"%.1f", fee) + " delivery"
             } else {
                 deliveryFee = "Free delivery"

@@ -46,18 +46,35 @@ class APIProcessor: NSObject {
         preferredMemoryUsageAfterPurge: UInt64(60).megabytes()
     )
     
+    func fetchMenuCategories(restaurantID: String, completionHandler: @escaping((_ menuArray: NSArray?, _ error: NSError?) -> Void)) {
+        
+        let finalURLString = baseURLString + "v2/restaurant/" + restaurantID + "/menu/"
+        
+        Alamofire.request(finalURLString, method: .get).validate().responseJSON { (response) in
+            switch(response.result) {
+            case .success :
+                if let json = response.result.value as? NSArray {
+                    print("MenuCategory JSON: \(json)")
+                    completionHandler(json, nil)
+                }
+            case .failure(let error) :
+                completionHandler(nil, error as NSError)
+            }
+        }
+    }
+    
     func fetchRestaurantsList(coordinateX: String, coordinateY: String, completionHandler: @escaping((_ response: NSArray?, _ error: NSError?) -> Void)) {
         let finalURLString = baseURLString + "v1/store_search/?" + "lat=" + coordinateX + "&lng=" + coordinateY
-        Alamofire.request(finalURLString).validate().responseJSON { (response) in
+        Alamofire.request(finalURLString, method: .get).validate().responseJSON { (response) in
             
             switch(response.result) {
             case .success: do {
-                print("Request: \(String(describing: response.request))")   // original url request
-                print("Response: \(String(describing: response.response))") // http url response
-                print("Result: \(response.result)")                         // response serialization result
+//                print("Request: \(String(describing: response.request))")   // original url request
+//                print("Response: \(String(describing: response.response))") // http url response
+//                print("Result: \(response.result)")                         // response serialization result
                 
                 if let json = response.result.value as? NSArray {
-                    print("JSON: \(json)") // serialized json response
+                    print("Restaurant JSON: \(json)") // serialized json response
                     completionHandler(json, nil)
                 }
             }
@@ -65,10 +82,6 @@ class APIProcessor: NSObject {
                 completionHandler([], error as NSError)
             }
         }
-    }
-    
-    func fetchRestaurantDetails(restaurant: Restaurant, completionHandler:(() -> Void)) -> <#return type#> {
-        <#function body#>
     }
 
     func fetchImageData(imageURLString: String, imageDownloadHandler: @escaping ((_ image: UIImage?) -> Void)) -> Request {
