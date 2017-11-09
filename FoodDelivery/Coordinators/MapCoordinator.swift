@@ -79,6 +79,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     
     //MARK: MapViewControllerDelegate methods
     func confirmUserChosenLocation(_ location: CLLocationCoordinate2D) {
+        let hud = MBProgressHUD.showAdded(to: (mapViewController?.view)!, animated: true)
         self.showRestaurantListView()
 
         let lat = String(describing: location.latitude)
@@ -89,6 +90,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             if error == nil {
                 self.restaurantsTableViewController?.storesArray = restaurantsList
             }
+            hud.hide(animated: true)
         }
     }
     
@@ -141,11 +143,9 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
     func userDidSelectAStore(restaurant: Restaurant) {
         //show loading animation
-    
         if let id = restaurant.restaurantID {
             let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
            progressHud.label.text = "Loading"
-//           progressHud.mode = .annularDeterminate
             APIProcessor.shared.fetchMenuCategories(restaurantID: id, completionHandler: {[unowned self] (menuCategoryArray, error) in
                 if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
                     let menu = MenuCategory(menuDictionary: menuItem)
