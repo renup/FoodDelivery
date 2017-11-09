@@ -37,12 +37,15 @@ class RestaurantDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        setUpViews()
         
     }
     
     private func setUpViews() {
+        if let urlStr = restaurant?.coverImageURL {
+            restaurantImageView.image = APIProcessor.shared.cachedImage(for: urlStr)
+          
+        }
         
     }
     
