@@ -16,7 +16,6 @@ class Restaurant: NSObject {
     var deliveryFee: String?
     var deliveryTime: String?
     var coverImageURL: String?
-    var menuArray = [String]()
  
     //Question: if any of the values is null, what do we display?
     init(restaurantDictionary: NSDictionary) {
@@ -53,26 +52,6 @@ class Restaurant: NSObject {
         if let deliveryTime = restaurantDictionary["status"] as? String {
             self.deliveryTime = deliveryTime
         }
-        
-        
-        if let menuArray = restaurantDictionary["menus"] as? NSArray {
-            for item in menuArray {
-                if let itemDictionary: NSDictionary = item as? NSDictionary {
-                    if let menuObject = itemDictionary["popular_items"] as? NSArray {
-                        for menuItem in menuObject {
-                            if let menuDictionary = menuItem as? NSDictionary {
-                                if let foodName = menuDictionary["name"] as? String {
-                                    self.menuArray.append(foodName)
-                                }
-                            }
-                        }
-                        
-                    }
-                }
-                
-            }
-        }
-        
     }
 }
 
