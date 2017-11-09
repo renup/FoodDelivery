@@ -141,6 +141,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
     func userDidSelectAStore(restaurant: Restaurant) {
         //show loading animation
+    
         if let id = restaurant.restaurantID {
             APIProcessor.shared.fetchMenuCategories(restaurantID: id, completionHandler: {[unowned self] (menuCategoryArray, error) in
                 if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
