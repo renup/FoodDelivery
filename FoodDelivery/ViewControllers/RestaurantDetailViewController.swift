@@ -44,13 +44,12 @@ class RestaurantDetailViewController: UIViewController {
     private func setUpViews() {
         if let urlStr = restaurant?.coverImageURL {
             restaurantImageView.image = APIProcessor.shared.cachedImage(for: urlStr)
-          
         }
-        
-    }
-    
-    
-    
+        if let fee = restaurant?.deliveryFee, let time = restaurant?.deliveryTime {
+            let deliveryMessage = fee + " in " + time
+            foodDeliveryLabel.text = deliveryMessage
+        }
+    } 
     
     //MARK: IBActionMethods
     @IBAction func favoritesButtonClicked(_ sender: Any) {

@@ -41,9 +41,10 @@ class Restaurant: NSObject {
             self.cuisineType = cuisineType
         }
         
-        if let fee: Int64 = restaurantDictionary["delivery_fee"] as? Int64 {
+        if var fee: Double = restaurantDictionary["delivery_fee"] as? Double {
             if (fee > 0) {
-                deliveryFee = "$" + String(format:"%.1f", fee) + " delivery"
+                fee = fee/100.0
+                deliveryFee = "$" + String(format:"%.2f", fee) + " delivery"
             } else {
                 deliveryFee = "Free delivery"
             }
