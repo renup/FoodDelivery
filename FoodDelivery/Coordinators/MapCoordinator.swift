@@ -143,6 +143,9 @@ extension MapCoordinator: RestaurantTableViewControllerDelegate {
         //show loading animation
     
         if let id = restaurant.restaurantID {
+            let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
+           progressHud.label.text = "Loading"
+//           progressHud.mode = .annularDeterminate
             APIProcessor.shared.fetchMenuCategories(restaurantID: id, completionHandler: {[unowned self] (menuCategoryArray, error) in
                 if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
                     let menu = MenuCategory(menuDictionary: menuItem)
@@ -150,6 +153,7 @@ extension MapCoordinator: RestaurantTableViewControllerDelegate {
                 } else {
                     print(String(describing: error))
                 }
+                progressHud.hide(animated: true)
             })
         }
     }
