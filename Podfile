@@ -5,6 +5,7 @@ use_frameworks!
 target 'FoodDelivery' do
     pod 'Alamofire', '~> 4.5'
     pod 'AlamofireImage', '~> 3.3'
+    pod 'MBProgressHUD', '~> 1.0.0'
 
   # Pods for FoodDelivery
 
