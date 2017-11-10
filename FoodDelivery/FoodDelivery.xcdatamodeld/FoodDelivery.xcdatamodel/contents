@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13241" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Restaurant" representedClassName="Restaurant" syncable="YES" codeGenerationType="class">
+        <attribute name="coverImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cuisineType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deliveryFee" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deliveryTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="restaurantDictionary" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="restaurantID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="restaurantName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Restaurant" positionX="-45" positionY="0" width="128" height="150"/>
+    </elements>
 </model>

@@ -7,8 +7,19 @@
 //
 
 import Foundation
+import CoreData
 
-class Restaurant: NSObject {
+class Restaurant: NSManagedObject {
+    @NSManaged var restaurantDictionary: NSDictionary?
+    @NSManaged var restaurantID: String?
+    @NSManaged var restaurantName: String?
+    @NSManaged var cuisineType: String?
+    @NSManaged var deliveryFee: String?
+    @NSManaged var deliveryTime: String?
+    @NSManaged var coverImageURL: String?
+}
+
+class RestaurantServices: NSObject {
     var restaurantDictionary: NSDictionary?
     var restaurantID: String?
     var restaurantName: String?
@@ -16,8 +27,8 @@ class Restaurant: NSObject {
     var deliveryFee: String?
     var deliveryTime: String?
     var coverImageURL: String?
- 
     //Question: if any of the values is null, what do we display?
+    
     init(restaurantDictionary: NSDictionary) {
         super.init()
         

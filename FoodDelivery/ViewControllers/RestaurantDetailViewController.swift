@@ -37,8 +37,7 @@ class RestaurantDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
-        
+        setUpViews()        
     }
     
     private func setUpViews() {
@@ -68,7 +67,7 @@ extension RestaurantDetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let menuCell = tableView.dequeueReusableCell(withIdentifier: "menuCell") as! MenuCell
+        let menuCell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath) as! MenuCell
         
         if let menuList = menuCategoryArray {
             menuCell.configureCell(name: menuList[indexPath.row])
