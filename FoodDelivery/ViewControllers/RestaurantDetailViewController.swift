@@ -54,7 +54,13 @@ class RestaurantDetailViewController: UIViewController {
             let deliveryMessage = fee + " in " + time
             foodDeliveryLabel.text = deliveryMessage
         }
-    } 
+    }
+    
+    private func setTheFavoriteButtonAppearance() {
+        favoritesButton.backgroundColor = UIColor.red
+        favoritesButton.setTitleColor(UIColor.white, for: .normal)
+        favoritesButton.setTitle("Favorited", for: .normal)
+    }
     
     //MARK: IBActionMethods
     @IBAction func favoritesButtonClicked(_ sender: Any) {
@@ -63,10 +69,10 @@ class RestaurantDetailViewController: UIViewController {
             return
         }
         delegate?.userFavoritedTheRestaurant(store: restaurant!)
-        favoritesButton.backgroundColor = UIColor.red
-        favoritesButton.setTitleColor(UIColor.white, for: .normal)
-        favoritesButton.setTitle("Favorited", for: .normal)
+        setTheFavoriteButtonAppearance()
     }
+    
+   
     
 }
 
