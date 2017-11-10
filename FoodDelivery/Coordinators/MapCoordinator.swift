@@ -160,6 +160,13 @@ extension MapCoordinator: RestaurantTableViewControllerDelegate {
     
     func popCurrentViewController() {
         self.navigationVC?.popViewController(animated: true)
+        //
     }
+}
+
+extension MapCoordinator: RestaurantDetailViewControllerDelegate {
     
+    func userFavoritedTheRestaurant(store: RestaurantServices) {
+        CoreDataManager.shared.saveFavoriteRestaurant(restaurant: store)
+    }
 }

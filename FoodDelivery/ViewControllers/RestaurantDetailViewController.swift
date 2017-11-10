@@ -17,12 +17,17 @@ class MenuCell: UITableViewCell {
     }
 }
 
+protocol RestaurantDetailViewControllerDelegate: class {
+    func userFavoritedTheRestaurant(store: RestaurantServices)
+}
+
 class RestaurantDetailViewController: UIViewController {
     @IBOutlet weak var restaurantImageView: UIImageView!
     @IBOutlet weak var foodDeliveryLabel: UILabel!
     @IBOutlet weak var favoritesButton: UIButton!
     @IBOutlet weak var menuList: UITableView!
-  
+    weak var delegate: RestaurantDetailViewControllerDelegate?
+    
     var menuCategoryArray: [String]?
     
     var store: RestaurantServices?
@@ -53,7 +58,14 @@ class RestaurantDetailViewController: UIViewController {
     
     //MARK: IBActionMethods
     @IBAction func favoritesButtonClicked(_ sender: Any) {
-        
+        guard restaurant != nil else {
+            assertionFailure()
+            return
+        }
+        delegate?.userFavoritedTheRestaurant(store: restaurant!)
+        favoritesButton.backgroundColor = UIColor.red
+        favoritesButton.setTitleColor(UIColor.white, for: .normal)
+        favoritesButton.setTitle("Favorited", for: .normal)
     }
     
 }

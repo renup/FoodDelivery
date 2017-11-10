@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 
 class CoreDataManager: NSObject {
+    static let shared = CoreDataManager()
     
     func fetchAllFavoriteRestaurants() -> [NSManagedObject]?{
         
