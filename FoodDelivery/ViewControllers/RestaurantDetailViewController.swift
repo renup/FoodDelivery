@@ -41,6 +41,7 @@ class RestaurantDetailViewController: UIViewController {
     }
     
     private func setUpViews() {
+        //TODO: check for cached image here or download it
         if let urlStr = restaurant?.coverImageURL {
             restaurantImageView.image = APIProcessor.shared.cachedImage(for: urlStr)
         }
