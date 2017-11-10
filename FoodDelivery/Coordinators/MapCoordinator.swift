@@ -30,7 +30,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         mapViewController?.delegate = self
     }
     
-    fileprivate func showRestaurantDetailView(categoryArray: [String], store: Restaurant) {
+    fileprivate func showRestaurantDetailView(categoryArray: [String], store: RestaurantServices) {
         guard let restaurantDetailVC = RestaurantDetailViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantDetailViewController else {
             assertionFailure()
             return
@@ -53,8 +53,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         navigationVC?.pushViewController(restaurantsTableViewController, animated: true)
     }
     
-    fileprivate func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [Restaurant]?, _ error: NSError?) -> Void)) {
-        var restaurantList = [Restaurant]()
+    fileprivate func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [RestaurantServices]?, _ error: NSError?) -> Void)) {
+        var restaurantList = [RestaurantServices]()
         
         APIProcessor.shared.fetchRestaurantsList(coordinateX: latitude, coordinateY: longitude, completionHandler: ({jsonResponse, error in
             if error != nil {
@@ -141,7 +141,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     
     //MARK: RestaurantVC delegate methods
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
-    func userDidSelectAStore(restaurant: Restaurant) {
+    
+    func userDidSelectAStore(restaurant: RestaurantServices) {
         if let id = restaurant.restaurantID {
             let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
            progressHud.label.text = "Loading"

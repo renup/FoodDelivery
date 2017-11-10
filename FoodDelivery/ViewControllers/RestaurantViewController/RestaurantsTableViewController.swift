@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol RestaurantTableViewControllerDelegate: class {
-    func userDidSelectAStore(restaurant: Restaurant)
+    func userDidSelectAStore(restaurant: RestaurantServices)
     func popCurrentViewController()
 }
 
@@ -18,7 +18,7 @@ class RestaurantsTableViewController: UITableViewController {
     fileprivate var restaurantArray: [Restaurant]?
     weak var delegate: RestaurantTableViewControllerDelegate?
     
-    var storesArray: [Restaurant]? {
+    var storesArray: [RestaurantServices]? {
         
         didSet {
             //reload the tableview with new cell content info

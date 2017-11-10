@@ -7,3 +7,8 @@
 //
 
 import Foundation
+import CoreData
+
+class CoreDataManager: NSObject {
+    
+}

@@ -19,10 +19,10 @@ class RestaurantCell: UITableViewCell {
     @IBOutlet weak var coverImageView: UIImageView!
     
     var request: Request?
-    var restaurant: Restaurant?
+    var restaurant: RestaurantServices?
     var apiProcessor : APIProcessor { return .shared }
     
-    func configureCell(restaurant: Restaurant) {
+    func configureCell(restaurant: RestaurantServices) {
         self.restaurant = restaurant
         
         deliveryFeeLabel.text = restaurant.deliveryFee

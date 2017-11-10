@@ -25,8 +25,8 @@ class RestaurantDetailViewController: UIViewController {
   
     var menuCategoryArray: [String]?
     
-    var store: Restaurant?
-    var restaurant: Restaurant? {
+    var store: RestaurantServices?
+    var restaurant: RestaurantServices? {
         set {
             store = newValue
         }

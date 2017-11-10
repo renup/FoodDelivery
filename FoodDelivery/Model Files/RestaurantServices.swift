@@ -7,17 +7,6 @@
 //
 
 import Foundation
-import CoreData
-
-class Restaurant: NSManagedObject {
-    @NSManaged var restaurantDictionary: NSDictionary?
-    @NSManaged var restaurantID: String?
-    @NSManaged var restaurantName: String?
-    @NSManaged var cuisineType: String?
-    @NSManaged var deliveryFee: String?
-    @NSManaged var deliveryTime: String?
-    @NSManaged var coverImageURL: String?
-}
 
 class RestaurantServices: NSObject {
     var restaurantDictionary: NSDictionary?
