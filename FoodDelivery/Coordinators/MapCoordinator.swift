@@ -31,7 +31,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     }
     
     fileprivate func showRestaurantDetailView(categoryArray: [String], store: RestaurantServices) {
-        guard let restaurantDetailVC = RestaurantDetailViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantDetailViewController else {
+        guard let restaurantDetailVC = RestaurantDetailViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? RestaurantDetailViewController else {
             assertionFailure()
             return
         }
@@ -41,7 +41,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     }
     
     fileprivate func showRestaurantListView() {
-        guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Restaurants") as? RestaurantsTableViewController
+        guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? RestaurantsTableViewController
             
             else {
             assertionFailure()

@@ -15,8 +15,8 @@
 		D7214C1C1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C1B1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift */; };
 		D7214C1E1FB3EDB600E0BFB7 /* MenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C1D1FB3EDB600E0BFB7 /* MenuCategory.swift */; };
 		D7214C281FB5C93500E0BFB7 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C271FB5C93500E0BFB7 /* CoreDataManager.swift */; };
+		D7214C2A1FB64AE700E0BFB7 /* BaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C291FB64AE700E0BFB7 /* BaseNavigationViewController.swift */; };
 		D79D75D01FABAD000013C05A /* RestaurantsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79D75CF1FABAD000013C05A /* RestaurantsTableViewController.swift */; };
-		D79D75D21FABADF10013C05A /* Restaurants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D79D75D11FABADF10013C05A /* Restaurants.storyboard */; };
 		D79D75D51FABB3010013C05A /* APIProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79D75D41FABB3010013C05A /* APIProcessor.swift */; };
 		D79D75D81FABD2550013C05A /* RestaurantServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79D75D71FABD2550013C05A /* RestaurantServices.swift */; };
 		D7BE9FD21FAD0A240040C977 /* UIViewControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BE9FD11FAD0A240040C977 /* UIViewControllerHelper.swift */; };
@@ -75,8 +75,8 @@
 		D7214C1D1FB3EDB600E0BFB7 /* MenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategory.swift; sourceTree = "<group>"; };
 		D7214C1F1FB467B100E0BFB7 /* FoodDelivery-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodDelivery-Bridging-Header.h"; sourceTree = "<group>"; };
 		D7214C271FB5C93500E0BFB7 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		D7214C291FB64AE700E0BFB7 /* BaseNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationViewController.swift; sourceTree = "<group>"; };
 		D79D75CF1FABAD000013C05A /* RestaurantsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsTableViewController.swift; sourceTree = "<group>"; };
-		D79D75D11FABADF10013C05A /* Restaurants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Restaurants.storyboard; sourceTree = "<group>"; };
 		D79D75D41FABB3010013C05A /* APIProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProcessor.swift; sourceTree = "<group>"; };
 		D79D75D71FABD2550013C05A /* RestaurantServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantServices.swift; sourceTree = "<group>"; };
 		D7BE9FD11FAD0A240040C977 /* UIViewControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerHelper.swift; sourceTree = "<group>"; };
@@ -223,7 +223,6 @@
 				D7C8B30D1FA8FF5C002113CD /* Coordinators */,
 				D7C8B2F11FA6722B002113CD /* ViewControllers */,
 				D7C8B2BC1FA66847002113CD /* Main.storyboard */,
-				D79D75D11FABADF10013C05A /* Restaurants.storyboard */,
 				D7C8B2C21FA66847002113CD /* Assets.xcassets */,
 				D7C8B2C41FA66847002113CD /* LaunchScreen.storyboard */,
 				D7C8B2C71FA66847002113CD /* Info.plist */,
@@ -259,6 +258,7 @@
 				D7C8B2F41FA67280002113CD /* TabMenuController.swift */,
 				D7C8B2F61FA672E9002113CD /* FavoritesTableViewController.swift */,
 				D7214C1B1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift */,
+				D7214C291FB64AE700E0BFB7 /* BaseNavigationViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -417,7 +417,6 @@
 				D7C8B3061FA6734E002113CD /* tab-star@2x.png in Resources */,
 				D7C8B3031FA6734E002113CD /* nav-search@2x.png in Resources */,
 				D7C8B30B1FA6734F002113CD /* star-white@3x.png in Resources */,
-				D79D75D21FABADF10013C05A /* Restaurants.storyboard in Resources */,
 				D7C8B3091FA6734F002113CD /* tab-star@3x.png in Resources */,
 				D7C8B3051FA6734E002113CD /* star-white@2x.png in Resources */,
 				D7C8B2BE1FA66847002113CD /* Main.storyboard in Resources */,
@@ -603,6 +602,7 @@
 				D7214C1A1FB3928900E0BFB7 /* RestaurantCell.swift in Sources */,
 				D79D75D81FABD2550013C05A /* RestaurantServices.swift in Sources */,
 				D7C8B30F1FA8FF75002113CD /* AppCoordinator.swift in Sources */,
+				D7214C2A1FB64AE700E0BFB7 /* BaseNavigationViewController.swift in Sources */,
 				D7214C281FB5C93500E0BFB7 /* CoreDataManager.swift in Sources */,
 				D79D75D51FABB3010013C05A /* APIProcessor.swift in Sources */,
 				D7C8B2C11FA66847002113CD /* FoodDelivery.xcdatamodeld in Sources */,
