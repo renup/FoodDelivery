@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol TabMenuControllerDelegate: class {
-    func userSelectedTab(_ tabTitle: String, _ navVC: UINavigationController)
+    func userSelectedTab(_ tabTitle: String)
 }
 
 
@@ -25,9 +25,7 @@ class TabMenuController: UITabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if let itemName = item.title {
-            if let viewController = self.selectedViewController as? UINavigationController {
-                    tabMenuDelegate?.userSelectedTab(itemName, viewController)
-            }
+            tabMenuDelegate?.userSelectedTab(itemName)
         }
     }
 }

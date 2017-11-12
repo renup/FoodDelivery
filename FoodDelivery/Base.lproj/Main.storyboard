@@ -21,7 +21,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dPt-0x-UK9">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                             </mapView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="Loading current address or Type an address here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tGX-q9-htw">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Loading current address or Type an address here" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGX-q9-htw">
                                 <rect key="frame" x="0.0" y="559" width="375" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>

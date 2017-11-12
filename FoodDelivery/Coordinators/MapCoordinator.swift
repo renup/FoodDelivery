@@ -16,6 +16,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     fileprivate var mapViewController: MapViewController?
     fileprivate var tabBarViewController: TabMenuController?
     fileprivate var restaurantsTableViewController: RestaurantsTableViewController?
+    fileprivate var latString = ""
+    fileprivate var lonString = ""
     
     init(_ navigationVC: UINavigationController) {
         self.navigationVC = navigationVC
@@ -54,6 +56,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         }
 
         tabBarViewController = tabBarVC
+        tabBarViewController?.tabMenuDelegate = self
         navigationVC?.present(tabBarVC, animated: true, completion: nil)
     }
     
@@ -97,19 +100,24 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     
     //MARK: MapViewControllerDelegate methods
     func confirmUserChosenLocation(_ location: CLLocationCoordinate2D) {
-        let hud = MBProgressHUD.showAdded(to: (mapViewController?.view)!, animated: true)
         initiateTabBar()
+        latString = String(describing: location.latitude)
+        lonString = String(describing: location.longitude)
+        makeRestaurantListRequestPerCoordinates(lat: latString, lon: lonString)
+    }
+    
+    private func makeRestaurantListRequestPerCoordinates(lat: String, lon: String) {
+        let hud = MBProgressHUD.showAdded(to: (mapViewController?.view)!, animated: true)
 
-        let lat = String(describing: location.latitude)
-        let lon = String(describing: location.longitude)
-
-        fetchRestaurantList(latitude: lat, longitude: lon) { [unowned self] (restaurantsList, error) in
-            //Start activity indicator
-            if error == nil {
-                self.restaurantsTableViewController?.dataSource = restaurantsList
+        //if user chose a different location, make the api call to get resturant list
+//        if (lat != latString || lon != lonString) {
+            fetchRestaurantList(latitude: lat, longitude: lon) { [unowned self] (restaurantsList, error) in
+                if error == nil {
+                    self.restaurantsTableViewController?.dataSource = restaurantsList
+                }
+                hud.hide(animated: true)
             }
-            hud.hide(animated: true)
-        }
+        //}
     }
     
     func getAddress(_ location: CLLocation, completionHandler: @escaping ((String) -> Void)) {
@@ -187,4 +195,16 @@ extension MapCoordinator: RestaurantDetailViewControllerDelegate {
     func userFavoritedTheRestaurant(store: RestaurantServices) {
         CoreDataManager.shared.saveFavoriteRestaurant(restaurant: store)
     }
+}
+
+extension MapCoordinator: TabMenuControllerDelegate {
+    func userSelectedTab(_ tabTitle: String) {
+        if tabTitle == "Favorites" {
+//            restaurantsTableViewController?.dataSource = CoreDataManager.shared.fetchAllFavoriteRestaurants()
+        } else {
+            makeRestaurantListRequestPerCoordinates(lat: latString, lon: lonString)
+        }
+    }
+    
+    
 }

@@ -35,6 +35,9 @@ class RestaurantsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //       favoriteRestaurants = CoreDataManager.shared.fetchAllFavoriteRestaurants()
+        if self.navigationController?.restorationIdentifier == "favoritesNavController" {
+            dataSource = CoreDataManager.shared.fetchAllFavoriteRestaurants()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
