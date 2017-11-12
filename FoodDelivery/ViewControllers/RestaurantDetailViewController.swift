@@ -32,18 +32,12 @@ class RestaurantDetailViewController: UIViewController {
     var menuCategoryArray: [String]?
     
     var store: Any?
-    var restaurant: Any? {
-        set {
-            store = newValue
-        }
-        get {
-           return store
-        }
-    }
+    var restaurant: Any?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpViews()        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpViews()
+        menuList.reloadData()
     }
     
     private func setUpViews() {
