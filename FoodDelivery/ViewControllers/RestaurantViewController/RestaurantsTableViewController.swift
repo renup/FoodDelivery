@@ -15,7 +15,6 @@ extension Notification.Name {
 }
 
 protocol RestaurantTableViewControllerDelegate: class {
-    func userDidSelectAStore(restaurant: Any)
     func popCurrentViewController()
 }
 
@@ -85,7 +84,6 @@ class RestaurantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let restaurantArray = dataSource {
             NotificationCenter.default.post(name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: restaurantArray[indexPath.row])
-           // delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
         }
     }
    

@@ -65,6 +65,39 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         
     }
     
+    @objc func userDidSelectAStore(restaurant: Notification) {
+        guard let restaurantObj = restaurant.object else {
+            return
+        }
+        
+        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
+        progressHud.label.text = "Loading"
+        var storeID = ""
+        
+        if let store = restaurantObj as? RestaurantServices {
+            if let id = store.restaurantID {
+                storeID = id
+            }
+        } else {
+            if let store = restaurantObj as? NSManagedObject {
+                if let id = store.value(forKeyPath: "restaurantID") as? String {
+                    storeID = id
+                }
+            }
+        }
+        
+        APIProcessor.shared.fetchMenuCategories(restaurantID: storeID, completionHandler: {[unowned self] (menuCategoryArray, error) in
+            if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
+                let menu = MenuCategory(menuDictionary: menuItem)
+                self.showRestaurantDetailView(categoryArray: menu.foodCategoryArray, store: restaurantObj)
+            } else {
+                print(String(describing: error))
+            }
+            progressHud.hide(animated: true)
+        })
+    }
+    
+    
     fileprivate func initiateTabBar() {
         if (tabBarViewController == nil){
             guard let tabBarVC = TabMenuController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? TabMenuController else {
@@ -81,25 +114,10 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             }
         }
 
-//        tabBarViewController = tabBarVC
         tabBarViewController?.tabMenuDelegate = self
         navigationVC?.present(tabBarViewController!, animated: true, completion: nil)
     }
-    
-//    fileprivate func showRestaurantListView() {
-//
-//        guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? RestaurantsTableViewController
-//
-//            else {
-//            assertionFailure()
-//            return
-//        }
-//
-//        self.restaurantsTableViewController = restaurantsTableViewController
-//        self.restaurantsTableViewController?.delegate = self
-//        navigationVC?.pushViewController(restaurantsTableViewController, animated: true)
-//    }
-    
+
     fileprivate func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [RestaurantServices]?, _ error: NSError?) -> Void)) {
         var restaurantList = [RestaurantServices]()
         
@@ -193,70 +211,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     
     //MARK: RestaurantVC delegate methods
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
-    func userDidSelectAStore(restaurant: Any) {
-        
-    }
     
-    
-    @objc func userDidSelectAStore(restaurant: Notification) {
-        guard let restaurantObj = restaurant.object else {
-            return
-        }
-        
-        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
-        progressHud.label.text = "Loading"
-        var storeID = ""
-        
-        if let store = restaurantObj as? RestaurantServices {
-            if let id = store.restaurantID {
-                storeID = id
-            }
-        } else {
-            if let store = restaurantObj as? NSManagedObject {
-                if let id = store.value(forKeyPath: "restaurantID") as? String {
-                    storeID = id
-                }
-            }
-        }
-        
-        APIProcessor.shared.fetchMenuCategories(restaurantID: storeID, completionHandler: {[unowned self] (menuCategoryArray, error) in
-            if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
-                let menu = MenuCategory(menuDictionary: menuItem)
-                self.showRestaurantDetailView(categoryArray: menu.foodCategoryArray, store: restaurantObj)
-            } else {
-                print(String(describing: error))
-            }
-            progressHud.hide(animated: true)
-        })
-    }
-    
-//    @objc func userDidSelectAStore(restaurant: Any) {
-//        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
-//        progressHud.label.text = "Loading"
-//        var storeID = ""
-//
-//        if let store = restaurant as? RestaurantServices {
-//            if let id = store.restaurantID {
-//                storeID = id
-//            }
-//        } else {
-//            if let store = restaurant as? NSManagedObject {
-//                if let id = store.value(forKeyPath: "restaurantID") as? String {
-//                   storeID = id
-//                }
-//            }
-//        }
-//        APIProcessor.shared.fetchMenuCategories(restaurantID: storeID, completionHandler: {[unowned self] (menuCategoryArray, error) in
-//                if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
-//                    let menu = MenuCategory(menuDictionary: menuItem)
-//                    self.showRestaurantDetailView(categoryArray: menu.foodCategoryArray, store: restaurant)
-//                } else {
-//                    print(String(describing: error))
-//                }
-//                progressHud.hide(animated: true)
-//            })
-//        }
-    
+   
     func popCurrentViewController() {
         self.navigationVC?.popViewController(animated: true)
         //
