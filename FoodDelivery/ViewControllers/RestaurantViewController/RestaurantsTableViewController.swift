@@ -29,7 +29,7 @@ class RestaurantsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "DoorDash"
+        self.navigationItem.title = "DoorDash"
         self.navigationController?.navigationBar.tintColor = UIColor.red
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.red]
         createBarButtonItems()
