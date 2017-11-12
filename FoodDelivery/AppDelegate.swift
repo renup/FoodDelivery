@@ -18,12 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         UITabBar.appearance().tintColor = UIColor.red
 
-        if let tabVC = window?.rootViewController as? UITabBarController {
-            if let navVC = tabVC.childViewControllers[0] as? UINavigationController {
-                appCoordinator = AppCoordinator(navVC)
-                appCoordinator?.start()
-            }
-            
+        if let navVC = window?.rootViewController as? UINavigationController {
+            appCoordinator = AppCoordinator(navVC)
+            appCoordinator?.start()
         }
         return true
     }

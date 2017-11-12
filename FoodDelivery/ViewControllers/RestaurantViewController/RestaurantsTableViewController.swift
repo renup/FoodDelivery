@@ -18,19 +18,14 @@ protocol RestaurantTableViewControllerDelegate: class {
 class RestaurantsTableViewController: UITableViewController {
     fileprivate var restaurantArray: [Restaurant]?
     weak var delegate: RestaurantTableViewControllerDelegate?
-    var favoriteRestaurants: [NSManagedObject]?
-    
-    var storesArray: [RestaurantServices]? {
-        
+    var dataSource: [Any]? {
         didSet {
-            //reload the tableview with new cell content info
             tableView.reloadData()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.title = "DoorDash"
         self.navigationController?.navigationBar.tintColor = UIColor.red
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.red]
@@ -39,7 +34,7 @@ class RestaurantsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       favoriteRestaurants = CoreDataManager.shared.fetchAllFavoriteRestaurants()
+//       favoriteRestaurants = CoreDataManager.shared.fetchAllFavoriteRestaurants()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -66,10 +61,7 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let array = favoriteRestaurants {
-            return array.count
-        }
-        if let array = storesArray {
+        if let array = dataSource {
             return array.count
         }
         return 0
@@ -78,21 +70,20 @@ class RestaurantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let storeCell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as! RestaurantCell
         
-        if let restaurantArray = storesArray {
+        if let restaurantArray = dataSource as? [RestaurantServices] {
             storeCell.configureCell(restaurant: restaurantArray[indexPath.row])
         }
-        
-        if let restaurantArray = favoriteRestaurants {
-            storeCell.configureCellWith(favoriteRestaurant: restaurantArray[indexPath.row])
+        if let restaurantManagedObjectArray = dataSource as? [NSManagedObject] {
+            storeCell.configureCellWith(favoriteRestaurant: restaurantManagedObjectArray[indexPath.row])
         }
         
         return storeCell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let restaurantArray = storesArray {
-            delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
-        }
+//        if let restaurantArray = storesArray {
+//            delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
+//        }
     }
    
 }

@@ -14,6 +14,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
    
     fileprivate var navigationVC: UINavigationController?
     fileprivate var mapViewController: MapViewController?
+    fileprivate var tabBarViewController: TabMenuController?
     fileprivate var restaurantsTableViewController: RestaurantsTableViewController?
     
     init(_ navigationVC: UINavigationController) {
@@ -40,7 +41,24 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         navigationVC?.pushViewController(restaurantDetailVC, animated: true)
     }
     
+    fileprivate func initiateTabBar() {
+        guard let tabBarVC = TabMenuController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? TabMenuController else {
+            assertionFailure()
+            return
+        }
+        
+        if let navVC = tabBarVC.viewControllers?.first as? UINavigationController {
+            if let restaurantVC = navVC.viewControllers.first as? RestaurantsTableViewController {
+                restaurantsTableViewController = restaurantVC
+            }
+        }
+
+        tabBarViewController = tabBarVC
+        navigationVC?.present(tabBarVC, animated: true, completion: nil)
+    }
+    
     fileprivate func showRestaurantListView() {
+        
         guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? RestaurantsTableViewController
             
             else {
@@ -80,7 +98,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     //MARK: MapViewControllerDelegate methods
     func confirmUserChosenLocation(_ location: CLLocationCoordinate2D) {
         let hud = MBProgressHUD.showAdded(to: (mapViewController?.view)!, animated: true)
-        self.showRestaurantListView()
+        initiateTabBar()
 
         let lat = String(describing: location.latitude)
         let lon = String(describing: location.longitude)
@@ -88,7 +106,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         fetchRestaurantList(latitude: lat, longitude: lon) { [unowned self] (restaurantsList, error) in
             //Start activity indicator
             if error == nil {
-                self.restaurantsTableViewController?.storesArray = restaurantsList
+                self.restaurantsTableViewController?.dataSource = restaurantsList
             }
             hud.hide(animated: true)
         }

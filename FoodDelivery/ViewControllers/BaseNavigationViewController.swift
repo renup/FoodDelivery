@@ -21,23 +21,28 @@ class BaseNavigationViewController: UINavigationController {
     }
     
     func initiateViewControllerBasedOnID() {
-        let vc = MapViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main")
+        let vc = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main")
+        
+        guard let tableVC = vc as? RestaurantsTableViewController else {
+            return
+        }
+        
         if let restorationID = self.restorationIdentifier {
             switch (restorationID) {
             case "favoritesNavController" :
-                if let tableVC = vc as? RestaurantsTableViewController {
-                    self.present(tableVC, animated: true, completion: nil)
-                }
+                tableVC.dataSource = favoritesDataSource
                 break
             case "exploreNavController" :
-                if let viewController = vc as? MapViewController {
-                    self.present(viewController, animated: true, completion: nil)
-                }
+                tableVC.dataSource = exploreDataSource
             default:
-                if let viewController = vc as? MapViewController {
-                    self.present(viewController, animated: true, completion: nil)
-                }
+                tableVC.dataSource = exploreDataSource
             }
         }
+        
+        self.present(tableVC, animated: true, completion: nil)
+
     }
+    
+    
+    
 }

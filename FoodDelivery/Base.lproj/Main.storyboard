@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7b0-mv-gxJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tiP-my-pHt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -69,7 +69,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKN-a9-ufH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2282" y="-294"/>
+            <point key="canvasLocation" x="-1514" y="-294"/>
         </scene>
         <!--Tab Menu Controller-->
         <scene sceneID="lFk-Dg-WnW">
@@ -87,12 +87,12 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xqy-ng-Jy2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1107" y="-293"/>
+            <point key="canvasLocation" x="-768.79999999999995" y="-293.70314842578711"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="1jP-oI-JsP">
             <objects>
-                <navigationController restorationIdentifier="exploreNavController" storyboardIdentifier="ExploreNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="gwY-Cr-0LG" customClass="BaseNavigationViewController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="exploreNavController" storyboardIdentifier="ExploreNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="gwY-Cr-0LG" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item 1" image="tab-explore.png" id="tRy-PE-IFv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9fq-QY-Poz">
@@ -106,7 +106,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="757-0T-Oli" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-156.80000000000001" y="-626.08695652173913"/>
+            <point key="canvasLocation" x="181.59999999999999" y="-626.53673163418296"/>
         </scene>
         <!--Restaurant Detail View Controller-->
         <scene sceneID="sMX-EF-wNS">
@@ -182,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sk7-3z-FYO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2308" y="-546"/>
+            <point key="canvasLocation" x="2647.1999999999998" y="-546.47676161919048"/>
         </scene>
         <!--Restaurants Table View Controller-->
         <scene sceneID="T6w-co-Ma0">
@@ -275,12 +275,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="485-N7-xIt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1322" y="-545"/>
+            <point key="canvasLocation" x="1660" y="-545.57721139430294"/>
         </scene>
         <!--FavoritesTab-->
         <scene sceneID="ZV8-5b-56O">
             <objects>
-                <navigationController restorationIdentifier="favoritesNavController" automaticallyAdjustsScrollViewInsets="NO" id="oTO-yP-yek" userLabel="FavoritesTab" customClass="BaseNavigationViewController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="favoritesNavController" automaticallyAdjustsScrollViewInsets="NO" id="oTO-yP-yek" userLabel="FavoritesTab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favorites" image="tab-star.png" id="zW5-Xf-zRN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MyT-cI-jbx">
@@ -294,7 +294,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lMe-50-kvQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-158" y="80"/>
+            <point key="canvasLocation" x="180" y="79.610194902548727"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="21M-u4-v1V">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tiP-my-pHt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7O3-Hj-hcU">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7b0-mv-gxJ" kind="relationship" relationship="rootViewController" id="M7X-eR-XQp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GlI-IC-NNM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2283.1999999999998" y="-294.15292353823088"/>
         </scene>
     </scenes>
     <resources>
@@ -302,6 +320,6 @@
         <image name="tab-star.png" width="28" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BAq-vu-TDw"/>
+        <segue reference="WDQ-OL-90O"/>
     </inferredMetricsTieBreakers>
 </document>
