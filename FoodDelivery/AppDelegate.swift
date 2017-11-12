@@ -15,9 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
- 
-        if let tabVC = window?.rootViewController as? UITabBarController {
+       
+        UITabBar.appearance().tintColor = UIColor.red
 
+        if let tabVC = window?.rootViewController as? UITabBarController {
             if let navVC = tabVC.childViewControllers[0] as? UINavigationController {
                 appCoordinator = AppCoordinator(navVC)
                 appCoordinator?.start()

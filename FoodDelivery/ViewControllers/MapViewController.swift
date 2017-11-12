@@ -42,7 +42,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("delegate = \(String(describing: delegate))")
-        self.title = "Choose an Address"
+        self.navigationItem.title = "Choose an Address"
         setUpLocationManager()
         addTapGestureToTheMap()
     }
