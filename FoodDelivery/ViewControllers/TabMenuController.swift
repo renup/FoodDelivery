@@ -9,6 +9,25 @@
 import Foundation
 import UIKit
 
+protocol TabMenuControllerDelegate: class {
+    func userSelectedTab(_ tabTitle: String, _ navVC: UINavigationController)
+}
+
+
 class TabMenuController: UITabBarController {
+    weak var tabMenuDelegate: TabMenuControllerDelegate?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if let itemName = item.title {
+            if let viewController = self.selectedViewController as? UINavigationController {
+                    tabMenuDelegate?.userSelectedTab(itemName, viewController)
+            }
+        }
+    }
 }
