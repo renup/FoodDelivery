@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XuM-34-sAQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7b0-mv-gxJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dPt-0x-UK9">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="502"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                             </mapView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="Loading current address or Type an address here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tGX-q9-htw">
-                                <rect key="frame" x="0.0" y="510" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="559" width="375" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="oQf-QI-Jj0"/>
@@ -33,7 +33,7 @@
                                 <dataDetectorType key="dataDetectorTypes" address="YES"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-yq-rRp">
-                                <rect key="frame" x="0.0" y="568" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Msk-S2-Exq"/>
@@ -69,12 +69,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKN-a9-ufH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="810" y="-627"/>
+            <point key="canvasLocation" x="-2282" y="-294"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Menu Controller-->
         <scene sceneID="lFk-Dg-WnW">
             <objects>
-                <tabBarController id="XuM-34-sAQ" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabMenuController" id="XuM-34-sAQ" customClass="TabMenuController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CoH-5A-q9v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -101,7 +101,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="7b0-mv-gxJ" kind="relationship" relationship="rootViewController" id="pUR-3k-Ou7"/>
+                        <segue destination="HY2-eU-cQN" kind="relationship" relationship="rootViewController" id="BAq-vu-TDw"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="757-0T-Oli" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -182,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sk7-3z-FYO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2759.1999999999998" y="-132.68365817091455"/>
+            <point key="canvasLocation" x="2308" y="-546"/>
         </scene>
         <!--Restaurants Table View Controller-->
         <scene sceneID="T6w-co-Ma0">
@@ -275,12 +275,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="485-N7-xIt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2046" y="38"/>
+            <point key="canvasLocation" x="1322" y="-545"/>
         </scene>
-        <!--Favorites-->
+        <!--FavoritesTab-->
         <scene sceneID="ZV8-5b-56O">
             <objects>
-                <navigationController restorationIdentifier="favoritesNavController" automaticallyAdjustsScrollViewInsets="NO" id="oTO-yP-yek" customClass="BaseNavigationViewController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="favoritesNavController" automaticallyAdjustsScrollViewInsets="NO" id="oTO-yP-yek" userLabel="FavoritesTab" customClass="BaseNavigationViewController" customModule="FoodDelivery" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favorites" image="tab-star.png" id="zW5-Xf-zRN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MyT-cI-jbx">
@@ -294,11 +294,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lMe-50-kvQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="548" y="38"/>
+            <point key="canvasLocation" x="-158" y="80"/>
         </scene>
     </scenes>
     <resources>
         <image name="tab-explore.png" width="28" height="24"/>
         <image name="tab-star.png" width="28" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="BAq-vu-TDw"/>
+    </inferredMetricsTieBreakers>
 </document>
