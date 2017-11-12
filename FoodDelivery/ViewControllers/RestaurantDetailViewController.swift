@@ -40,6 +40,11 @@ class RestaurantDetailViewController: UIViewController {
         menuList.reloadData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.popViewController(animated: animated)
+    }
+    
     private func setUpViews() {
         //TODO: check for cached image here or download it
         if let store = restaurant as? RestaurantServices {

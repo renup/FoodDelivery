@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import CoreData
 
+extension Notification.Name {
+    public static let RestaurantTableViewControllerUserDidSelectRestaurant = Notification.Name("RestaurantTableViewControllerUserDidSelectRestaurant")
+}
+
 protocol RestaurantTableViewControllerDelegate: class {
     func userDidSelectAStore(restaurant: Any)
     func popCurrentViewController()
@@ -80,7 +84,8 @@ class RestaurantsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let restaurantArray = dataSource {
-            delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
+            NotificationCenter.default.post(name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: restaurantArray[indexPath.row])
+           // delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
         }
     }
    
