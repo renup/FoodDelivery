@@ -121,5 +121,4 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         return menuCell
     }
     
-    
 }

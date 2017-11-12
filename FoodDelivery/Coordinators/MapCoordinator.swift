@@ -207,12 +207,15 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             completionHandler(address)
         }
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
     
     //MARK: RestaurantVC delegate methods
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
     
-   
     func popCurrentViewController() {
         self.navigationVC?.popViewController(animated: true)
         //
