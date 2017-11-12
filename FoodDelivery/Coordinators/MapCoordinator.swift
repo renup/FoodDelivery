@@ -9,6 +9,7 @@
 import Foundation
 import MapKit
 import CoreLocation
+import CoreData
 
 class MapCoordinator: NSObject, MapViewControllerDelegate {
    
@@ -16,6 +17,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     fileprivate var mapViewController: MapViewController?
     fileprivate var tabBarViewController: TabMenuController?
     fileprivate var restaurantsTableViewController: RestaurantsTableViewController?
+    fileprivate var restaurantDetailViewController: RestaurantDetailViewController?
+    
     fileprivate var latString = ""
     fileprivate var lonString = ""
     
@@ -33,46 +36,60 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         mapViewController?.delegate = self
     }
     
-    fileprivate func showRestaurantDetailView(categoryArray: [String], store: RestaurantServices) {
-        guard let restaurantDetailVC = RestaurantDetailViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? RestaurantDetailViewController else {
-            assertionFailure()
-            return
+    fileprivate func showRestaurantDetailView(categoryArray: [String], store: Any) {
+        
+        if restaurantDetailViewController == nil{
+            guard let restaurantDetailVC = RestaurantDetailViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? RestaurantDetailViewController else {
+                assertionFailure()
+                return
+            }
+        restaurantDetailViewController = restaurantDetailVC
         }
-        restaurantDetailVC.restaurant = store
-        restaurantDetailVC.menuCategoryArray = categoryArray
-        navigationVC?.pushViewController(restaurantDetailVC, animated: true)
+
+        restaurantDetailViewController?.restaurant = store
+        restaurantDetailViewController?.menuCategoryArray = categoryArray
+        restaurantDetailViewController?.delegate = self
+       
+        if let navVC = tabBarViewController?.viewControllers?.first as? UINavigationController {
+           navVC.pushViewController(restaurantDetailViewController!, animated: true)
+        }
     }
     
     fileprivate func initiateTabBar() {
-        guard let tabBarVC = TabMenuController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? TabMenuController else {
-            assertionFailure()
-            return
+        if (tabBarViewController == nil){
+            guard let tabBarVC = TabMenuController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? TabMenuController else {
+                assertionFailure()
+                return
+            }
+            tabBarViewController = tabBarVC
         }
         
-        if let navVC = tabBarVC.viewControllers?.first as? UINavigationController {
+        
+        if let navVC = tabBarViewController?.viewControllers?.first as? UINavigationController {
             if let restaurantVC = navVC.viewControllers.first as? RestaurantsTableViewController {
                 restaurantsTableViewController = restaurantVC
+                restaurantsTableViewController?.delegate = self
             }
         }
 
-        tabBarViewController = tabBarVC
+//        tabBarViewController = tabBarVC
         tabBarViewController?.tabMenuDelegate = self
-        navigationVC?.present(tabBarVC, animated: true, completion: nil)
+        navigationVC?.present(tabBarViewController!, animated: true, completion: nil)
     }
     
-    fileprivate func showRestaurantListView() {
-        
-        guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? RestaurantsTableViewController
-            
-            else {
-            assertionFailure()
-            return
-        }
-          
-        self.restaurantsTableViewController = restaurantsTableViewController
-        self.restaurantsTableViewController?.delegate = self
-        navigationVC?.pushViewController(restaurantsTableViewController, animated: true)
-    }
+//    fileprivate func showRestaurantListView() {
+//
+//        guard let restaurantsTableViewController = RestaurantsTableViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? RestaurantsTableViewController
+//
+//            else {
+//            assertionFailure()
+//            return
+//        }
+//
+//        self.restaurantsTableViewController = restaurantsTableViewController
+//        self.restaurantsTableViewController?.delegate = self
+//        navigationVC?.pushViewController(restaurantsTableViewController, animated: true)
+//    }
     
     fileprivate func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [RestaurantServices]?, _ error: NSError?) -> Void)) {
         var restaurantList = [RestaurantServices]()
@@ -168,11 +185,23 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     //MARK: RestaurantVC delegate methods
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
     
-    func userDidSelectAStore(restaurant: RestaurantServices) {
-        if let id = restaurant.restaurantID {
-            let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
-           progressHud.label.text = "Loading"
-            APIProcessor.shared.fetchMenuCategories(restaurantID: id, completionHandler: {[unowned self] (menuCategoryArray, error) in
+    func userDidSelectAStore(restaurant: Any) {
+        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
+        progressHud.label.text = "Loading"
+        var storeID = ""
+        
+        if let store = restaurant as? RestaurantServices {
+            if let id = store.restaurantID {
+                storeID = id
+            }
+        } else {
+            if let store = restaurant as? NSManagedObject {
+                if let id = store.value(forKeyPath: "restaurantID") as? String {
+                   storeID = id
+                }
+            }
+        }
+        APIProcessor.shared.fetchMenuCategories(restaurantID: storeID, completionHandler: {[unowned self] (menuCategoryArray, error) in
                 if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
                     let menu = MenuCategory(menuDictionary: menuItem)
                     self.showRestaurantDetailView(categoryArray: menu.foodCategoryArray, store: restaurant)
@@ -182,7 +211,6 @@ extension MapCoordinator: RestaurantTableViewControllerDelegate {
                 progressHud.hide(animated: true)
             })
         }
-    }
     
     func popCurrentViewController() {
         self.navigationVC?.popViewController(animated: true)

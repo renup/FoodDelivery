@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class MenuCell: UITableViewCell {
     @IBOutlet weak var menuLabel: UILabel!
@@ -30,8 +31,8 @@ class RestaurantDetailViewController: UIViewController {
     
     var menuCategoryArray: [String]?
     
-    var store: RestaurantServices?
-    var restaurant: RestaurantServices? {
+    var store: Any?
+    var restaurant: Any? {
         set {
             store = newValue
         }
@@ -47,13 +48,40 @@ class RestaurantDetailViewController: UIViewController {
     
     private func setUpViews() {
         //TODO: check for cached image here or download it
-        if let urlStr = restaurant?.coverImageURL {
-            restaurantImageView.image = APIProcessor.shared.cachedImage(for: urlStr)
+        if let store = restaurant as? RestaurantServices {
+            if let urlStr = store.coverImageURL {
+                populateImageView(urlString: urlStr)
+            }
+            if let fee = store.deliveryFee, let time = store.deliveryTime {
+                let deliveryMessage = fee + " in " + time
+                foodDeliveryLabel.text = deliveryMessage
+            }
         }
-        if let fee = restaurant?.deliveryFee, let time = restaurant?.deliveryTime {
-            let deliveryMessage = fee + " in " + time
-            foodDeliveryLabel.text = deliveryMessage
+        if let store = restaurant as? NSManagedObject {
+            if let urlStr = store.value(forKeyPath: "coverImageURL") as? String {
+                populateImageView(urlString: urlStr)
+            }
+            if let fee = store.value(forKeyPath: "deliveryFee") as? String, let time = store.value(forKeyPath: "deliveryTime") as? String {
+                let deliveryMessage = fee + " in " + time
+                foodDeliveryLabel.text = deliveryMessage
+            }
         }
+    }
+    
+    private func populateImageView(urlString: String) {
+        if let cachedImage = APIProcessor.shared.cachedImage(for: urlString) {
+            restaurantImageView.image = cachedImage
+        } else {
+            downloadImage(urlString: urlString)
+        }
+    }
+    
+    private func downloadImage(urlString: String) {
+        let _ = APIProcessor.shared.fetchImageData(imageURLString: urlString, imageDownloadHandler: {[unowned self] (storeImage) in
+            if let restaurantImage = storeImage {
+                self.restaurantImageView.image = restaurantImage
+            }
+        })
     }
     
     private func setTheFavoriteButtonAppearance() {
@@ -68,7 +96,7 @@ class RestaurantDetailViewController: UIViewController {
             assertionFailure()
             return
         }
-        delegate?.userFavoritedTheRestaurant(store: restaurant!)
+//        delegate?.userFavoritedTheRestaurant(store: restaurant!)
         setTheFavoriteButtonAppearance()
     }
     

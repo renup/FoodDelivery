@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 
 protocol RestaurantTableViewControllerDelegate: class {
-    func userDidSelectAStore(restaurant: RestaurantServices)
+    func userDidSelectAStore(restaurant: Any)
     func popCurrentViewController()
 }
 
@@ -34,14 +34,9 @@ class RestaurantsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//       favoriteRestaurants = CoreDataManager.shared.fetchAllFavoriteRestaurants()
         if self.navigationController?.restorationIdentifier == "favoritesNavController" {
             dataSource = CoreDataManager.shared.fetchAllFavoriteRestaurants()
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     private func createBarButtonItems() {
@@ -84,9 +79,9 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let restaurantArray = storesArray {
-//            delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
-//        }
+        if let restaurantArray = dataSource {
+            delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
+        }
     }
    
 }
