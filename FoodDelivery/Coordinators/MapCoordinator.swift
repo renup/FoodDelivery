@@ -220,7 +220,7 @@ extension MapCoordinator: RestaurantTableViewControllerDelegate {
 
 extension MapCoordinator: RestaurantDetailViewControllerDelegate {
     
-    func userFavoritedTheRestaurant(store: RestaurantServices) {
+    func userFavoritedTheRestaurant(store: Any) {
         CoreDataManager.shared.saveFavoriteRestaurant(restaurant: store)
     }
 }

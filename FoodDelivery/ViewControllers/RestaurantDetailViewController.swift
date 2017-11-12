@@ -19,7 +19,7 @@ class MenuCell: UITableViewCell {
 }
 
 protocol RestaurantDetailViewControllerDelegate: class {
-    func userFavoritedTheRestaurant(store: RestaurantServices)
+    func userFavoritedTheRestaurant(store: Any)
 }
 
 class RestaurantDetailViewController: UIViewController {
@@ -96,7 +96,7 @@ class RestaurantDetailViewController: UIViewController {
             assertionFailure()
             return
         }
-//        delegate?.userFavoritedTheRestaurant(store: restaurant!)
+        delegate?.userFavoritedTheRestaurant(store: restaurant!)
         setTheFavoriteButtonAppearance()
     }
     
