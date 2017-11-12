@@ -32,7 +32,10 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     }
     
     private func observeNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.userDidSelectAStore(restaurant:)), name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: nil)
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(self.userDidSelectAStore(restaurant:)), name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(self.navigateToMapView), name: .RestaurantTableViewControllerUserTappedDismissButton, object: nil)
     }
     
     fileprivate func showMapView() {
@@ -62,41 +65,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
                 }
             }
         }
-        
     }
-    
-    @objc func userDidSelectAStore(restaurant: Notification) {
-        guard let restaurantObj = restaurant.object else {
-            return
-        }
-        
-        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
-        progressHud.label.text = "Loading"
-        var storeID = ""
-        
-        if let store = restaurantObj as? RestaurantServices {
-            if let id = store.restaurantID {
-                storeID = id
-            }
-        } else {
-            if let store = restaurantObj as? NSManagedObject {
-                if let id = store.value(forKeyPath: "restaurantID") as? String {
-                    storeID = id
-                }
-            }
-        }
-        
-        APIProcessor.shared.fetchMenuCategories(restaurantID: storeID, completionHandler: {[unowned self] (menuCategoryArray, error) in
-            if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
-                let menu = MenuCategory(menuDictionary: menuItem)
-                self.showRestaurantDetailView(categoryArray: menu.foodCategoryArray, store: restaurantObj)
-            } else {
-                print(String(describing: error))
-            }
-            progressHud.hide(animated: true)
-        })
-    }
-    
     
     fileprivate func initiateTabBar() {
         if (tabBarViewController == nil){
@@ -110,10 +79,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         if let navVC = tabBarViewController?.viewControllers?.first as? UINavigationController {
             if let restaurantVC = navVC.viewControllers.first as? RestaurantsTableViewController {
                 restaurantsTableViewController = restaurantVC
-                restaurantsTableViewController?.delegate = self
             }
         }
-
         tabBarViewController?.tabMenuDelegate = self
         navigationVC?.present(tabBarViewController!, animated: true, completion: nil)
     }
@@ -208,17 +175,48 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         }
     }
     
+    //MARK: Notification methods
+    @objc private func navigateToMapView() {
+        if let _ = tabBarViewController {
+            navigationVC?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc private func userDidSelectAStore(restaurant: Notification) {
+        guard let restaurantObj = restaurant.object else {
+            return
+        }
+        
+        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
+        progressHud.label.text = "Loading"
+        var storeID = ""
+        
+        if let store = restaurantObj as? RestaurantServices {
+            if let id = store.restaurantID {
+                storeID = id
+            }
+        } else {
+            if let store = restaurantObj as? NSManagedObject {
+                if let id = store.value(forKeyPath: "restaurantID") as? String {
+                    storeID = id
+                }
+            }
+        }
+        
+        APIProcessor.shared.fetchMenuCategories(restaurantID: storeID, completionHandler: {[unowned self] (menuCategoryArray, error) in
+            if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
+                let menu = MenuCategory(menuDictionary: menuItem)
+                self.showRestaurantDetailView(categoryArray: menu.foodCategoryArray, store: restaurantObj)
+            } else {
+                print(String(describing: error))
+            }
+            progressHud.hide(animated: true)
+        })
+    }
+    
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-}
-    
-    //MARK: RestaurantVC delegate methods
-extension MapCoordinator: RestaurantTableViewControllerDelegate {
-    
-    func popCurrentViewController() {
-        self.navigationVC?.popViewController(animated: true)
-        //
     }
 }
 
@@ -232,9 +230,7 @@ extension MapCoordinator: RestaurantDetailViewControllerDelegate {
 extension MapCoordinator: TabMenuControllerDelegate {
     func userSelectedTab(_ tabTitle: String) {
         if tabTitle == "Favorites" {
-            restaurantsTableViewController?.delegate = self
-//            initiateTabBar()
-//            restaurantsTableViewController?.dataSource = CoreDataManager.shared.fetchAllFavoriteRestaurants()
+
         } else {
             makeRestaurantListRequestPerCoordinates(lat: latString, lon: lonString)
         }

@@ -12,6 +12,8 @@ import CoreData
 
 extension Notification.Name {
     public static let RestaurantTableViewControllerUserDidSelectRestaurant = Notification.Name("RestaurantTableViewControllerUserDidSelectRestaurant")
+    
+    public static let RestaurantTableViewControllerUserTappedDismissButton = Notification.Name("RestaurantTableViewControllerUserTappedDismissButton")
 }
 
 protocol RestaurantTableViewControllerDelegate: class {
@@ -54,11 +56,11 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     @objc private func searchBarButtonClicked() {
-        
+        //implement search functionality
     }
     
     @objc private func addressBarButtonClicked() {
-        delegate?.popCurrentViewController()
+    NotificationCenter.default.post(name: .RestaurantTableViewControllerUserTappedDismissButton, object: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,7 +85,7 @@ class RestaurantsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let restaurantArray = dataSource {
-            NotificationCenter.default.post(name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: restaurantArray[indexPath.row])
+        NotificationCenter.default.post(name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: restaurantArray[indexPath.row])
         }
     }
    
