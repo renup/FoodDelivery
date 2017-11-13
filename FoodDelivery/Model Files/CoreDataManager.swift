@@ -16,12 +16,10 @@ class CoreDataManager: NSObject {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return nil
         }
-        
         return appDelegate.persistentContainer.viewContext
     }
     
     func fetchAllFavoriteRestaurants() -> [NSManagedObject]?{
-        
         var allFavoriteRestaurants: [NSManagedObject] = []
         
         let managedContext = getManagedObjectContext()
@@ -39,24 +37,23 @@ class CoreDataManager: NSObject {
     }
     
     
-    func checkIfRestaurantIsFavorited(restaurantIDToCheck : String) -> Bool!{
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return nil
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
+    func checkIfRestaurantIsFavorited(restaurantIDToCheck : String) -> Bool {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Restaurant")
         fetchRequest.predicate = NSPredicate(format: "restaurantID == \(restaurantIDToCheck)")
-
+        
         var retCount:Int = 0
         
-        do {
-            retCount = try managedContext.count(for: fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
+        let context = getManagedObjectContext()
         
+        if let managedContext = context {
+            do {
+                retCount = try managedContext.count(for: fetchRequest)
+            } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+            }
+        }
+ 
         if (retCount == 0){
             print("Found nothing for. \(restaurantIDToCheck)")
             return false
@@ -76,7 +73,10 @@ class CoreDataManager: NSObject {
             return
         }
         
-        let entity = NSEntityDescription.entity(forEntityName: "Restaurant", in: managedContext)!
+        guard let entity = NSEntityDescription.entity(forEntityName: "Restaurant", in: managedContext) else {
+            assertionFailure()
+            return
+        }
         
         let restaurantToSave = NSManagedObject(entity: entity, insertInto: managedContext)
         
