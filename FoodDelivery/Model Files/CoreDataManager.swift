@@ -12,23 +12,29 @@ import CoreData
 class CoreDataManager: NSObject {
     static let shared = CoreDataManager()
     
-    func fetchAllFavoriteRestaurants() -> [NSManagedObject]?{
-        
-        var allFavoriteRestaurants: [NSManagedObject] = []
-        
+    private func getManagedObjectContext() -> NSManagedObjectContext? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return nil
         }
         
-        let managedContext = appDelegate.persistentContainer.viewContext
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    func fetchAllFavoriteRestaurants() -> [NSManagedObject]?{
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Restaurant")
-        do {
-            allFavoriteRestaurants = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+        var allFavoriteRestaurants: [NSManagedObject] = []
+        
+        let managedContext = getManagedObjectContext()
+        
+        if let context = managedContext {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Restaurant")
+            do {
+                allFavoriteRestaurants = try context.fetch(fetchRequest)
+            } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+            }
         }
-        
+
         return allFavoriteRestaurants
     }
     
@@ -42,14 +48,6 @@ class CoreDataManager: NSObject {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Restaurant")
         fetchRequest.predicate = NSPredicate(format: "restaurantID == \(restaurantIDToCheck)")
-//
-//        let keypathExp = NSExpression(forKeyPath: "restaurantID")
-//        let expression = NSExpression(forFunction: "count:", arguments: [keypathExp])
-//
-//        let countDesc = NSExpressionDescription()
-//        countDesc.expression = expression
-//        countDesc.name = "count"
-//        countDesc.expressionResultType = .integer16AttributeType
 
         var retCount:Int = 0
         
@@ -69,16 +67,14 @@ class CoreDataManager: NSObject {
         }
     }
     
-    
     func saveFavoriteRestaurant (restaurant: Any) {
+
+        let context = getManagedObjectContext()
         
-        
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        guard let managedContext = context else {
+            assertionFailure()
             return
         }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
         
         let entity = NSEntityDescription.entity(forEntityName: "Restaurant", in: managedContext)!
         
@@ -86,49 +82,49 @@ class CoreDataManager: NSObject {
         
         if let store = restaurant as? RestaurantServices {
             if let storeDict = store.restaurantDictionary {
-                restaurantToSave.setValue(storeDict, forKey: "restaurantDictionary")
+                restaurantToSave.setValue(storeDict, forKey: Constants.restaurantDictionary)
             }
             if let storeName = store.restaurantName {
-                restaurantToSave.setValue(storeName, forKeyPath: "restaurantName")
+                restaurantToSave.setValue(storeName, forKeyPath: Constants.restaurantName)
             }
             if let imageURLStr = store.coverImageURL {
-                restaurantToSave.setValue(imageURLStr, forKeyPath: "coverImageURL")
+                restaurantToSave.setValue(imageURLStr, forKeyPath: Constants.coverImageURL)
             }
             if let storeId = store.restaurantID {
-                restaurantToSave.setValue(storeId, forKey: "restaurantID")
+                restaurantToSave.setValue(storeId, forKey: Constants.restaurantID)
             }
             if let deliveryTime = store.deliveryTime {
-                restaurantToSave.setValue(deliveryTime, forKey: "deliveryTime")
+                restaurantToSave.setValue(deliveryTime, forKey:  Constants.deliveryTime)
             }
             if let deliveryFee = store.deliveryFee {
-                restaurantToSave.setValue(deliveryFee, forKey: "deliveryFee")
+                restaurantToSave.setValue(deliveryFee, forKey: Constants.deliveryFee)
             }
             if let cuisineType = store.cuisineType {
-                restaurantToSave.setValue(cuisineType, forKey: "cuisineType")
+                restaurantToSave.setValue(cuisineType, forKey: Constants.cuisineType)
             }
         }
         
         if let store = restaurant as? NSManagedObject {
-            if let storeDict = store.value(forKeyPath: "restaurantDictionary") {
-                restaurantToSave.setValue(storeDict, forKey: "restaurantDictionary")
+            if let storeDict = store.value(forKeyPath: Constants.restaurantDictionary) {
+                restaurantToSave.setValue(storeDict, forKey: Constants.restaurantDictionary)
             }
-            if let storeName = store.value(forKeyPath: "restaurantName") {
-                restaurantToSave.setValue(storeName, forKeyPath: "restaurantName")
+            if let storeName = store.value(forKeyPath: Constants.restaurantName) {
+                restaurantToSave.setValue(storeName, forKeyPath: Constants.restaurantName)
             }
-            if let imageURLStr = store.value(forKeyPath: "coverImageURL") {
-                restaurantToSave.setValue(imageURLStr, forKeyPath: "coverImageURL")
+            if let imageURLStr = store.value(forKeyPath: Constants.coverImageURL) {
+                restaurantToSave.setValue(imageURLStr, forKeyPath: Constants.coverImageURL)
             }
-            if let storeId = store.value(forKeyPath: "restaurantID") {
-                restaurantToSave.setValue(storeId, forKey: "restaurantID")
+            if let storeId = store.value(forKeyPath: Constants.restaurantID) {
+                restaurantToSave.setValue(storeId, forKey: Constants.restaurantID)
             }
-            if let deliveryTime = store.value(forKeyPath: "deliveryTime") {
-                restaurantToSave.setValue(deliveryTime, forKey: "deliveryTime")
+            if let deliveryTime = store.value(forKeyPath: Constants.deliveryTime) {
+                restaurantToSave.setValue(deliveryTime, forKey: Constants.deliveryTime)
             }
-            if let deliveryFee = store.value(forKeyPath: "deliveryTime") {
-                restaurantToSave.setValue(deliveryFee, forKey: "deliveryFee")
+            if let deliveryFee = store.value(forKeyPath: Constants.deliveryFee) {
+                restaurantToSave.setValue(deliveryFee, forKey: Constants.deliveryFee)
             }
-            if let cuisineType = store.value(forKeyPath: "cuisineType") {
-                restaurantToSave.setValue(cuisineType, forKey: "cuisineType")
+            if let cuisineType = store.value(forKeyPath: Constants.cuisineType) {
+                restaurantToSave.setValue(cuisineType, forKey: Constants.cuisineType)
             }
         }
         

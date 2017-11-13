@@ -13,7 +13,6 @@ protocol TabMenuControllerDelegate: class {
     func userSelectedTab(_ tabTitle: String)
 }
 
-
 class TabMenuController: UITabBarController {
     weak var tabMenuDelegate: TabMenuControllerDelegate?
     
@@ -21,7 +20,6 @@ class TabMenuController: UITabBarController {
         super.viewWillAppear(animated)
         
     }
-    
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if let itemName = item.title {

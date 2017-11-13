@@ -57,10 +57,10 @@ class RestaurantDetailViewController: UIViewController {
             }
         }
         if let store = restaurant as? NSManagedObject {
-            if let urlStr = store.value(forKeyPath: "coverImageURL") as? String {
+            if let urlStr = store.value(forKeyPath: Constants.coverImageURL) as? String {
                 populateImageView(urlString: urlStr)
             }
-            if let fee = store.value(forKeyPath: "deliveryFee") as? String, let time = store.value(forKeyPath: "deliveryTime") as? String {
+            if let fee = store.value(forKeyPath: Constants.deliveryFee) as? String, let time = store.value(forKeyPath: Constants.deliveryTime) as? String {
                 let deliveryMessage = fee + " in " + time
                 foodDeliveryLabel.text = deliveryMessage
             }
@@ -97,10 +97,7 @@ class RestaurantDetailViewController: UIViewController {
         }
         delegate?.userFavoritedTheRestaurant(store: restaurant!)
         setTheFavoriteButtonAppearance()
-    }
-    
-   
-    
+    }  
 }
 
 extension RestaurantDetailViewController: UITableViewDataSource {

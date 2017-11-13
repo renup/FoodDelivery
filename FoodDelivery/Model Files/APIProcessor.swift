@@ -70,9 +70,6 @@ class APIProcessor: NSObject {
             switch(response.result) {
             case .success: do {
                 print(String(describing: response))
-//                print("Request: \(String(describing: response.request))")   // original url request
-//                print("Response: \(String(describing: response.response))") // http url response
-//                print("Result: \(response.result)")                         // response serialization result
                 
                 if let json = response.result.value as? NSArray {
                     print("Restaurant JSON: \(json)") // serialized json response
