@@ -33,7 +33,46 @@ class CoreDataManager: NSObject {
     }
     
     
+    func checkIfRestaurantIsFavorited(restaurantIDToCheck : String) -> Bool!{
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return nil
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Restaurant")
+        fetchRequest.predicate = NSPredicate(format: "restaurantID == \(restaurantIDToCheck)")
+//
+//        let keypathExp = NSExpression(forKeyPath: "restaurantID")
+//        let expression = NSExpression(forFunction: "count:", arguments: [keypathExp])
+//
+//        let countDesc = NSExpressionDescription()
+//        countDesc.expression = expression
+//        countDesc.name = "count"
+//        countDesc.expressionResultType = .integer16AttributeType
+
+        var retCount:Int = 0
+        
+        do {
+            retCount = try managedContext.count(for: fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        if (retCount == 0){
+            print("Found nothing for. \(restaurantIDToCheck)")
+            return false
+        }
+        else{
+            print("Found something for. \(restaurantIDToCheck)")
+            return true
+        }
+    }
+    
+    
     func saveFavoriteRestaurant (restaurant: Any) {
+        
+        
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return

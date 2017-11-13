@@ -219,16 +219,30 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         })
     }
     
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 }
 
 extension MapCoordinator: RestaurantDetailViewControllerDelegate {
-    
     func userFavoritedTheRestaurant(store: Any) {
-        CoreDataManager.shared.saveFavoriteRestaurant(restaurant: store)
+        var restaurantAlreadySaved : Bool = false
+        
+        if let restaurant = store as? RestaurantServices {
+            if let storeId = restaurant.restaurantID {
+                restaurantAlreadySaved = CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId)
+            }
+        }
+        
+        if let restaurant = store as? NSManagedObject {
+            if let storeId = restaurant.value(forKeyPath: "restaurantID") as? String {
+                restaurantAlreadySaved = CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId)
+            }
+        }
+
+        if (!restaurantAlreadySaved){
+            CoreDataManager.shared.saveFavoriteRestaurant(restaurant: store)
+        }
     }
 }
 
