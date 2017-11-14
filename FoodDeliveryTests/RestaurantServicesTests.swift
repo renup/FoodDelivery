@@ -11,6 +11,6 @@ import Quick
 
 @testable import FoodDelivery
 
-class FoodDeliveryTests: QuickSpec {
+class RestaurantServicesTests: QuickSpec {
 
 }
