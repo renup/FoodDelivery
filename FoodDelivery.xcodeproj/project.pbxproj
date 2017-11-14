@@ -41,6 +41,7 @@
 		D7C8B30F1FA8FF75002113CD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B30E1FA8FF75002113CD /* AppCoordinator.swift */; };
 		D7C8B3111FA935E9002113CD /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B3101FA935E9002113CD /* MapCoordinator.swift */; };
 		D7D301BC1FBA49AB0077288E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D301BB1FBA49AB0077288E /* Constants.swift */; };
+		D7D301BF1FBB810A0077288E /* RestaurantServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D301BD1FBB7DA30077288E /* RestaurantServicesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		D7C8B30E1FA8FF75002113CD /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D7C8B3101FA935E9002113CD /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		D7D301BB1FBA49AB0077288E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D7D301BD1FBB7DA30077288E /* RestaurantServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantServicesTests.swift; sourceTree = "<group>"; };
 		DFDB037BDB6773C1E9056EAD /* Pods-FoodDeliveryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryTests/Pods-FoodDeliveryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FC0A937B8137EC684989DA38 /* Pods-FoodDeliveryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryUITests/Pods-FoodDeliveryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -235,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				D7C8B2D01FA66847002113CD /* FoodDeliveryTests.swift */,
+				D7D301BD1FBB7DA30077288E /* RestaurantServicesTests.swift */,
 				D7C8B2D21FA66847002113CD /* Info.plist */,
 			);
 			path = FoodDeliveryTests;
@@ -495,9 +498,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-FoodDeliveryTests/Pods-FoodDeliveryTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -618,6 +626,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7D301BF1FBB810A0077288E /* RestaurantServicesTests.swift in Sources */,
 				D7C8B2D11FA66847002113CD /* FoodDeliveryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -697,6 +706,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -755,6 +765,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -778,9 +789,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7751F9B334B2112E7BA3AC0A /* Pods-FoodDelivery.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = F9SPFQ3WCK;
 				INFOPLIST_FILE = FoodDelivery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -797,9 +810,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 38DBCBA269553BD840559B94 /* Pods-FoodDelivery.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = F9SPFQ3WCK;
 				INFOPLIST_FILE = FoodDelivery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

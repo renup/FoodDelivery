@@ -11,7 +11,8 @@ target 'FoodDelivery' do
 
   target 'FoodDeliveryTests' do
     inherit! :search_paths
-    # Pods for testing
+    pod 'Quick'
+    pod 'Nimble'
   end
 
   target 'FoodDeliveryUITests' do
