@@ -104,6 +104,8 @@ class RestaurantDetailViewController: UIViewController {
             favoritesButton.setTitleColor(UIColor.white, for: .normal)
             favoritesButton.setTitle("Favorited", for: .normal)
         } else {
+            favoritesButton.layer.borderColor = UIColor.red.cgColor
+            favoritesButton.layer.borderWidth = 1.0
             favoritesButton.backgroundColor = UIColor.white
             favoritesButton.setTitleColor(UIColor.red, for: .normal)
             favoritesButton.setTitle("Add to Favorites", for: .normal)
