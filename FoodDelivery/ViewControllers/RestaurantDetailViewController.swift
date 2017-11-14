@@ -30,13 +30,14 @@ class RestaurantDetailViewController: UIViewController {
     weak var delegate: RestaurantDetailViewControllerDelegate?
     
     var menuCategoryArray: [String]?
-    
+    var restaurantFavorited = false
     var store: Any?
     var restaurant: Any?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpViews()
+        setTheFavoriteButtonAppearance()
         menuList.reloadData()
     }
     
@@ -46,8 +47,11 @@ class RestaurantDetailViewController: UIViewController {
     }
     
     private func setUpViews() {
-        //TODO: check for cached image here or download it
         if let store = restaurant as? RestaurantServices {
+            if let id = store.restaurantID {
+                restaurantFavorited(storeID: id)
+            }
+            
             if let urlStr = store.coverImageURL {
                 populateImageView(urlString: urlStr)
             }
@@ -57,6 +61,9 @@ class RestaurantDetailViewController: UIViewController {
             }
         }
         if let store = restaurant as? NSManagedObject {
+            if let id = store.value(forKeyPath: Constants.restaurantID) as? String {
+                restaurantFavorited(storeID: id)
+            }
             if let urlStr = store.value(forKeyPath: Constants.coverImageURL) as? String {
                 populateImageView(urlString: urlStr)
             }
@@ -64,6 +71,14 @@ class RestaurantDetailViewController: UIViewController {
                 let deliveryMessage = fee + " in " + time
                 foodDeliveryLabel.text = deliveryMessage
             }
+        }
+    }
+    
+    private func restaurantFavorited(storeID: String) {
+        if CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeID) {
+            restaurantFavorited = true
+        } else {
+            restaurantFavorited = false
         }
     }
     
@@ -84,9 +99,15 @@ class RestaurantDetailViewController: UIViewController {
     }
     
     private func setTheFavoriteButtonAppearance() {
-        favoritesButton.backgroundColor = UIColor.red
-        favoritesButton.setTitleColor(UIColor.white, for: .normal)
-        favoritesButton.setTitle("Favorited", for: .normal)
+        if restaurantFavorited {
+            favoritesButton.backgroundColor = UIColor.red
+            favoritesButton.setTitleColor(UIColor.white, for: .normal)
+            favoritesButton.setTitle("Favorited", for: .normal)
+        } else {
+            favoritesButton.backgroundColor = UIColor.white
+            favoritesButton.setTitleColor(UIColor.red, for: .normal)
+            favoritesButton.setTitle("Add to Favorites", for: .normal)
+        }
     }
     
     //MARK: IBActionMethods
@@ -96,6 +117,7 @@ class RestaurantDetailViewController: UIViewController {
             return
         }
         delegate?.userFavoritedTheRestaurant(store: restaurant!)
+        restaurantFavorited = true
         setTheFavoriteButtonAppearance()
     }  
 }
