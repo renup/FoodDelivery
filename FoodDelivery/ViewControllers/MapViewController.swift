@@ -49,13 +49,15 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         addTapGestureToTheMap()
     }
     
-    fileprivate func addTapGestureToTheMap() {
+    //MARK: Private methods
+    
+    private func addTapGestureToTheMap() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         tapGesture.delegate = self
         mapView.addGestureRecognizer(tapGesture)
     }
     
-    @objc fileprivate func handleTap(_ tapGesture: UITapGestureRecognizer) {
+    @objc private func handleTap(_ tapGesture: UITapGestureRecognizer) {
         let location = tapGesture.location(in: mapView)
         let newCoordinates = mapView.convert(location, toCoordinateFrom: mapView)
         let newLocation = CLLocation(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude)
@@ -63,7 +65,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         centerMap(coordinates: newCoordinates, spanX: mapView.region.span.latitudeDelta, spanY: mapView.region.span.longitudeDelta)
     }
     
-    fileprivate func populateAddressTextViewPerNewLocation(_ newLocation: CLLocation){
+    private func populateAddressTextViewPerNewLocation(_ newLocation: CLLocation){
         delegate?.getAddress(newLocation, completionHandler: { (address) in
             self.addressTextView.textColor = UIColor.black
             
@@ -75,9 +77,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         })
     }
     
-    //MARK: Private methods
-    
-    fileprivate func setUpLocationManager() {
+    private func setUpLocationManager() {
         //Ask for permission, when in foreground
         locationManager.requestWhenInUseAuthorization()
         
@@ -129,7 +129,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         centerMap(coordinates: newLocation.coordinate, spanX: nil, spanY: nil)
     }
     
-    //CLLocationManager delegate method
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error:: \(error)")
     }
