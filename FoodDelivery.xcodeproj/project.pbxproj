@@ -10,6 +10,10 @@
 		33C5EFF2DD9644DD04C0280D /* Pods_FoodDeliveryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C18EB7A36E0D4CA85693519 /* Pods_FoodDeliveryUITests.framework */; };
 		3B610F8492BC3C1F568693A7 /* Pods_FoodDelivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5675143C14741E46D5C510 /* Pods_FoodDelivery.framework */; };
 		B2C20D793C76398331FE004D /* Pods_FoodDeliveryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAD47B38F12433109A1CE8E /* Pods_FoodDeliveryTests.framework */; };
+		D700850A1FBDD5CC00C211C9 /* APIProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70085091FBDD5CC00C211C9 /* APIProcessorTests.swift */; };
+		D700850B1FBDD72D00C211C9 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D700850C1FBDD72D00C211C9 /* Quick.framework */; };
+		D700850D1FBDD73600C211C9 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D700850E1FBDD73600C211C9 /* Nimble.framework */; };
+		D700850F1FBDD73E00C211C9 /* Mockingjay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70085101FBDD73E00C211C9 /* Mockingjay.framework */; };
 		D7214C141FB183EC00E0BFB7 /* food_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D7214C131FB183EC00E0BFB7 /* food_icon.png */; };
 		D7214C1A1FB3928900E0BFB7 /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C191FB3928900E0BFB7 /* RestaurantCell.swift */; };
 		D7214C1C1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C1B1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift */; };
@@ -69,6 +73,10 @@
 		38DBCBA269553BD840559B94 /* Pods-FoodDelivery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDelivery.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDelivery/Pods-FoodDelivery.release.xcconfig"; sourceTree = "<group>"; };
 		7751F9B334B2112E7BA3AC0A /* Pods-FoodDelivery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDelivery.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDelivery/Pods-FoodDelivery.debug.xcconfig"; sourceTree = "<group>"; };
 		79EC24FDA1912D35BE66F169 /* Pods-FoodDeliveryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryUITests/Pods-FoodDeliveryUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D70085091FBDD5CC00C211C9 /* APIProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProcessorTests.swift; sourceTree = "<group>"; };
+		D700850C1FBDD72D00C211C9 /* Quick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Quick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D700850E1FBDD73600C211C9 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D70085101FBDD73E00C211C9 /* Mockingjay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingjay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7214C131FB183EC00E0BFB7 /* food_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = food_icon.png; sourceTree = "<group>"; };
 		D7214C191FB3928900E0BFB7 /* RestaurantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
 		D7214C1B1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +133,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D700850F1FBDD73E00C211C9 /* Mockingjay.framework in Frameworks */,
+				D700850D1FBDD73600C211C9 /* Nimble.framework in Frameworks */,
+				D700850B1FBDD72D00C211C9 /* Quick.framework in Frameworks */,
 				B2C20D793C76398331FE004D /* Pods_FoodDeliveryTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +167,9 @@
 		AE75CC699530A8E19CD1D3BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D70085101FBDD73E00C211C9 /* Mockingjay.framework */,
+				D700850E1FBDD73600C211C9 /* Nimble.framework */,
+				D700850C1FBDD72D00C211C9 /* Quick.framework */,
 				2D5675143C14741E46D5C510 /* Pods_FoodDelivery.framework */,
 				0CAD47B38F12433109A1CE8E /* Pods_FoodDeliveryTests.framework */,
 				1C18EB7A36E0D4CA85693519 /* Pods_FoodDeliveryUITests.framework */,
@@ -239,6 +253,7 @@
 				D7C8B2D01FA66847002113CD /* FoodDeliveryTests.swift */,
 				D7D301BD1FBB7DA30077288E /* RestaurantServicesTests.swift */,
 				D7C8B2D21FA66847002113CD /* Info.plist */,
+				D70085091FBDD5CC00C211C9 /* APIProcessorTests.swift */,
 			);
 			path = FoodDeliveryTests;
 			sourceTree = "<group>";
@@ -632,6 +647,7 @@
 			files = (
 				D7D301BF1FBB810A0077288E /* RestaurantServicesTests.swift in Sources */,
 				D7C8B2D11FA66847002113CD /* FoodDeliveryTests.swift in Sources */,
+				D700850A1FBDD5CC00C211C9 /* APIProcessorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
