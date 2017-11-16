@@ -48,6 +48,8 @@ class RestaurantDetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: animated)
     }
     
+    //MARK: Private methods
+    
     private func setUpViews() {
         if let store = restaurant as? RestaurantServices {
             if let id = store.restaurantID {
