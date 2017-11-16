@@ -6,6 +6,9 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//This class manages all the API Calls
+
+
 import Foundation
 import Alamofire
 import AlamofireImage
@@ -16,30 +19,9 @@ extension UInt64 {
     }
 }
 
-class ImageRequest {
-    var decodeOperation: Operation?
-    var request: DataRequest
-    
-    init(request: DataRequest) {
-        self.request = request
-    }
-    
-    func cancel() {
-        decodeOperation?.cancel()
-        request.cancel()
-    }
-}
-
 class APIProcessor: NSObject {
     let baseURLString: String = "https://api.doordash.com/"
     static let shared = APIProcessor()
-    
-    let decodeQueue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue(label: "com.GlacierScenics.imageDecoder", attributes: .concurrent)
-        queue.maxConcurrentOperationCount = 4
-        return queue
-    }()
     
     let imageCache = AutoPurgingImageCache(
         memoryCapacity: UInt64(100).megabytes(),

@@ -12,5 +12,11 @@ import Quick
 @testable import FoodDelivery
 
 class RestaurantServicesTests: QuickSpec {
+    
+    override func spec() {
+        describe("init") {
+            
+        }
+    }
 
 }
