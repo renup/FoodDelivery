@@ -14,7 +14,8 @@
 		D700850B1FBDD72D00C211C9 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D700850C1FBDD72D00C211C9 /* Quick.framework */; };
 		D700850D1FBDD73600C211C9 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D700850E1FBDD73600C211C9 /* Nimble.framework */; };
 		D700850F1FBDD73E00C211C9 /* Mockingjay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70085101FBDD73E00C211C9 /* Mockingjay.framework */; };
-		D70085131FBDD93000C211C9 /* jsonResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = D70085121FBDD93000C211C9 /* jsonResponse.txt */; };
+		D70085151FBDD9E900C211C9 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70085141FBDD9E900C211C9 /* XCTest+Extensions.swift */; };
+		D70085171FBDDAE900C211C9 /* jsonResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D70085161FBDDAE900C211C9 /* jsonResponse.json */; };
 		D7214C141FB183EC00E0BFB7 /* food_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D7214C131FB183EC00E0BFB7 /* food_icon.png */; };
 		D7214C1A1FB3928900E0BFB7 /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C191FB3928900E0BFB7 /* RestaurantCell.swift */; };
 		D7214C1C1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C1B1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift */; };
@@ -78,7 +79,8 @@
 		D700850C1FBDD72D00C211C9 /* Quick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Quick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D700850E1FBDD73600C211C9 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70085101FBDD73E00C211C9 /* Mockingjay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingjay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D70085121FBDD93000C211C9 /* jsonResponse.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jsonResponse.txt; sourceTree = "<group>"; };
+		D70085141FBDD9E900C211C9 /* XCTest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Extensions.swift"; sourceTree = "<group>"; };
+		D70085161FBDDAE900C211C9 /* jsonResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = jsonResponse.json; sourceTree = "<group>"; };
 		D7214C131FB183EC00E0BFB7 /* food_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = food_icon.png; sourceTree = "<group>"; };
 		D7214C191FB3928900E0BFB7 /* RestaurantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
 		D7214C1B1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
@@ -179,12 +181,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D70085111FBDD91000C211C9 /* JSON Files */ = {
+		D70085111FBDD91000C211C9 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
-				D70085121FBDD93000C211C9 /* jsonResponse.txt */,
+				D70085161FBDDAE900C211C9 /* jsonResponse.json */,
 			);
-			path = "JSON Files";
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 		D7214C181FB3926B00E0BFB7 /* RestaurantViewController */ = {
@@ -260,11 +262,12 @@
 		D7C8B2CF1FA66847002113CD /* FoodDeliveryTests */ = {
 			isa = PBXGroup;
 			children = (
-				D70085111FBDD91000C211C9 /* JSON Files */,
+				D70085111FBDD91000C211C9 /* Fixtures */,
 				D7C8B2D01FA66847002113CD /* FoodDeliveryTests.swift */,
 				D7D301BD1FBB7DA30077288E /* RestaurantServicesTests.swift */,
 				D7C8B2D21FA66847002113CD /* Info.plist */,
 				D70085091FBDD5CC00C211C9 /* APIProcessorTests.swift */,
+				D70085141FBDD9E900C211C9 /* XCTest+Extensions.swift */,
 			);
 			path = FoodDeliveryTests;
 			sourceTree = "<group>";
@@ -454,7 +457,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D70085131FBDD93000C211C9 /* jsonResponse.txt in Resources */,
+				D70085171FBDDAE900C211C9 /* jsonResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +660,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D70085151FBDD9E900C211C9 /* XCTest+Extensions.swift in Sources */,
 				D7D301BF1FBB810A0077288E /* RestaurantServicesTests.swift in Sources */,
 				D7C8B2D11FA66847002113CD /* FoodDeliveryTests.swift in Sources */,
 				D700850A1FBDD5CC00C211C9 /* APIProcessorTests.swift in Sources */,

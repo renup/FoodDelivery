@@ -45,6 +45,12 @@ class APIProcessor: NSObject {
         }
     }
     
+    /// Fetches list of Restaurants for the given location (coordinates)
+    ///
+    /// - Parameters:
+    ///   - coordinateX: Latitude String
+    ///   - coordinateY: Longitude String
+    ///   - completionHandler: Handler contains jsonResponse array and error
     func fetchRestaurantsList(coordinateX: String, coordinateY: String, completionHandler: @escaping((_ response: NSArray?, _ error: NSError?) -> Void)) {
         let finalURLString = baseURLString + "v1/store_search/?" + "lat=" + coordinateX + "&lng=" + coordinateY
         Alamofire.request(finalURLString, method: .get).validate().responseJSON { (response) in
