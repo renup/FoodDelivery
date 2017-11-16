@@ -15,7 +15,7 @@
 		D700850D1FBDD73600C211C9 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D700850E1FBDD73600C211C9 /* Nimble.framework */; };
 		D700850F1FBDD73E00C211C9 /* Mockingjay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70085101FBDD73E00C211C9 /* Mockingjay.framework */; };
 		D70085151FBDD9E900C211C9 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70085141FBDD9E900C211C9 /* XCTest+Extensions.swift */; };
-		D70085171FBDDAE900C211C9 /* jsonResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D70085161FBDDAE900C211C9 /* jsonResponse.json */; };
+		D70085191FBE36B800C211C9 /* restaurantListResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D70085181FBE36B800C211C9 /* restaurantListResponse.json */; };
 		D7214C141FB183EC00E0BFB7 /* food_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D7214C131FB183EC00E0BFB7 /* food_icon.png */; };
 		D7214C1A1FB3928900E0BFB7 /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C191FB3928900E0BFB7 /* RestaurantCell.swift */; };
 		D7214C1C1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7214C1B1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift */; };
@@ -30,7 +30,6 @@
 		D7C8B2C11FA66847002113CD /* FoodDelivery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2BF1FA66847002113CD /* FoodDelivery.xcdatamodeld */; };
 		D7C8B2C31FA66847002113CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7C8B2C21FA66847002113CD /* Assets.xcassets */; };
 		D7C8B2C61FA66847002113CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C8B2C41FA66847002113CD /* LaunchScreen.storyboard */; };
-		D7C8B2D11FA66847002113CD /* FoodDeliveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2D01FA66847002113CD /* FoodDeliveryTests.swift */; };
 		D7C8B2DC1FA66847002113CD /* FoodDeliveryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2DB1FA66847002113CD /* FoodDeliveryUITests.swift */; };
 		D7C8B2F31FA6724B002113CD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2F21FA6724B002113CD /* MapViewController.swift */; };
 		D7C8B2F51FA67280002113CD /* TabMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B2F41FA67280002113CD /* TabMenuController.swift */; };
@@ -47,7 +46,6 @@
 		D7C8B30F1FA8FF75002113CD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B30E1FA8FF75002113CD /* AppCoordinator.swift */; };
 		D7C8B3111FA935E9002113CD /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8B3101FA935E9002113CD /* MapCoordinator.swift */; };
 		D7D301BC1FBA49AB0077288E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D301BB1FBA49AB0077288E /* Constants.swift */; };
-		D7D301BF1FBB810A0077288E /* RestaurantServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D301BD1FBB7DA30077288E /* RestaurantServicesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +78,7 @@
 		D700850E1FBDD73600C211C9 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70085101FBDD73E00C211C9 /* Mockingjay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mockingjay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70085141FBDD9E900C211C9 /* XCTest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Extensions.swift"; sourceTree = "<group>"; };
-		D70085161FBDDAE900C211C9 /* jsonResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = jsonResponse.json; sourceTree = "<group>"; };
+		D70085181FBE36B800C211C9 /* restaurantListResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = restaurantListResponse.json; sourceTree = "<group>"; };
 		D7214C131FB183EC00E0BFB7 /* food_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = food_icon.png; sourceTree = "<group>"; };
 		D7214C191FB3928900E0BFB7 /* RestaurantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
 		D7214C1B1FB3B88C00E0BFB7 /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 		D7C8B2C51FA66847002113CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7C8B2C71FA66847002113CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7C8B2CC1FA66847002113CD /* FoodDeliveryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodDeliveryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7C8B2D01FA66847002113CD /* FoodDeliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDeliveryTests.swift; sourceTree = "<group>"; };
 		D7C8B2D21FA66847002113CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7C8B2D71FA66847002113CD /* FoodDeliveryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodDeliveryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C8B2DB1FA66847002113CD /* FoodDeliveryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDeliveryUITests.swift; sourceTree = "<group>"; };
@@ -119,7 +116,6 @@
 		D7C8B30E1FA8FF75002113CD /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D7C8B3101FA935E9002113CD /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		D7D301BB1FBA49AB0077288E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		D7D301BD1FBB7DA30077288E /* RestaurantServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantServicesTests.swift; sourceTree = "<group>"; };
 		DFDB037BDB6773C1E9056EAD /* Pods-FoodDeliveryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryTests/Pods-FoodDeliveryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FC0A937B8137EC684989DA38 /* Pods-FoodDeliveryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDeliveryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDeliveryUITests/Pods-FoodDeliveryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -184,7 +180,7 @@
 		D70085111FBDD91000C211C9 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
-				D70085161FBDDAE900C211C9 /* jsonResponse.json */,
+				D70085181FBE36B800C211C9 /* restaurantListResponse.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -263,8 +259,6 @@
 			isa = PBXGroup;
 			children = (
 				D70085111FBDD91000C211C9 /* Fixtures */,
-				D7C8B2D01FA66847002113CD /* FoodDeliveryTests.swift */,
-				D7D301BD1FBB7DA30077288E /* RestaurantServicesTests.swift */,
 				D7C8B2D21FA66847002113CD /* Info.plist */,
 				D70085091FBDD5CC00C211C9 /* APIProcessorTests.swift */,
 				D70085141FBDD9E900C211C9 /* XCTest+Extensions.swift */,
@@ -457,7 +451,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D70085171FBDDAE900C211C9 /* jsonResponse.json in Resources */,
+				D70085191FBE36B800C211C9 /* restaurantListResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,8 +655,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D70085151FBDD9E900C211C9 /* XCTest+Extensions.swift in Sources */,
-				D7D301BF1FBB810A0077288E /* RestaurantServicesTests.swift in Sources */,
-				D7C8B2D11FA66847002113CD /* FoodDeliveryTests.swift in Sources */,
 				D700850A1FBDD5CC00C211C9 /* APIProcessorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

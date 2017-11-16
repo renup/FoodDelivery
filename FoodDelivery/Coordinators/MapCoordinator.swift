@@ -92,7 +92,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         navigationVC?.present(tabBarViewController!, animated: true, completion: nil)
     }
 
-    fileprivate func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [RestaurantServices]?, _ error: NSError?) -> Void)) {
+    func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [RestaurantServices]?, _ error: NSError?) -> Void)) {
         var restaurantList = [RestaurantServices]()
         
         APIProcessor.shared.fetchRestaurantsList(coordinateX: latitude, coordinateY: longitude, completionHandler: ({jsonResponse, error in
@@ -189,27 +189,23 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         }
     }
     
-    @objc private func userDidSelectAStore(restaurant: Notification) {
-        guard let restaurantObj = restaurant.object else {
-            return
-        }
-        
-        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
-        progressHud.label.text = "Loading"
+    func getStoreId(store: Any) -> String {
         var storeID = ""
-        
-        if let store = restaurantObj as? RestaurantServices {
+        if let store = store as? RestaurantServices {
             if let id = store.restaurantID {
                 storeID = id
             }
         } else {
-            if let store = restaurantObj as? NSManagedObject {
+            if let store = store as? NSManagedObject {
                 if let id = store.value(forKeyPath: "restaurantID") as? String {
                     storeID = id
                 }
             }
         }
-        
+        return storeID
+    }
+    
+    fileprivate func fetchMenuCategories(_ storeID: String, _ restaurantObj: Any, _ progressHud: MBProgressHUD) {
         APIProcessor.shared.fetchMenuCategories(restaurantID: storeID, completionHandler: {[unowned self] (menuCategoryArray, error) in
             if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
                 let menu = MenuCategory(menuDictionary: menuItem)
@@ -219,6 +215,19 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             }
             progressHud.hide(animated: true)
         })
+    }
+    
+    @objc private func userDidSelectAStore(restaurant: Notification) {
+        guard let restaurantObj = restaurant.object else {
+            return
+        }
+        
+        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
+        progressHud.label.text = "Loading"
+        
+        let storeID = getStoreId(store: restaurantObj)
+
+        fetchMenuCategories(storeID, restaurantObj, progressHud)
     }
     
     deinit {
