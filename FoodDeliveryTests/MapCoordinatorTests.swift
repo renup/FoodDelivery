@@ -12,7 +12,7 @@ import Mockingjay
 
 @testable import FoodDelivery
 
-class APIProcessorTests: QuickSpec {
+class MapCoordinatorTests: QuickSpec {
     
     override func spec() {
         super.spec()

@@ -205,7 +205,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         return storeID
     }
     
-    fileprivate func fetchMenuCategories(_ storeID: String, _ restaurantObj: Any, _ progressHud: MBProgressHUD) {
+     func fetchMenuCategories(_ storeID: String, _ restaurantObj: Any, _ progressHud: MBProgressHUD) {
         APIProcessor.shared.fetchMenuCategories(restaurantID: storeID, completionHandler: {[unowned self] (menuCategoryArray, error) in
             if let menuItem = menuCategoryArray?.firstObject as? NSDictionary {
                 let menu = MenuCategory(menuDictionary: menuItem)
