@@ -129,11 +129,11 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         centerMap(coordinates: newLocation.coordinate, spanX: nil, spanY: nil)
     }
     
+    //CLLocationManager delegate method
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error:: \(error)")
     }
    
-   // https://stackoverflow.com/questions/34772163/how-to-detect-the-mapview-was-moved-in-swift-and-update-zoom
     private func mapViewRegionDidChangeFromUserInteraction() -> Bool {
         let view = self.mapView.subviews[0]
         //  Look through gesture recognizers to determine whether this region change is from user interaction
