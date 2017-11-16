@@ -250,11 +250,9 @@ extension MapCoordinator: RestaurantDetailViewControllerDelegate {
 
 extension MapCoordinator: TabMenuControllerDelegate {
     func userSelectedTab(_ tabTitle: String) {
-        if tabTitle == "Favorites" {
-
-        } else {
+        if tabTitle == "Explore" {
             makeRestaurantListRequestPerCoordinates(lat: latString, lon: lonString)
-        }
+        } 
     }
     
     
