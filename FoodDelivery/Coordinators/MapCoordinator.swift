@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//MapCoordinator class is the decision maker for all the actions taken in the screens(viewcontrollers) in the showing the Restaurant list/ favorite lists flow to the user
+
 import Foundation
 import MapKit
 import CoreLocation

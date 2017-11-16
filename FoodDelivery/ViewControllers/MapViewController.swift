@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//This viewController class manages taking in the user selection for loaction on the map view and passes that info to MapCoordinator for further actions
+
 import UIKit
 import MapKit
 import CoreLocation

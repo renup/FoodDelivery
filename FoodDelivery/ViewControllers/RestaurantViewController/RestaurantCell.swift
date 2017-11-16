@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//Restaurant cell manages the configuration of restaurant data to be displayed to the user
+
 import Foundation
 import UIKit
 import AlamofireImage

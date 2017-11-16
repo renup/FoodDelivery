@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//Helper class to parse Menu category api call response and get the menu category items in an array to consume in menu category table view in detailVC
+
 import Foundation
 
 struct MenuCategory {

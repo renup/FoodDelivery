@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//Helper class to parse the JSON response of API call to fetch restaurants list.
+
 import Foundation
 
 class RestaurantServices: NSObject {

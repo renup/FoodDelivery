@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//Helper class to manage/perform actions on local coredata database 
+
 import Foundation
 import CoreData
 

@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//This class displays the list of Restaurants fetched for specific location to the user. It reports back any user interaction (selection of any restaurant) to MapCoordinator for further action (showing details about that restaurant)
+
 import Foundation
 import UIKit
 import CoreData

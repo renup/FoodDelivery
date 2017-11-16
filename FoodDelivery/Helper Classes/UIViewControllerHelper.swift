@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//UIViewController convenience class to instantiate ViewController from storyboard
+
 import Foundation
 import UIKit
 

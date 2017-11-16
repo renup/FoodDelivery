@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//Constants file to mange global constants
+
 import Foundation
 
 class Constants: NSObject {

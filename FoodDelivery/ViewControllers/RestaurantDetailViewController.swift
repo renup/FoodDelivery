@@ -6,6 +6,8 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//This class displays details about selected Restaurant and reports back any action on it to MapCoordinator for further actions
+
 import Foundation
 import UIKit
 import CoreData

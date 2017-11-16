@@ -6,6 +6,7 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
+//AppCordinator coordinates actions between itself and its interactions with other coordinator classes
 
 import Foundation
 import UIKit
