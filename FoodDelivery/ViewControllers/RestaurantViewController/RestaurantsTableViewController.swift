@@ -25,6 +25,7 @@ protocol RestaurantTableViewControllerDelegate: class {
 class RestaurantsTableViewController: UITableViewController {
     fileprivate var restaurantArray: [Restaurant]?
     weak var delegate: RestaurantTableViewControllerDelegate?
+    
     var dataSource: [Any]? {
         didSet {
             tableView.reloadData()
@@ -65,6 +66,8 @@ class RestaurantsTableViewController: UITableViewController {
     NotificationCenter.default.post(name: .RestaurantTableViewControllerUserTappedDismissButton, object: nil)
     }
     
+    //MARK: TableView Data Source methods
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let array = dataSource {
             return array.count
@@ -84,6 +87,8 @@ class RestaurantsTableViewController: UITableViewController {
         
         return storeCell
     }
+    
+    //MARK: TableView Delegate methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let restaurantArray = dataSource {

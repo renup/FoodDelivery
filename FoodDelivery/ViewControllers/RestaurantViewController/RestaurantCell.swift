@@ -26,12 +26,12 @@ class RestaurantCell: UITableViewCell {
     var apiProcessor : APIProcessor { return .shared }
     
     func configureCellWith(favoriteRestaurant: NSManagedObject) {
-        restaurantNameLabel.text = favoriteRestaurant.value(forKeyPath: "restaurantName") as? String
-        deliveryFeeLabel.text = favoriteRestaurant.value(forKeyPath: "deliveryFee") as? String
-        deliveryTimeLabel.text = favoriteRestaurant.value(forKeyPath: "deliveryTime") as? String
-        cuisineTypeLabel.text = favoriteRestaurant.value(forKeyPath: "cuisineType") as? String
+        restaurantNameLabel.text = favoriteRestaurant.value(forKeyPath: Constants.restaurantName) as? String
+        deliveryFeeLabel.text = favoriteRestaurant.value(forKeyPath: Constants.deliveryFee) as? String
+        deliveryTimeLabel.text = favoriteRestaurant.value(forKeyPath: Constants.deliveryTime) as? String
+        cuisineTypeLabel.text = favoriteRestaurant.value(forKeyPath: Constants.cuisineType) as? String
         
-        if let imageURL = favoriteRestaurant.value(forKeyPath: "coverImageURL") as? String {
+        if let imageURL = favoriteRestaurant.value(forKeyPath: Constants.coverImageURL) as? String {
             loadImage(urlString: imageURL)
         }   
     }
@@ -52,11 +52,13 @@ class RestaurantCell: UITableViewCell {
         loadImage(urlString: urlStr)
     }
     
-    fileprivate func reset() {
+    //MARK: Private methods
+    
+    private func reset() {
         request?.cancel()
     }
     
-    fileprivate func loadImage(urlString: String) {
+    private func loadImage(urlString: String) {
         
         if let cachedImage = apiProcessor.cachedImage(for: urlString) {
             populateWithImage(image: cachedImage)
@@ -65,7 +67,7 @@ class RestaurantCell: UITableViewCell {
         }
     }
     
-    fileprivate func downloadImage(urlString: String) {
+    private func downloadImage(urlString: String) {
         request = APIProcessor.shared.fetchImageData(imageURLString: urlString, imageDownloadHandler: {[unowned self] (storeImage) in
             if let restaurantImage = storeImage {
                 self.populateWithImage(image: restaurantImage)
@@ -73,7 +75,7 @@ class RestaurantCell: UITableViewCell {
         })
     }
     
-    fileprivate func populateWithImage(image: UIImage) {
+    private func populateWithImage(image: UIImage) {
         coverImageView.image = image
     }
 }
