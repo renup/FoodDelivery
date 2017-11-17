@@ -191,8 +191,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             if let id = store.restaurantID {
                 storeID = id
             }
-        }
-        else {
+        } else {
             if let store = store as? NSManagedObject {
                 if let id = store.value(forKeyPath: "restaurantID") as? String {
                     storeID = id
@@ -250,17 +249,6 @@ extension MapCoordinator: RestaurantDetailViewControllerDelegate {
                 }
             }
         }
-        
-//        if ((restaurant as? NSManagedObject) != nil) {
-//            restaurantAlreadySaved = true
-////            if let storeId = restaurant.value(forKeyPath: "restaurantID") as? String {
-////                restaurantAlreadySaved = CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId)
-////            }
-//        }
-//
-        
-//    }
-
     }
 }
 
