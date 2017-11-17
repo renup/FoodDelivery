@@ -13,35 +13,25 @@ import Mockingjay
 @testable import FoodDelivery
 
 class MapCoordinatorTests: QuickSpec {
-    
+  
     override func spec() {
         super.spec()
         
         describe("MapCoordinator") {
-          
             let nav = UINavigationController()
             var mapCoordinator: MapCoordinator!
             var restaurant: RestaurantServices?
-            var urlStr = ""
-            var jsonFile = ""
             
             beforeEach {
-                restaurant = nil
                 mapCoordinator = MapCoordinator(nav)
             }
-            
-            describe("fetchRestaurantsList") {
+        
+        describe("fetchingDataCalls") {
                 var response: [RestaurantServices]?
-                urlStr = "https://api.doordash.com/v1/store_search/?lat=37.42274&lng=-122.139956"
-                jsonFile = "restaurantListResponse"
                 
-                beforeEach {
-                    response = nil
-                }
-                context("success"){
-                    
+                context("restaurantListfetch"){
                     beforeEach {
-                        let _ = self.stub(urlString: urlStr , jsonFileName: jsonFile)
+                        let _ = self.stub(urlString: "https://api.doordash.com/v1/store_search/?lat=37.42274&lng=-122.139956" , jsonFileName: "restaurantListResponse")
                         mapCoordinator.fetchRestaurantList(latitude: "37.42274", longitude: "-122.139956", fetchCompleteHandler: { (restaurantList, error) in
                             guard restaurantList != nil else {
                                 return
@@ -54,7 +44,6 @@ class MapCoordinatorTests: QuickSpec {
                             }
                         })
                     }
-                    
                     it("returns json response array") {
                         expect(response).toEventuallyNot(beNil(), timeout: 20)
                         expect(response?.count) == 10
@@ -64,37 +53,32 @@ class MapCoordinatorTests: QuickSpec {
                         expect(restaurant?.cuisineType) == "Pizza"
                     }
                 }
-            }
             
-            describe("fetchMenuCategories") {
-               urlStr = "https://api.doordash.com/v2/restaurant/45761/menu/"
-                jsonFile = "menuCategories"
+            context("menuCategoryFetch") {
                 var menuArray = [String]()
-                context("success") {
-                    beforeEach {
-                        let _ = self.stub(urlString: urlStr , jsonFileName: jsonFile)
-                        if let store = restaurant {
-                            mapCoordinator.fetchMenuCategories("45761", store, completionHandler: { (menu) in
-                                if let foodCategory = menu {
-                                    menuArray = foodCategory.foodCategoryArray
-                                }
-                            })
-                        }
-                       
-                        it("returns menu category items") {
-                            expect(menuArray).toEventuallyNot(beNil(), timeout: 20)
-                            expect(menuArray.count) == 8
-                            expect(menuArray.contains("Appetizers & Salads")) == true
-                            expect(menuArray.contains("Vegetarian Specialty Pizzas")) == true
-                        } //end of it statement for success context of fetchMenuCategories
-                        
+                
+                it("returns menu category items") {
+                    
+                    let _ = self.stub(urlString: "https://api.doordash.com/v2/restaurant/45761/menu/" , jsonFileName: "menuCategories")
+                    if let store = restaurant {
+                        mapCoordinator.fetchMenuCategories("45761", store, completionHandler: { (menu) in
+                            if let foodCategory = menu {
+                                menuArray = foodCategory.foodCategoryArray
+                                
+                                expect(menuArray).toEventuallyNot(beNil(), timeout: 20)
+                                expect(menuArray.count) == 8
+                                expect(menuArray.contains("Appetizers & Salads")) == true
+                                expect(menuArray.contains("Vegetarian Specialty Pizzas")) == true
+                            }
+                        })
                     }
-                }
-            }
-        }
-            
-            
-        } //end of MapCoordinator describe
-
-        
+                    
+                } //end of it statement for success context of fetchMenuCategories
+            } // end of menu category context
+   
+        } //end of describe for fetch data
+       
+    } //end of MapCoordinator describe
+    
+}
 }
