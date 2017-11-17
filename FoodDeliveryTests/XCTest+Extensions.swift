@@ -11,7 +11,7 @@ import XCTest
 
 extension XCTest {
     public func stub(urlString: String, jsonFileName: String) -> Mockingjay.Stub {
-        let path = Bundle(for:  APIProcessorTests.self).path(forResource: jsonFileName, ofType: "json")!
+        let path = Bundle(for:  MapCoordinatorTests.self).path(forResource: jsonFileName, ofType: "json")!
     let data = NSData(contentsOfFile: path)!
         return stub(uri(urlString), jsonData(data as Data))
     }
