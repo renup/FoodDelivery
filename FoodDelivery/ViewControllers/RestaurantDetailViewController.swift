@@ -21,7 +21,7 @@ class MenuCell: UITableViewCell {
 }
 
 protocol RestaurantDetailViewControllerDelegate: class {
-    func userFavoritedTheRestaurant(restaurant: Any)
+    func userFavoritedTheRestaurant(restaurant: RestaurantServices)
 }
 
 class RestaurantDetailViewController: UIViewController {
@@ -118,8 +118,7 @@ class RestaurantDetailViewController: UIViewController {
     
     //MARK: IBActionMethods
     @IBAction func favoritesButtonClicked(_ sender: Any) {
-        guard let store = restaurant else {
-            assertionFailure()
+        guard let store = restaurant as? RestaurantServices else {
             return
         }
         if !restaurantFavorited {

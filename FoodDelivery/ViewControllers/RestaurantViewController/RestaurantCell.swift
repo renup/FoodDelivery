@@ -25,6 +25,10 @@ class RestaurantCell: UITableViewCell {
     var restaurant: RestaurantServices?
     var apiProcessor : APIProcessor { return .shared }
     
+    
+    /// Configure the detailview cell with object of type NSManagedObject
+    ///
+    /// - Parameter favoriteRestaurant: Restaurant object of type NSManagedObject
     func configureCellWith(favoriteRestaurant: NSManagedObject) {
         restaurantNameLabel.text = favoriteRestaurant.value(forKeyPath: Constants.restaurantName) as? String
         deliveryFeeLabel.text = favoriteRestaurant.value(forKeyPath: Constants.deliveryFee) as? String
@@ -36,6 +40,9 @@ class RestaurantCell: UITableViewCell {
         }   
     }
     
+    /// Configure the cell based on RestaurantServics object
+    ///
+    /// - Parameter restaurant: RestaurantServices object
     func configureCell(restaurant: RestaurantServices) {
         self.restaurant = restaurant
         

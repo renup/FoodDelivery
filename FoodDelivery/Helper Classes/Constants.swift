@@ -6,7 +6,7 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
-//Constants file to mange global constants
+//Constants file to manage global constants
 
 import Foundation
 

@@ -72,21 +72,22 @@ class CoreDataManager: NSObject {
  
         if (retCount == 0){
             #if DEBUG
-                print("Found nothing for. \(restaurantIDToCheck)")
+                print("Found record for. \(restaurantIDToCheck)")
             #endif
             return false
         }
         else{
             #if DEBUG
-                print("Found something for. \(restaurantIDToCheck)")
+                print("Found record for. \(restaurantIDToCheck)")
             #endif
             return true
         }
     }
     
-    /// Save restaurant record to CoreData
+
+    /// Method is called to save favorite restaurant object in core data
     ///
-    /// - Parameter restaurant: restaurant object to be saved into core data
+    /// - Parameter store: Store is object of type RestaurantServices
     func saveFavoriteRestaurant (store: RestaurantServices) {
 
         let context = getManagedObjectContext()
