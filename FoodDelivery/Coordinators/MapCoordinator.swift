@@ -191,7 +191,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             if let id = store.restaurantID {
                 storeID = id
             }
-        } else {
+        }
+        else {
             if let store = store as? NSManagedObject {
                 if let id = store.value(forKeyPath: "restaurantID") as? String {
                     storeID = id
@@ -239,24 +240,27 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
 }
 
 extension MapCoordinator: RestaurantDetailViewControllerDelegate {
-    func userFavoritedTheRestaurant(store: Any) {
-        var restaurantAlreadySaved : Bool = false
-        
-        if let restaurant = store as? RestaurantServices {
-            if let storeId = restaurant.restaurantID {
-                restaurantAlreadySaved = CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId)
+    
+    func userFavoritedTheRestaurant(restaurant: Any) {
+        if let foodStore = restaurant as? RestaurantServices {
+            if let storeId = foodStore.restaurantID {
+                if !CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId) {
+                    
+                    CoreDataManager.shared.saveFavoriteRestaurant(store: foodStore)
+                }
             }
         }
         
-        if let restaurant = store as? NSManagedObject {
-            if let storeId = restaurant.value(forKeyPath: "restaurantID") as? String {
-                restaurantAlreadySaved = CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId)
-            }
-        }
+//        if ((restaurant as? NSManagedObject) != nil) {
+//            restaurantAlreadySaved = true
+////            if let storeId = restaurant.value(forKeyPath: "restaurantID") as? String {
+////                restaurantAlreadySaved = CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId)
+////            }
+//        }
+//
+        
+//    }
 
-        if (!restaurantAlreadySaved){
-            CoreDataManager.shared.saveFavoriteRestaurant(restaurant: store)
-        }
     }
 }
 
@@ -266,6 +270,7 @@ extension MapCoordinator: TabMenuControllerDelegate {
             makeRestaurantListRequestPerCoordinates(lat: latString, lon: lonString)
         } 
     }
-    
-    
 }
+    
+
+

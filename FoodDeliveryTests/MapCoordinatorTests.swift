@@ -44,7 +44,7 @@ class MapCoordinatorTests: QuickSpec {
                             }
                         })
                     }
-                    it("returns json response array") {
+                    it("returns json 5 response array") {
                         expect(response).toEventuallyNot(beNil(), timeout: 20)
                         expect(response?.count) == 10
                         expect(restaurant?.restaurantName) == "Pizza My Heart"
