@@ -26,7 +26,7 @@ class RestaurantCell: UITableViewCell {
     var apiProcessor : APIProcessor { return .shared }
     
     
-    /// Configure the detailview cell with object of type NSManagedObject
+    /// Configure the detailview cell with object of type NSManagedObject which holds restaurant details from CoreData
     ///
     /// - Parameter favoriteRestaurant: Restaurant object of type NSManagedObject
     func configureCellWith(favoriteRestaurant: NSManagedObject) {
@@ -40,7 +40,7 @@ class RestaurantCell: UITableViewCell {
         }   
     }
     
-    /// Configure the cell based on RestaurantServics object
+    /// Configure the detailview cell using a RestaurantServices object
     ///
     /// - Parameter restaurant: RestaurantServices object
     func configureCell(restaurant: RestaurantServices) {
@@ -51,6 +51,7 @@ class RestaurantCell: UITableViewCell {
         cuisineTypeLabel.text = restaurant.cuisineType
         restaurantNameLabel.text = restaurant.restaurantName
         
+        // Assigns a placeholder image for the cell
         guard let placeholderImage = UIImage(named: "food_icon.png"), let urlStr = restaurant.coverImageURL, let imgURL = URL(string: urlStr) else {
             return
         }
@@ -59,12 +60,14 @@ class RestaurantCell: UITableViewCell {
         loadImage(urlString: urlStr)
     }
     
-    //MARK: Private methods
-    
+
     private func reset() {
         request?.cancel()
     }
     
+    /// Loads the image from cache or server
+    ///
+    /// - Parameter urlString: URL for the image
     private func loadImage(urlString: String) {
         
         if let cachedImage = apiProcessor.cachedImage(for: urlString) {
@@ -74,6 +77,9 @@ class RestaurantCell: UITableViewCell {
         }
     }
     
+    /// Downloads the image from server
+    ///
+    /// - Parameter urlString: URL for image
     private func downloadImage(urlString: String) {
         request = APIProcessor.shared.fetchImageData(imageURLString: urlString, imageDownloadHandler: {[unowned self] (storeImage) in
             if let restaurantImage = storeImage {
@@ -82,6 +88,9 @@ class RestaurantCell: UITableViewCell {
         })
     }
     
+    /// Populates the coverImageview with the image provided
+    ///
+    /// - Parameter image: image Object of type UIImage
     private func populateWithImage(image: UIImage) {
         coverImageView.image = image
     }

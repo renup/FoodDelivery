@@ -43,7 +43,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("delegate = \(String(describing: delegate))")
         self.navigationItem.title = "Choose an Address"
         setUpLocationManager()
         addTapGestureToTheMap()
@@ -108,7 +107,11 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate {
         pin.coordinate = coordinates
         mapView.addAnnotation(pin)
     }
-        
+    
+    
+    /// Handles logic for when address is confirmed in Map
+    ///
+    /// - Parameter sender: Location details from the map click
     @IBAction func confirmAddressButtonClicked(_ sender: Any) {
         guard myLocation != nil else {
             return
@@ -130,7 +133,9 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error:: \(error)")
+        #if DEBUG
+            print("error:: \(error)")
+        #endif
     }
    
     private func mapViewRegionDidChangeFromUserInteraction() -> Bool {

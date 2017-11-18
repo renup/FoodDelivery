@@ -42,7 +42,9 @@ class APIProcessor: NSObject {
             switch(response.result) {
             case .success :
                 if let json = response.result.value as? NSArray {
-                    print("MenuCategory JSON: \(json)")
+                    #if DEBUG
+                        print("MenuCategory JSON: \(json)")
+                    #endif
                     completionHandler(json, nil)
                 }
             case .failure(let error) :
@@ -63,10 +65,14 @@ class APIProcessor: NSObject {
             
             switch(response.result) {
             case .success: do {
-                print(String(describing: response))
+                #if DEBUG
+                    print(String(describing: response))
+                #endif
                 
                 if let json = response.result.value as? NSArray {
-                    print("Restaurant JSON: \(json)") // serialized json response
+                    #if DEBUG
+                        print("Restaurant JSON: \(json)") // serialized json response
+                    #endif
                     completionHandler(json, nil)
                 }
             }

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
-//MapCoordinator class is the decision maker for all the actions taken in the screens(viewcontrollers) in the showing the Restaurant list/ favorite lists flow to the user
+//MapCoordinator class is the decision maker for all the actions taken in the screens(viewcontrollers) and in the showing of the Restaurant list/ favorite lists flow to the user
 
 import Foundation
 import MapKit
@@ -33,12 +33,14 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         showMapView()
     }
     
+    /// Method used to register itself as observer for the notifications for restaurant selected and dimiss button tapped
     private func observeNotifications() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(self.userDidSelectAStore(restaurant:)), name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(self.navigateToMapView), name: .RestaurantTableViewControllerUserTappedDismissButton, object: nil)
     }
+    
     
     fileprivate func showMapView() {
         mapViewController =
@@ -92,14 +94,22 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         navigationVC?.present(tabBarViewController!, animated: true, completion: nil)
     }
 
+    /// Fetches retaurant list for longitude and latitude selected by user
+    ///
+    /// - Parameters:
+    ///   - latitude: latitude of location selected by user
+    ///   - longitude: longitude of location selected by user
+    ///   - fetchCompleteHandler: handler for when response is received back from API
     func fetchRestaurantList(latitude: String, longitude: String, fetchCompleteHandler: @escaping ((_ list: [RestaurantServices]?, _ error: NSError?) -> Void)) {
         var restaurantList = [RestaurantServices]()
         
         APIProcessor.shared.fetchRestaurantsList(coordinateX: latitude, coordinateY: longitude, completionHandler: ({jsonResponse, error in
             if error != nil {
-                //for now print the error
-                //later add an alert view to show tht something went wrong
-                print("error while retrieving restaurant list: \(String(describing: error))")
+                //print the error
+                //later add an alert view to show that something went wrong
+                #if DEBUG
+                    print("error while retrieving restaurant list: \(String(describing: error))")
+                #endif
                 fetchCompleteHandler(nil, error)
             } else {
                 if let json = jsonResponse {
@@ -139,7 +149,9 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
 
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
             if error != nil {
-                print("error = \(String(describing: error))")
+                #if DEBUG
+                    print("error = \(String(describing: error))")
+                #endif
             } else {
                 guard let placemark = placemarks?.first else {
                     return
@@ -209,7 +221,9 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
                 completionHandler(menu)
             } else {
                 completionHandler(nil)
-                print("Error while fetching menu categories: \(String(describing: error))")
+                #if DEBUG
+                    print("Error while fetching menu categories: \(String(describing: error))")
+                #endif
             }
         })
     }
@@ -240,13 +254,11 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
 
 extension MapCoordinator: RestaurantDetailViewControllerDelegate {
     
-    func userFavoritedTheRestaurant(restaurant: Any) {
-        if let foodStore = restaurant as? RestaurantServices {
-            if let storeId = foodStore.restaurantID {
-                if !CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId) {
+    func userFavoritedTheRestaurant(restaurant: RestaurantServices) {
+        if let storeId = restaurant.restaurantID {
+            if !CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId) {
                     
-                    CoreDataManager.shared.saveFavoriteRestaurant(store: foodStore)
-                }
+                CoreDataManager.shared.saveFavoriteRestaurant(store: restaurant)
             }
         }
     }

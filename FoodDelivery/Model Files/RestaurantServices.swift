@@ -18,7 +18,6 @@ class RestaurantServices: NSObject {
     var deliveryFee: String?
     var deliveryTime: String?
     var coverImageURL: String?
-    //Question: if any of the values is null, what do we display?
     
     init(restaurantDictionary: NSDictionary) {
         super.init()

@@ -72,13 +72,13 @@ class CoreDataManager: NSObject {
  
         if (retCount == 0){
             #if DEBUG
-                print("Found record for. \(restaurantIDToCheck)")
+                print("Found no records in CoreData for:\(restaurantIDToCheck)")
             #endif
             return false
         }
         else{
             #if DEBUG
-                print("Found record for. \(restaurantIDToCheck)")
+                print("Found records in CoreData for:\(restaurantIDToCheck)")
             #endif
             return true
         }

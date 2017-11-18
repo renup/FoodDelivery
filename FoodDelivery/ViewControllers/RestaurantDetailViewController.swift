@@ -32,14 +32,13 @@ class RestaurantDetailViewController: UIViewController {
     weak var delegate: RestaurantDetailViewControllerDelegate?
     
     var menuCategoryArray: [String]?
-    var restaurantFavorited = false
+    var isRestaurantFavorited = false
     var store: Any?
     var restaurant: Any?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpViews()
-        setTheFavoriteButtonAppearance()
         menuList.reloadData()
     }
     
@@ -51,9 +50,10 @@ class RestaurantDetailViewController: UIViewController {
     //MARK: Private methods
     
     private func setUpViews() {
+
         if let store = restaurant as? RestaurantServices {
             if let id = store.restaurantID {
-                restaurantFavorited(storeID: id)
+                setRestaurantFavorited(storeID: id)
             }
             
             if let urlStr = store.coverImageURL {
@@ -64,9 +64,10 @@ class RestaurantDetailViewController: UIViewController {
                 foodDeliveryLabel.text = deliveryMessage
             }
         }
+        
         if let store = restaurant as? NSManagedObject {
             if let id = store.value(forKeyPath: Constants.restaurantID) as? String {
-                restaurantFavorited(storeID: id)
+                setRestaurantFavorited(storeID: id)
             }
             if let urlStr = store.value(forKeyPath: Constants.coverImageURL) as? String {
                 populateImageView(urlString: urlStr)
@@ -76,13 +77,19 @@ class RestaurantDetailViewController: UIViewController {
                 foodDeliveryLabel.text = deliveryMessage
             }
         }
+        
+        setTheFavoriteButtonAppearance()
     }
     
-    private func restaurantFavorited(storeID: String) {
+
+    /// Sets the bool value for the variable: isRestaurantfavorited
+    ///
+    /// - Parameter storeID: restaurantID to check
+    private func setRestaurantFavorited(storeID: String) {
         if CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeID) {
-            restaurantFavorited = true
+            isRestaurantFavorited = true
         } else {
-            restaurantFavorited = false
+            isRestaurantFavorited = false
         }
     }
     
@@ -102,12 +109,16 @@ class RestaurantDetailViewController: UIViewController {
         })
     }
     
+    /// Sets the appearance for the favorites button based on whether it was
+    /// previously favorited or not
     private func setTheFavoriteButtonAppearance() {
-        if restaurantFavorited {
+        if isRestaurantFavorited {
+            // Assign colors, borders, title
             favoritesButton.backgroundColor = UIColor.red
             favoritesButton.setTitleColor(UIColor.white, for: .normal)
             favoritesButton.setTitle("Favorited", for: .normal)
         } else {
+            // Assign colors, borders, text 
             favoritesButton.layer.borderColor = UIColor.red.cgColor
             favoritesButton.layer.borderWidth = 1.0
             favoritesButton.backgroundColor = UIColor.white
@@ -121,9 +132,9 @@ class RestaurantDetailViewController: UIViewController {
         guard let store = restaurant as? RestaurantServices else {
             return
         }
-        if !restaurantFavorited {
+        if !isRestaurantFavorited {
             delegate?.userFavoritedTheRestaurant(restaurant: store)
-            restaurantFavorited = true
+            isRestaurantFavorited = true
         }
         setTheFavoriteButtonAppearance()
     }  

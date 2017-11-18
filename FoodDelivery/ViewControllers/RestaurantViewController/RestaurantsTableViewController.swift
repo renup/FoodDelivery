@@ -43,10 +43,13 @@ class RestaurantsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if self.navigationController?.restorationIdentifier == "favoritesNavController" {
+            
+            // fetches all the favorite restaurants from core data
             dataSource = CoreDataManager.shared.fetchAllFavoriteRestaurants()
         }
     }
     
+    /// Method creates the tab-bar buttons
     private func createBarButtonItems() {
         let searchImage : UIImage? = UIImage.init(named: "nav-search.png")!.withRenderingMode(.alwaysOriginal)
 
@@ -78,21 +81,28 @@ class RestaurantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let storeCell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell") as! RestaurantCell
         
+        // Handles configuration of cell for RetaurantServicesObject
+        // This is for the case where the restaurants are obtained from the server API call
         if let restaurantArray = dataSource as? [RestaurantServices] {
             storeCell.configureCell(restaurant: restaurantArray[indexPath.row])
         }
-        if let restaurantManagedObjectArray = dataSource as? [NSManagedObject] {
+        else{
+            // Handles configuration of cell for CoreData-NSManagedObject
+            // This is for the case where the favorite restaurants are obtained from CoreData
+            if let restaurantManagedObjectArray = dataSource as? [NSManagedObject] {
             storeCell.configureCellWith(favoriteRestaurant: restaurantManagedObjectArray[indexPath.row])
+            }
         }
         
         return storeCell
     }
     
-    //MARK: TableView Delegate methods
     
+    //MARK: TableView Delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let restaurantArray = dataSource {
-            NotificationCenter.default.post(name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: restaurantArray[indexPath.row])
+            // posts a notification with the row number whenever user clicks on a particular restaurant cell
+        NotificationCenter.default.post(name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: restaurantArray[indexPath.row])
         }
     }
    
