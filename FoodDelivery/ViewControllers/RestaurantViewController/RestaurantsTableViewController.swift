@@ -12,12 +12,6 @@ import Foundation
 import UIKit
 import CoreData
 
-//extension Notification.Name {
-//    public static let RestaurantTableViewControllerUserDidSelectRestaurant = Notification.Name("RestaurantTableViewControllerUserDidSelectRestaurant")
-//
-//    public static let RestaurantTableViewControllerUserTappedDismissButton = Notification.Name("RestaurantTableViewControllerUserTappedDismissButton")
-//}
-
 protocol RestaurantTableViewControllerDelegate: class {
     func popCurrentViewController()
     func userDidSelectAStore(restaurant: Any) 
@@ -59,7 +53,6 @@ class RestaurantsTableViewController: UITableViewController {
     
     @objc private func addressBarButtonClicked() {
        delegate?.popCurrentViewController()
-//        NotificationCenter.default.post(name: .RestaurantTableViewControllerUserTappedDismissButton, object: nil)
     }
     
     //MARK: TableView Data Source methods
@@ -94,7 +87,6 @@ class RestaurantsTableViewController: UITableViewController {
     //MARK: TableView Delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let restaurantArray = dataSource {
-            // posts a notification with the row number whenever user clicks on a particular restaurant cell
        delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
         }
     }

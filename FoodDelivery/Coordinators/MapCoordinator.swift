@@ -29,18 +29,8 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
     }
     
     func start() {
-//        observeNotifications()
         showMapView()
     }
-    
-    /// Method used to register itself as observer for the notifications for restaurant selected and dimiss button tapped
-//    private func observeNotifications() {
-//        let notificationCenter = NotificationCenter.default
-//        notificationCenter.addObserver(self, selector: #selector(self.userDidSelectAStore(restaurant:)), name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: nil)
-//
-//        notificationCenter.addObserver(self, selector: #selector(self.navigateToMapView), name: .RestaurantTableViewControllerUserTappedDismissButton, object: nil)
-//    }
-    
     
     fileprivate func showMapView() {
         mapViewController =
@@ -62,6 +52,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         restaurantDetailViewController?.menuCategoryArray = categoryArray
         restaurantDetailViewController?.delegate = self
         
+        //Grab the NavigationVC of the tab selected, and push the restaurantVC on the right nav stack
         if let itemSelected = tabBarViewController?.selectedIndex {
             if let viewControllerArray = tabBarViewController?.viewControllers {
                 if let navVC = viewControllerArray[itemSelected] as? UINavigationController {
@@ -81,13 +72,10 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         }
         
         if let navVC = tabBarViewController?.viewControllers?.first as? UINavigationController {
+            tabBarViewController?.selectedViewController = navVC
             if let restaurantVC = navVC.viewControllers.first as? RestaurantsTableViewController {
                 restaurantsTableViewController = restaurantVC
             }
-        }
-        
-        if let firstTabVC = tabBarViewController?.viewControllers?.first {
-            tabBarViewController?.selectedViewController = firstTabVC
         }
         
         tabBarViewController?.tabMenuDelegate = self
@@ -160,27 +148,21 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
                 if let subStreet = placemark.subThoroughfare {
                     address = address + subStreet + " "
                 }
-                
                 if let streetName = placemark.thoroughfare {
                     address = address + streetName + ", "
                 }
-                
                 if let city = placemark.locality {
                     address = address + city + ", "
                 }
-                
                 if let state = placemark.administrativeArea {
                     address = address + state + ", "
                 }
-                
                 if let county = placemark.subAdministrativeArea {
                     address = address + county + ", "
                 }
-                
                 if let zip = placemark.postalCode {
                     address = address + zip + ", "
                 }
-                
                 if let country = placemark.country {
                     address = address + country + ", "
                 }
@@ -188,14 +170,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             completionHandler(address)
         }
     }
-    
-//    //MARK: Notification methods
-//    @objc private func navigateToMapView() {
-//        if let _ = tabBarViewController {
-//            navigationVC?.dismiss(animated: true, completion: nil)
-//        }
-//    }
-    
+
     fileprivate func getStoreId(store: Any) -> String {
         var storeID = ""
         if let store = store as? RestaurantServices {
@@ -231,28 +206,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
             }
         })
     }
-    
-//    @objc func userDidSelectAStore(restaurant: Notification) {
-//        guard let restaurantObj = restaurant.object else {
-//            return
-//        }
-//
-//        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
-//        progressHud.label.text = "Loading"
-//
-//        let storeID = getStoreId(store: restaurantObj)
-//
-//        fetchMenuCategories(storeID, restaurantObj) {[unowned self] (menu) in
-//            if let foodCategoryObj = menu {
-//                self.showRestaurantDetailView(categoryArray: foodCategoryObj.foodCategoryArray, store: restaurantObj)
-//            }
-//            progressHud.hide(animated: true)
-//        }
-//    }
-//
-//    deinit {
-//        NotificationCenter.default.removeObserver(self)
-//    }
+ 
 }
 
 extension MapCoordinator: RestaurantDetailViewControllerDelegate {

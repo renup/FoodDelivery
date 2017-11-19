@@ -157,7 +157,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-
     }
 }
 
