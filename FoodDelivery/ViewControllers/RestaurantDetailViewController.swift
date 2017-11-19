@@ -113,12 +113,18 @@ class RestaurantDetailViewController: UIViewController {
     /// previously favorited or not
     private func setTheFavoriteButtonAppearance() {
         if isRestaurantFavorited {
+            // disable button clicks since restaurant is already favorited
+            favoritesButton.isUserInteractionEnabled = false
+
             // Assign colors, borders, title
             favoritesButton.backgroundColor = UIColor.red
             favoritesButton.setTitleColor(UIColor.white, for: .normal)
             favoritesButton.setTitle("Favorited", for: .normal)
         } else {
-            // Assign colors, borders, text 
+            // enable button clicks since restaurant is not favorited
+            favoritesButton.isUserInteractionEnabled = true
+            
+            // Assign colors, borders, text
             favoritesButton.layer.borderColor = UIColor.red.cgColor
             favoritesButton.layer.borderWidth = 1.0
             favoritesButton.backgroundColor = UIColor.white

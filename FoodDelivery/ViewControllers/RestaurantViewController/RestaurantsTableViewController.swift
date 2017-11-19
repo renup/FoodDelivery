@@ -45,7 +45,11 @@ class RestaurantsTableViewController: UITableViewController {
         if self.navigationController?.restorationIdentifier == "favoritesNavController" {
             
             // fetches all the favorite restaurants from core data
-            dataSource = CoreDataManager.shared.fetchAllFavoriteRestaurants()
+            CoreDataManager.shared.fetchAllFavoriteRestaurants(completionHandler: {[unowned self] (favoriteRestaurants) in
+                if favoriteRestaurants != nil {
+                    self.dataSource = favoriteRestaurants
+                }
+            })
         }
     }
     

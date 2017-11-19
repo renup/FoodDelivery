@@ -27,15 +27,20 @@ class CoreDataManager: NSObject {
     /// Fetches all Favorites restaurants from CoreData storage
     ///
     /// - Returns: returns an Array of NSManagedObjects from CoreData. It has all the restaurant objects
-    func fetchAllFavoriteRestaurants() -> [NSManagedObject]?{
-        var allFavoriteRestaurants: [NSManagedObject] = []
+    func fetchAllFavoriteRestaurants(completionHandler: @escaping (_ favoriteRestaurants: [NSManagedObject]?) -> Void) {
         
         let managedContext = getManagedObjectContext()
         
         if let context = managedContext {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Restaurant")
+            let asyncFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest, completionBlock: { (asyncFetchResponse) in
+                if let result = asyncFetchResponse.finalResult {
+                    completionHandler(result)
+                }
+                completionHandler(nil)
+            })
             do {
-                allFavoriteRestaurants = try context.fetch(fetchRequest)
+                let _ = try context.execute(asyncFetchRequest)
             } catch let error as NSError {
                 #if DEBUG
                     print("Could not fetch. \(error), \(error.userInfo)")
@@ -43,7 +48,6 @@ class CoreDataManager: NSObject {
             }
         }
 
-        return allFavoriteRestaurants
     }
     
     
