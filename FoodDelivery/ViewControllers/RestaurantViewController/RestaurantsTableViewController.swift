@@ -12,14 +12,15 @@ import Foundation
 import UIKit
 import CoreData
 
-extension Notification.Name {
-    public static let RestaurantTableViewControllerUserDidSelectRestaurant = Notification.Name("RestaurantTableViewControllerUserDidSelectRestaurant")
-    
-    public static let RestaurantTableViewControllerUserTappedDismissButton = Notification.Name("RestaurantTableViewControllerUserTappedDismissButton")
-}
+//extension Notification.Name {
+//    public static let RestaurantTableViewControllerUserDidSelectRestaurant = Notification.Name("RestaurantTableViewControllerUserDidSelectRestaurant")
+//
+//    public static let RestaurantTableViewControllerUserTappedDismissButton = Notification.Name("RestaurantTableViewControllerUserTappedDismissButton")
+//}
 
 protocol RestaurantTableViewControllerDelegate: class {
     func popCurrentViewController()
+    func userDidSelectAStore(restaurant: Any) 
 }
 
 class RestaurantsTableViewController: UITableViewController {
@@ -40,19 +41,6 @@ class RestaurantsTableViewController: UITableViewController {
         createBarButtonItems()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if self.navigationController?.restorationIdentifier == "favoritesNavController" {
-            
-            // fetches all the favorite restaurants from core data
-            CoreDataManager.shared.fetchAllFavoriteRestaurants(completionHandler: {[unowned self] (favoriteRestaurants) in
-                if favoriteRestaurants != nil {
-                    self.dataSource = favoriteRestaurants
-                }
-            })
-        }
-    }
-    
     /// Method creates the tab-bar buttons
     private func createBarButtonItems() {
         let searchImage : UIImage? = UIImage.init(named: "nav-search.png")!.withRenderingMode(.alwaysOriginal)
@@ -70,7 +58,8 @@ class RestaurantsTableViewController: UITableViewController {
     }
     
     @objc private func addressBarButtonClicked() {
-    NotificationCenter.default.post(name: .RestaurantTableViewControllerUserTappedDismissButton, object: nil)
+       delegate?.popCurrentViewController()
+//        NotificationCenter.default.post(name: .RestaurantTableViewControllerUserTappedDismissButton, object: nil)
     }
     
     //MARK: TableView Data Source methods
@@ -106,7 +95,7 @@ class RestaurantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let restaurantArray = dataSource {
             // posts a notification with the row number whenever user clicks on a particular restaurant cell
-        NotificationCenter.default.post(name: .RestaurantTableViewControllerUserDidSelectRestaurant, object: restaurantArray[indexPath.row])
+       delegate?.userDidSelectAStore(restaurant: restaurantArray[indexPath.row])
         }
     }
    

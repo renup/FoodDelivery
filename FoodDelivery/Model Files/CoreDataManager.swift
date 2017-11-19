@@ -34,10 +34,12 @@ class CoreDataManager: NSObject {
         if let context = managedContext {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Restaurant")
             let asyncFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest, completionBlock: { (asyncFetchResponse) in
-                if let result = asyncFetchResponse.finalResult {
-                    completionHandler(result)
+                DispatchQueue.main.async {
+                    if let result = asyncFetchResponse.finalResult {
+                        completionHandler(result)
+                    }
+                    completionHandler(nil)
                 }
-                completionHandler(nil)
             })
             do {
                 let _ = try context.execute(asyncFetchRequest)
