@@ -34,10 +34,11 @@ class RestaurantCell: UITableViewCell {
         deliveryFeeLabel.text = favoriteRestaurant.value(forKeyPath: Constants.deliveryFee) as? String
         deliveryTimeLabel.text = favoriteRestaurant.value(forKeyPath: Constants.deliveryTime) as? String
         cuisineTypeLabel.text = favoriteRestaurant.value(forKeyPath: Constants.cuisineType) as? String
-        
+
         if let imageURL = favoriteRestaurant.value(forKeyPath: Constants.coverImageURL) as? String {
+            setPlaceholderImage(urlString: imageURL)
             loadImage(urlString: imageURL)
-        }   
+        }
     }
     
     /// Configure the detailview cell using a RestaurantServices object
@@ -50,16 +51,20 @@ class RestaurantCell: UITableViewCell {
         deliveryTimeLabel.text = restaurant.deliveryTime
         cuisineTypeLabel.text = restaurant.cuisineType
         restaurantNameLabel.text = restaurant.restaurantName
-        
+        setPlaceholderImage(urlString: restaurant.coverImageURL)
+        reset()
+        if let urlStr = restaurant.coverImageURL {
+            loadImage(urlString: urlStr)
+        }
+    }
+    
+    private func setPlaceholderImage(urlString: String?) {
         // Assigns a placeholder image for the cell
-        guard let placeholderImage = UIImage(named: "food_icon.png"), let urlStr = restaurant.coverImageURL, let imgURL = URL(string: urlStr) else {
+        guard let placeholderImage = UIImage(named: "food_icon"), let urlStr = urlString, let imgURL = URL(string: urlStr) else {
             return
         }
         coverImageView.af_setImage(withURL: imgURL, placeholderImage: placeholderImage)
-        reset()
-        loadImage(urlString: urlStr)
     }
-    
 
     private func reset() {
         request?.cancel()

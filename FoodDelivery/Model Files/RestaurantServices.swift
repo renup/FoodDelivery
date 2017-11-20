@@ -20,21 +20,21 @@ class RestaurantServices: NSObject {
     
     init(restaurantDictionary: NSDictionary) {
         super.init()
-                
+        
+        if let coverImageURL = restaurantDictionary["cover_img_url"] as? String {
+            self.coverImageURL = coverImageURL
+        }
         if let restaurantID = restaurantDictionary["id"] as? Int64 {
             self.restaurantID = String(describing: restaurantID)
         }
-     
         if let businessDict: NSDictionary = restaurantDictionary["business"] as? NSDictionary {
             if let restaurantName = businessDict["name"] as? String {
                 self.restaurantName = restaurantName
             }
         }
-        
         if let cuisineType = restaurantDictionary["description"] as? String {
             self.cuisineType = cuisineType
         }
-        
         if var fee: Double = restaurantDictionary["delivery_fee"] as? Double {
             if (fee > 0) {
                 fee = fee/100.0
@@ -43,7 +43,6 @@ class RestaurantServices: NSObject {
                 deliveryFee = "Free delivery"
             }
         }
-       
         if let deliveryTime = restaurantDictionary["status"] as? String {
             self.deliveryTime = deliveryTime
         }
