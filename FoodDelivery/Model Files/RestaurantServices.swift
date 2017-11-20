@@ -11,7 +11,6 @@
 import Foundation
 
 class RestaurantServices: NSObject {
-    var restaurantDictionary: NSDictionary?
     var restaurantID: String?
     var restaurantName: String?
     var cuisineType: String?
@@ -21,11 +20,6 @@ class RestaurantServices: NSObject {
     
     init(restaurantDictionary: NSDictionary) {
         super.init()
-        
-        self.restaurantDictionary = restaurantDictionary
-        if let coverImageURL = restaurantDictionary["cover_img_url"] as? String {
-            self.coverImageURL = coverImageURL
-        }
                 
         if let restaurantID = restaurantDictionary["id"] as? Int64 {
             self.restaurantID = String(describing: restaurantID)

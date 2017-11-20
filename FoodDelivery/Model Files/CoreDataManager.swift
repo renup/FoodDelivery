@@ -109,10 +109,7 @@ class CoreDataManager: NSObject {
         }
         
         let restaurantToSave = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        if let storeDict = store.restaurantDictionary {
-            restaurantToSave.setValue(storeDict, forKey: Constants.restaurantDictionary)
-        }
+
         if let storeName = store.restaurantName {
             restaurantToSave.setValue(storeName, forKeyPath: Constants.restaurantName)
         }
@@ -128,6 +125,7 @@ class CoreDataManager: NSObject {
         if let deliveryFee = store.deliveryFee {
             restaurantToSave.setValue(deliveryFee, forKey: Constants.deliveryFee)
         }
+        
         if let cuisineType = store.cuisineType {
             restaurantToSave.setValue(cuisineType, forKey: Constants.cuisineType)
         }

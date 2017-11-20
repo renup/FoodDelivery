@@ -60,8 +60,8 @@ class MapCoordinatorTests: QuickSpec {
                 it("returns menu category items") {
                     
                     let _ = self.stub(urlString: "https://api.doordash.com/v2/restaurant/45761/menu/" , jsonFileName: "menuCategories")
-                    if let store = restaurant {
-                        mapCoordinator.fetchMenuCategories("45761", store, completionHandler: { (menu) in
+                    if let _ = restaurant {
+                        mapCoordinator.fetchMenuCategories("45761", completionHandler: { (menu) in
                             if let foodCategory = menu {
                                 menuArray = foodCategory.foodCategoryArray
                                 

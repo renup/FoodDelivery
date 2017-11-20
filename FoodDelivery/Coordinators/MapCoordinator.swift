@@ -72,10 +72,11 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         }
         
         if let navVC = tabBarViewController?.viewControllers?.first as? UINavigationController {
-            tabBarViewController?.selectedViewController = navVC
             if let restaurantVC = navVC.viewControllers.first as? RestaurantsTableViewController {
                 restaurantsTableViewController = restaurantVC
+                restaurantsTableViewController?.delegate = self
             }
+            tabBarViewController?.selectedViewController = navVC
         }
         
         tabBarViewController?.tabMenuDelegate = self

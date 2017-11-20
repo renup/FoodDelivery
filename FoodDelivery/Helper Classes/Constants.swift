@@ -18,7 +18,4 @@ class Constants: NSObject {
     static let cuisineType = "cuisineType"
     static let coverImageURL = "coverImageURL"
     static let restaurantName = "restaurantName"
-    static let restaurantDictionary = "restaurantDictionary"
-    
-    
 }
