@@ -38,6 +38,11 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         mapViewController?.delegate = self
     }
     
+    /// Display restaurant detail view
+    ///
+    /// - Parameters:
+    ///   - categoryArray: menu category array
+    ///   - store: restaurant object
     fileprivate func showRestaurantDetailView(categoryArray: [String], store: Any) {
         
         if restaurantDetailViewController == nil{
@@ -62,6 +67,7 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         }
     }
     
+    /// Present tab bar
     fileprivate func initiateTabBar() {
         if (tabBarViewController == nil){
             guard let tabBarVC = TabMenuController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Main") as? TabMenuController else {
@@ -122,16 +128,26 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         makeRestaurantListRequestPerCoordinates(lat: latString, lon: lonString)
     }
     
+    /// Fetch restaurant list for requested coordinates
+    ///
+    /// - Parameters:
+    ///   - lat: latitude
+    ///   - lon: longitude
     private func makeRestaurantListRequestPerCoordinates(lat: String, lon: String) {
-        let hud = MBProgressHUD.showAdded(to: (mapViewController?.view)!, animated: true)
-            fetchRestaurantList(latitude: lat, longitude: lon) { [unowned self] (restaurantsList, error) in
+        showLoadingIndicator()
+        fetchRestaurantList(latitude: lat, longitude: lon) { [unowned self] (restaurantsList, error) in
                 if error == nil {
                     self.restaurantsTableViewController?.dataSource = restaurantsList
                 }
-                hud.hide(animated: true)
-            }
+                self.hideLoadingIndicator()
+        }
     }
     
+    /// Get Address for a given Location
+    ///
+    /// - Parameters:
+    ///   - location: CLLocation parameter
+    ///   - completionHandler: Contains address string
     func getAddress(_ location: CLLocation, completionHandler: @escaping ((String) -> Void)) {
         var address = ""
 
@@ -172,6 +188,10 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
         }
     }
 
+    /// Get store id for requested restaurant
+    ///
+    /// - Parameter store: restaurant object
+    /// - Returns: restaurant id for the restaurant
     fileprivate func getStoreId(store: Any) -> String {
         var storeID = ""
         if let store = store as? RestaurantServices {
@@ -210,27 +230,24 @@ class MapCoordinator: NSObject, MapViewControllerDelegate {
  
 }
 
+// MARK: - RestaurantDetailViewControllerDelegate methods
 extension MapCoordinator: RestaurantDetailViewControllerDelegate {
     
     func userFavoritedTheRestaurant(restaurant: RestaurantServices) {
-        if let storeId = restaurant.restaurantID {
-            if !CoreDataManager.shared.checkIfRestaurantIsFavorited(restaurantIDToCheck: storeId) {
-                CoreDataManager.shared.saveFavoriteRestaurant(store: restaurant)
-            }
-        }
+        CoreDataManager.shared.saveFavoriteRestaurant(store: restaurant)
     }
 }
 
+// MARK: - RestaurantTableViewControllerDelegate methods
 extension MapCoordinator: RestaurantTableViewControllerDelegate {
     func userDidSelectAStore(restaurant: Any) {
-        let progressHud = MBProgressHUD.showAdded(to: (self.restaurantsTableViewController?.view)!, animated: true)
-        progressHud.label.text = "Loading"
+        showLoadingIndicator()
         let storeID = getStoreId(store: restaurant)
         fetchMenuCategories(storeID) {[unowned self] (menu) in
             if let foodCategoryObj = menu {
                 self.showRestaurantDetailView(categoryArray: foodCategoryObj.foodCategoryArray, store: restaurant)
             }
-            progressHud.hide(animated: true)
+            self.hideLoadingIndicator()
         }
     }
     
@@ -241,6 +258,7 @@ extension MapCoordinator: RestaurantTableViewControllerDelegate {
     }
 }
 
+// MARK: - TabMenuControllerDelegate methods
 extension MapCoordinator: TabMenuControllerDelegate {
     func userSelectedTab(_ tabTitle: String) {
         if tabTitle == "Explore" {
@@ -268,6 +286,22 @@ extension MapCoordinator: TabMenuControllerDelegate {
                 }
             }
         }
+    }
+}
+
+extension MapCoordinator {
+    fileprivate func showLoadingIndicator() {
+        guard let mainWindow = UIApplication.shared.keyWindow  else {
+            return
+        }
+        MBProgressHUD.showAdded(to: mainWindow, animated: true)
+    }
+    
+    fileprivate func hideLoadingIndicator() {
+        guard let mainWindow = UIApplication.shared.keyWindow  else {
+            return
+        }
+        MBProgressHUD.hide(for: mainWindow, animated: true)
     }
 }
     
