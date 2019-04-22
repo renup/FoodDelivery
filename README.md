@@ -10,3 +10,5 @@ then do pod install - this will install all the dependencies for this project.
 
 Once you have all the dependencies from pod install, open the workspace (not xcode poject) and run it.
 
+For tests - I've demoed how to test api calls using Quick, Nimble and MockingJay frameworks
+
